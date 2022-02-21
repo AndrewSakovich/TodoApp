@@ -4,7 +4,7 @@ import auth from '@react-native-firebase/auth';
 import {style} from './style';
 import {StatusBar, Text, TouchableOpacity, View} from 'react-native';
 
-export const SignInBotton = () => {
+export const SignInButton = () => {
   const googleSignIn = async () => {
     const {idToken} = await GoogleSignin.signIn();
     console.log(idToken);
