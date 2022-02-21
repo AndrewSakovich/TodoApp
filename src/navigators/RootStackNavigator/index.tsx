@@ -34,6 +34,7 @@ export const RootStackNavigator: React.FC = () => {
             },
           }}
         />
+          <Stack.Screen name={}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,20 +1,25 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import {style} from './style';
 import {StatusBar, Text, TouchableOpacity, View} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {signInAction} from '../../redux/actions/todoActions/signInAction';
+import {signOutAction} from '../../redux/actions/todoActions/signOutAction';
 
-export const SignInButton = () => {
+export const SignInButton: FC = () => {
+  const dispath = useDispatch();
+
   const googleSignIn = async () => {
     const {idToken} = await GoogleSignin.signIn();
     console.log(idToken);
 
     // Create a Google credential with the token
     const googleCredential = await auth.GoogleAuthProvider.credential(idToken);
-
     // Sign-in the user with the credential
-    const res = await auth().signInWithCredential(googleCredential);
-    console.log(res);
+    const token = await auth().signInWithCredential(googleCredential);
+    console.log(token);
+    dispath(signInAction({token}));
   };
 
   const googleSignOut = async () => {
@@ -24,6 +29,7 @@ export const SignInButton = () => {
         console.log('user out');
       });
     await GoogleSignin.revokeAccess();
+    dispath(signOutAction());
   };
 
   return (
