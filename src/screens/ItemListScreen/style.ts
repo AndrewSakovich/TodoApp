@@ -1,5 +1,5 @@
 import {StyleSheet, ViewStyle} from 'react-native';
-import {COLORS} from '../../COLOR';
+import {Color} from '../../COLORS';
 
 type ItemListStyleType = {
   container: ViewStyle;
@@ -8,7 +8,7 @@ type ItemListStyleType = {
 export const style = StyleSheet.create<ItemListStyleType>({
   container: {
     borderTopWidth: 1,
-    borderTopColor: COLORS.silver,
+    borderTopColor: Color.silver,
     paddingTop: 5,
     flex: 1,
   },

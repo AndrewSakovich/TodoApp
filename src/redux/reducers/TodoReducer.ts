@@ -22,7 +22,12 @@ export const todoReducer = (
 
       return {
         ...state,
-        todoItems: [...state.todoItems, newItem],
+        todoItems: [
+          ...state.todoItems,
+          {
+            ...newItem,
+          },
+        ],
       };
     }
     case TodoActionTypes.DELETE_ITEM: {
