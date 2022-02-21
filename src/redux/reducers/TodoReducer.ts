@@ -4,11 +4,9 @@ import {ItemDeletePayload} from '../actions/todoActions/deleteItemAction';
 import {TodoActionTypes} from '../actions/todoActions';
 import {DoneItemPayload} from '../actions/todoActions/doneItemAction';
 import {SignInPayload} from '../actions/todoActions/signInAction';
-import {SignOutPayload} from '../actions/todoActions/signOutAction';
 
 export type TodoReducerState = {
   todoItems: TodoItemType[];
-  isLoading: boolean;
   userToken: string | null;
 };
 
