@@ -1,5 +1,5 @@
 import {StyleSheet, TextStyle, ViewStyle} from 'react-native';
-import {Color} from '../../COLORS';
+import {COLORS} from '../../COLORS';
 
 type TodoListTopNavigatorHeaderStyleType = {
   header: ViewStyle;
@@ -12,11 +12,11 @@ export const style = StyleSheet.create<TodoListTopNavigatorHeaderStyleType>({
     alignItems: 'center',
     padding: 10,
     height: 45,
-    backgroundColor: Color.sapphire,
+    backgroundColor: COLORS.sapphire,
     justifyContent: 'space-between',
   },
   text: {
-    color: Color.white,
+    color: COLORS.white,
     fontSize: 18,
   },
 });

@@ -23,6 +23,7 @@ export const SignInButton = () => {
       .then(() => {
         console.log('user out');
       });
+    await GoogleSignin.revokeAccess();
   };
 
   return (

@@ -1,5 +1,5 @@
 import {createStore} from 'redux';
-import {todoReducer, TodoReducerState} from './reducers/todoReducer';
+import {todoReducer, TodoReducerState} from './reducers/TodoReducer';
 
 export type ReduxStoreType = TodoReducerState;
 
