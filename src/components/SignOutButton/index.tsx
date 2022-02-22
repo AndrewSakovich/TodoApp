@@ -4,7 +4,7 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {signOutAction} from '../../redux/actions/todoActions/signOutAction';
 import {useDispatch} from 'react-redux';
 import {Text, TouchableOpacity} from 'react-native';
-import {style} from '../SignInBotton/style';
+import {style} from './style';
 
 export const SignOutButton = () => {
   const dispatch = useDispatch();
