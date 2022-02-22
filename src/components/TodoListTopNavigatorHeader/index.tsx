@@ -16,10 +16,8 @@ export const TodoListTopNavigatorHeader: FC = () => {
   };
 
   return (
-    <View style={style.header}>
-      <TouchableOpacity onPress={navigateAddNewItemScreen}>
-        <FontAwesomeIcon icon={faPlus} size={25} color={COLORS.white} />
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity style={style.header} onPress={navigateAddNewItemScreen}>
+      <FontAwesomeIcon icon={faPlus} size={25} color={COLORS.white} />
+    </TouchableOpacity>
   );
 };

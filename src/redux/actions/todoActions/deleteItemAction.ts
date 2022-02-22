@@ -1,4 +1,5 @@
 import {TodoActionTypes} from './index';
+import {TodoItemType} from '../../../models';
 
 export const deleteItemAction = (payload: ItemDeletePayload) => {
   return {
@@ -8,8 +9,8 @@ export const deleteItemAction = (payload: ItemDeletePayload) => {
 };
 
 export type ItemDeletePayload = {
-  id: string;
-  done: boolean;
+  id: TodoItemType['id'];
+  isDone: TodoItemType['isDone'];
 };
 
 export type ItemDeleteAction = {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {TodoListTopNavigator} from '../TodoListTopNavigator';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faList, faUserCheck} from '@fortawesome/free-solid-svg-icons';
@@ -9,7 +9,7 @@ import {MainBottomTabParamList} from './type';
 import {nameScreen} from '../nameScreen';
 import {UserInfoScreen} from '../../screens/UserInfoScreen';
 
-export const MainBottomTabNavigator: React.FC = () => {
+export const MainBottomTabNavigator: FC = () => {
   const Tab = createBottomTabNavigator<MainBottomTabParamList>();
 
   return (

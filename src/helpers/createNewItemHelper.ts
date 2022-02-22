@@ -7,6 +7,6 @@ export const createNewItemHelper = (
   return {
     id: uuid(),
     text,
-    done: false,
+    isDone: false,
   };
 };

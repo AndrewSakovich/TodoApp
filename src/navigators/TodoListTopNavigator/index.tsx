@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {ItemListScreen} from '../../screens/ItemListScreen';
 import {TodoListTopNavigationParamList} from './type';
 import {nameScreen} from '../nameScreen';
 
-export const TodoListTopNavigator: React.FC = () => {
+export const TodoListTopNavigator: FC = () => {
   const Tab = createMaterialTopTabNavigator<TodoListTopNavigationParamList>();
 
   return (
@@ -13,13 +13,13 @@ export const TodoListTopNavigator: React.FC = () => {
         options={{title: 'Todo'}}
         name={nameScreen.ITEMS_SCREEN}
         component={ItemListScreen}
-        initialParams={{done: false}}
+        initialParams={{isDone: false}}
       />
       <Tab.Screen
         options={{title: 'Done'}}
         name={nameScreen.DONE_ITEMS_SCREEN}
         component={ItemListScreen}
-        initialParams={{done: true}}
+        initialParams={{isDone: true}}
       />
     </Tab.Navigator>
   );

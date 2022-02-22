@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import 'react-native-get-random-values';
 import {Provider} from 'react-redux';
 import {store, persistor} from './redux/store';
@@ -11,7 +11,7 @@ GoogleSignin.configure({
     '222403238077-0v19c0s4j3gtehel6m40u0c90hjjn2gu.apps.googleusercontent.com',
 });
 
-const App: React.FC = () => {
+const App: FC = () => {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>

@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {useSelector} from 'react-redux';
 import {ReduxStoreType} from '../../redux/store';
-import {Image, ScrollView, Text, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 import {TodoReducerState} from '../../redux/reducers/TodoReducer';
 import {SignOutButton} from '../../components/SignOutButton';
 import {style} from './style';
 import {TodoItemType} from '../../models';
 
-export const UserInfoScreen = () => {
+export const UserInfoScreen: FC = () => {
   const userInfo = useSelector<ReduxStoreType, TodoReducerState['user']>(
     state => {
       return state.user;

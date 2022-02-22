@@ -3,10 +3,6 @@ import {MaterialTopTabScreenProps} from '@react-navigation/material-top-tabs/src
 import {TodoListTopNavigationParamList} from '../../navigators/TodoListTopNavigator/type';
 import {nameScreen} from '../../navigators/nameScreen';
 
-export type TodoItemPropsType = {
-  todoItem: TodoItemType;
-};
-
 export type ItemsScreenNavigationProps = MaterialTopTabScreenProps<
   TodoListTopNavigationParamList,
   nameScreen.ITEMS_SCREEN

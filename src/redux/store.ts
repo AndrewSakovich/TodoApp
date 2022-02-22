@@ -8,9 +8,9 @@ const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
 };
-const persistedReducer = persistReducer(persistConfig, todoReducer);
 
 export type ReduxStoreType = TodoReducerState;
 
+const persistedReducer = persistReducer(persistConfig, todoReducer);
 export const store = createStore(persistedReducer);
 export const persistor = persistStore(store);

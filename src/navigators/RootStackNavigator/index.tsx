@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {MainBottomTabNavigator} from '../MainBottomTabNavigator';
@@ -10,13 +10,12 @@ import {useSelector} from 'react-redux';
 import {ReduxStoreType} from '../../redux/store';
 import {LoginScreen} from '../../screens/LoginScreen';
 
-export const RootStackNavigator: React.FC = () => {
+export const RootStackNavigator: FC = () => {
   const Stack = createStackNavigator<RootStackNavigationParamList>();
 
   const isSignIn = useSelector<ReduxStoreType>(state => {
     return state.userToken;
   });
-
   return (
     <NavigationContainer>
       <Stack.Navigator>

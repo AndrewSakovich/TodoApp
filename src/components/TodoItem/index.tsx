@@ -3,17 +3,17 @@ import React, {FC} from 'react';
 import {style} from './style';
 import {useDispatch} from 'react-redux';
 import {deleteItemAction} from '../../redux/actions/todoActions/deleteItemAction';
-import {TodoItemPropsType} from '../../screens/ItemListScreen/types';
+import {TodoItemPropsType} from './types';
 import {doneItemAction} from '../../redux/actions/todoActions/doneItemAction';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
   const {
-    todoItem: {id, text, done},
+    todoItem: {id, text, isDone},
   } = props;
 
   const dispatch = useDispatch();
 
-  const textStyle = done ? style.doneText : style.text;
+  const textStyle = isDone ? style.doneText : style.text;
 
   const onPressDone = () => {
     dispatch(doneItemAction({id}));
@@ -27,7 +27,7 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
       {
         text: 'OK',
         onPress: () => {
-          dispatch(deleteItemAction({id, done}));
+          dispatch(deleteItemAction({id, isDone}));
         },
       },
     ]);

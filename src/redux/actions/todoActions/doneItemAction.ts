@@ -1,4 +1,5 @@
 import {TodoActionTypes} from './index';
+import {TodoItemType} from '../../../models';
 
 export const doneItemAction = (payload: DoneItemPayload) => {
   return {
@@ -8,7 +9,7 @@ export const doneItemAction = (payload: DoneItemPayload) => {
 };
 
 export type DoneItemPayload = {
-  id: string;
+  id: TodoItemType['id'];
 };
 
 export type DoneItemAction = {

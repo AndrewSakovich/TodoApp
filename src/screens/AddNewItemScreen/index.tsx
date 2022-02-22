@@ -1,27 +1,25 @@
-import React, {useState} from 'react';
-import {Text, TextInput, TouchableOpacity, View, ViewStyle} from 'react-native';
+import React, {useState, FC} from 'react';
+import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {style} from './style';
 import {useDispatch} from 'react-redux';
-import {addItemAction} from '../../redux/actions/todoActions/addItemAction';
+import {AddItemAction} from '../../redux/actions/todoActions/addItemAction';
 import {COLORS} from '../../COLORS';
 import {createNewItemHelper} from '../../helpers/createNewItemHelper';
 import {TodoItemType} from '../../models';
-import {AddNewItemScreenNavigationProps} from './type';
+import {useNavigation} from '@react-navigation/native';
+import {TodoListTopNavigationProp} from '../../navigators/TodoListTopNavigator/type';
 
-export const AddNewItemScreen: React.FC<
-  AddNewItemScreenNavigationProps
-> = props => {
-  const {navigation} = props;
-
+export const AddNewItemScreen: FC = () => {
+  const navigation = useNavigation<TodoListTopNavigationProp>();
   const dispatch = useDispatch();
 
   const [text, setText] = useState<string>('');
-  const buttonStyle: ViewStyle = text ? style.button : style.buttonDis;
+  const buttonStyle = text ? style.button : style.buttonDis;
 
   const addItem = (text: TodoItemType['text']) => {
     const newItem = createNewItemHelper(text);
 
-    dispatch(addItemAction({newItem}));
+    dispatch(AddItemAction({newItem}));
   };
 
   const onPress = () => {
@@ -34,7 +32,6 @@ export const AddNewItemScreen: React.FC<
       <TextInput
         style={style.input}
         placeholder="New task"
-        keyboardType="default"
         onChangeText={setText}
         value={text}
         selectionColor={COLORS.black}
