@@ -9,6 +9,7 @@ import {nameScreen} from '../nameScreen';
 import {SignInButton} from '../../components/SignInBotton';
 import {useSelector} from 'react-redux';
 import {ReduxStoreType} from '../../redux/store';
+import {LoginScreen} from '../../screens/LoginScreen';
 
 export const RootStackNavigator: React.FC = () => {
   const Stack = createStackNavigator<RootStackNavigationParamList>();
@@ -47,7 +48,7 @@ export const RootStackNavigator: React.FC = () => {
         ) : (
           <Stack.Screen
             name={nameScreen.LOGIN_SCREEN}
-            component={SignInButton}
+            component={LoginScreen}
           />
         )}
       </Stack.Navigator>

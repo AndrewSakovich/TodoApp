@@ -5,7 +5,6 @@ import {style} from './style';
 import {StatusBar, Text, TouchableOpacity, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {signInAction} from '../../redux/actions/todoActions/signInAction';
-import {signOutAction} from '../../redux/actions/todoActions/signOutAction';
 
 export const SignInButton: FC = () => {
   const dispatch = useDispatch();
@@ -24,24 +23,11 @@ export const SignInButton: FC = () => {
     dispatch(signInAction({userToken, user}));
   };
 
-  const googleSignOut = async () => {
-    auth()
-      .signOut()
-      .then(() => {
-        console.log('user out');
-      });
-    await GoogleSignin.revokeAccess();
-    dispatch(signOutAction());
-  };
-
   return (
     <View style={style.container}>
       <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
       <TouchableOpacity style={style.btn} onPress={googleSignIn}>
         <Text style={style.font}>{'Google Sign In'}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={style.btn} onPress={googleSignOut}>
-        <Text style={style.font}>{'Google Sign out'}</Text>
       </TouchableOpacity>
     </View>
   );

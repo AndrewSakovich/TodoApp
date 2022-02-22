@@ -2,12 +2,12 @@ import React from 'react';
 import {TodoListTopNavigator} from '../TodoListTopNavigator';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faList, faUserCheck} from '@fortawesome/free-solid-svg-icons';
-import {LoginScreen} from '../../screens/LoginScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {COLORS} from '../../COLORS';
 import {TodoListTopNavigatorHeader} from '../../components/TodoListTopNavigatorHeader';
 import {MainBottomTabParamList} from './type';
 import {nameScreen} from '../nameScreen';
+import {UserInfoScreen} from '../../screens/UserInfoScreen';
 
 export const MainBottomTabNavigator: React.FC = () => {
   const Tab = createBottomTabNavigator<MainBottomTabParamList>();
@@ -39,10 +39,10 @@ export const MainBottomTabNavigator: React.FC = () => {
         }}
       />
       <Tab.Screen
-        name={nameScreen.LOGIN_SCREEN}
-        component={LoginScreen}
+        name={nameScreen.USER_INFO_SCREEN}
+        component={UserInfoScreen}
         options={{
-          title: 'Login',
+          title: 'User info',
           tabBarIcon: () => {
             return (
               <FontAwesomeIcon

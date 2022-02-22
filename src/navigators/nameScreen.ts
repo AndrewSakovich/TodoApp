@@ -5,4 +5,5 @@ export enum nameScreen {
   ADD_NEW_ITEM_SCREEN = 'AddNewItemScreen',
   ITEMS_SCREEN = 'ItemsScreen',
   DONE_ITEMS_SCREEN = 'DoneItemScreen',
+  USER_INFO_SCREEN = 'UserInfoScreen',
 }
