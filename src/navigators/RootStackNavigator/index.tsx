@@ -6,7 +6,6 @@ import {AddNewItemScreen} from '../../screens/AddNewItemScreen';
 import {COLORS} from '../../COLORS';
 import {RootStackNavigationParamList} from './type';
 import {nameScreen} from '../nameScreen';
-import {SignInButton} from '../../components/SignInBotton';
 import {useSelector} from 'react-redux';
 import {ReduxStoreType} from '../../redux/store';
 import {LoginScreen} from '../../screens/LoginScreen';
@@ -49,6 +48,16 @@ export const RootStackNavigator: React.FC = () => {
           <Stack.Screen
             name={nameScreen.LOGIN_SCREEN}
             component={LoginScreen}
+            options={{
+              title: 'Login',
+              headerTintColor: COLORS.white,
+              headerTitleStyle: {
+                color: COLORS.white,
+              },
+              headerStyle: {
+                backgroundColor: COLORS.sapphire,
+              },
+            }}
           />
         )}
       </Stack.Navigator>
