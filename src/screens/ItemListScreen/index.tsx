@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { View, FlatList, ListRenderItem, FlatListProps } from 'react-native';
+import { View, FlatList, ListRenderItem } from 'react-native';
 import { useSelector } from 'react-redux';
 import { TodoItem } from '../../components/TodoItem';
 import { style } from './style';
@@ -12,7 +12,7 @@ import { TodoListTopNavigationRouteProp } from '../../navigators/TodoListTopNavi
 
 export const ItemListScreen: FC = () => {
   const route = useRoute<TodoListTopNavigationRouteProp>();
-  const flagDone = route.params.done;
+  const flagDone = route.params.isDone;
 
   const data = useSelector<ReduxStoreType, TodoItemType[]>(
     doneItemsSelectors(flagDone),

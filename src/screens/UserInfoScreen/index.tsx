@@ -19,7 +19,7 @@ export const UserInfoScreen: FC = () => {
 
   const numberTask = todoItems.length;
   const numberDoneTask = todoItems.filter(item => {
-    return item.done;
+    return item.isDone;
   }).length;
 
   const phoneNumber = userInfo
