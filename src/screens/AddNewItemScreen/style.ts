@@ -1,5 +1,5 @@
 import {StyleSheet, TextStyle, ViewStyle} from 'react-native';
-import {Color} from '../../COLORS';
+import {COLORS} from '../../COLORS';
 
 type AddNewItemScreenStyleType = {
   container: ViewStyle;
@@ -19,37 +19,37 @@ export const style = StyleSheet.create<AddNewItemScreenStyleType>({
   },
   button: {
     height: 40,
-    backgroundColor: Color.sapphire,
+    backgroundColor: COLORS.sapphire,
     borderStyle: 'solid',
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: Color.sapphire,
+    borderColor: COLORS.sapphire,
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonDis: {
     height: 40,
-    backgroundColor: Color.silver,
+    backgroundColor: COLORS.silver,
     borderRadius: 5,
-    borderColor: Color.sapphire,
+    borderColor: COLORS.sapphire,
     alignItems: 'center',
     justifyContent: 'center',
   },
   input: {
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: Color.sapphire,
+    borderColor: COLORS.sapphire,
     paddingHorizontal: 10,
     width: '100%',
-    backgroundColor: Color.cararra,
+    backgroundColor: COLORS.cararra,
     height: 40,
   },
   text: {
     fontSize: 18,
-    color: Color.white,
+    color: COLORS.white,
   },
   textDis: {
     fontSize: 18,
-    color: Color.lemonGrass,
+    color: COLORS.lemonGrass,
   },
 });

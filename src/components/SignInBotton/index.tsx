@@ -17,7 +17,7 @@ export const SignInButton: FC = () => {
     // Create a Google credential with the token
     const googleCredential = await auth.GoogleAuthProvider.credential(idToken);
     // Sign-in the user with the credential
-    const {token}: string = await auth().signInWithCredential(googleCredential);
+    const token: string = await auth().signInWithCredential(googleCredential);
     console.log(token);
     dispath(signInAction({token}));
   };

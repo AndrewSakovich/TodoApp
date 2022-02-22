@@ -1,9 +1,10 @@
 import React from 'react';
 import 'react-native-get-random-values';
 import {Provider} from 'react-redux';
-import {store} from './redux/store';
+import {store, persistor} from './redux/store';
 import {RootStackNavigator} from './navigators/RootStackNavigator';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {PersistGate} from 'redux-persist/integration/react';
 
 GoogleSignin.configure({
   webClientId:
@@ -13,7 +14,9 @@ GoogleSignin.configure({
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <RootStackNavigator />
+      <PersistGate persistor={persistor}>
+        <RootStackNavigator />
+      </PersistGate>
     </Provider>
   );
 };
