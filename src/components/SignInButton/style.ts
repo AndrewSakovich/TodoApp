@@ -1,7 +1,13 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import { COLORS } from '../../COLORS';
 
-export const style = StyleSheet.create({
+type SignInButtonStyle = {
+  container: ViewStyle;
+  btn: ViewStyle;
+  font: TextStyle;
+};
+
+export const style = StyleSheet.create<SignInButtonStyle>({
   container: {
     flex: 1,
     justifyContent: 'center',
