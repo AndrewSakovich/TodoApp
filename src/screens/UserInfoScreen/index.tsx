@@ -22,15 +22,10 @@ export const UserInfoScreen: FC = () => {
     return item.isDone;
   }).length;
 
-  const phoneNumber = userInfo
-    ? userInfo.phoneNumber
-      ? userInfo.phoneNumber
-      : 'phone number not provided'
-    : '';
-
-  const nameUser = userInfo ? userInfo.displayName : '';
-  const emailUser = userInfo ? userInfo.email : '';
-  const photoUrl = userInfo ? userInfo.photoURL : undefined;
+  const phoneNumber = userInfo?.phoneNumber ?? 'Phone number not provided';
+  const nameUser = userInfo?.displayName ?? undefined;
+  const emailUser = userInfo?.email ?? undefined;
+  const photoUrl = userInfo?.photoURL ?? undefined;
 
   return (
     <View style={style.container}>
