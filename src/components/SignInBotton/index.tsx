@@ -11,15 +11,13 @@ export const SignInButton: FC = () => {
 
   const googleSignIn = async () => {
     const { idToken } = await GoogleSignin.signIn();
-    console.log(idToken);
 
     // Create a Google credential with the token
     const googleCredential = await auth.GoogleAuthProvider.credential(idToken);
     // Sign-in the user with the credential
     const { user } = await auth().signInWithCredential(googleCredential);
     const userToken = user.uid;
-    console.log('USER', user);
-    console.log('TOKEN', userToken);
+
     dispatch(signInAction({ userToken, user }));
   };
 
