@@ -1,5 +1,5 @@
-import {StyleSheet, TextStyle, ViewStyle} from 'react-native';
-import {COLORS} from '../../COLORS';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { COLORS } from '../../COLORS';
 
 type AddNewItemScreenStyleType = {
   container: ViewStyle;

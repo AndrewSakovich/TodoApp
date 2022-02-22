@@ -1,13 +1,13 @@
-import React, {useState, FC} from 'react';
-import {Text, TextInput, TouchableOpacity, View} from 'react-native';
-import {style} from './style';
-import {useDispatch} from 'react-redux';
-import {AddItemAction} from '../../redux/actions/todoActions/addItemAction';
-import {COLORS} from '../../COLORS';
-import {createNewItemHelper} from '../../helpers/createNewItemHelper';
-import {TodoItemType} from '../../models';
-import {useNavigation} from '@react-navigation/native';
-import {TodoListTopNavigationProp} from '../../navigators/TodoListTopNavigator/type';
+import React, { useState, FC } from 'react';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { style } from './style';
+import { useDispatch } from 'react-redux';
+import { AddItemAction } from '../../redux/actions/todoActions/addItemAction';
+import { COLORS } from '../../COLORS';
+import { createNewItemHelper } from '../../helpers/createNewItemHelper';
+import { TodoItemType } from '../../models';
+import { useNavigation } from '@react-navigation/native';
+import { TodoListTopNavigationProp } from '../../navigators/TodoListTopNavigator/type';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<TodoListTopNavigationProp>();
@@ -19,7 +19,7 @@ export const AddNewItemScreen: FC = () => {
   const addItem = (text: TodoItemType['text']) => {
     const newItem = createNewItemHelper(text);
 
-    dispatch(AddItemAction({newItem}));
+    dispatch(AddItemAction({ newItem }));
   };
 
   const onPress = () => {

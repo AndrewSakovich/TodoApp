@@ -1,5 +1,5 @@
-import {StyleSheet, ViewStyle} from 'react-native';
-import {COLORS} from '../../COLORS';
+import { StyleSheet, ViewStyle } from 'react-native';
+import { COLORS } from '../../COLORS';
 
 type ItemListStyleType = {
   container: ViewStyle;

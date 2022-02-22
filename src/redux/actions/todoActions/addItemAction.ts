@@ -1,5 +1,5 @@
-import {TodoItemType} from '../../../models';
-import {TodoActionTypes} from './index';
+import { TodoItemType } from '../../../models';
+import { TodoActionTypes } from './index';
 
 export const AddItemAction = (payload: AddItemPayload) => {
   return {

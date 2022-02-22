@@ -1,26 +1,26 @@
-import React, {FC} from 'react';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import React, { FC } from 'react';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
-import {style} from './style';
-import {StatusBar, Text, TouchableOpacity, View} from 'react-native';
-import {useDispatch} from 'react-redux';
-import {signInAction} from '../../redux/actions/todoActions/signInAction';
+import { style } from './style';
+import { StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { signInAction } from '../../redux/actions/todoActions/signInAction';
 
 export const SignInButton: FC = () => {
   const dispatch = useDispatch();
 
   const googleSignIn = async () => {
-    const {idToken} = await GoogleSignin.signIn();
+    const { idToken } = await GoogleSignin.signIn();
     console.log(idToken);
 
     // Create a Google credential with the token
     const googleCredential = await auth.GoogleAuthProvider.credential(idToken);
     // Sign-in the user with the credential
-    const {user} = await auth().signInWithCredential(googleCredential);
+    const { user } = await auth().signInWithCredential(googleCredential);
     const userToken = user.uid;
     console.log('USER', user);
     console.log('TOKEN', userToken);
-    dispatch(signInAction({userToken, user}));
+    dispatch(signInAction({ userToken, user }));
   };
 
   return (

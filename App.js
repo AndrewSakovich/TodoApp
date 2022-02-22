@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 GoogleSignin.configure({
   webClientId:
@@ -16,7 +16,7 @@ GoogleSignin.configure({
 
 const App = () => {
   const googleSignIn = async () => {
-    const {idToken} = await GoogleSignin.signIn();
+    const { idToken } = await GoogleSignin.signIn();
     console.log(idToken);
 
     // Create a Google credential with the token

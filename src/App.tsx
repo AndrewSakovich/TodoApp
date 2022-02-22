@@ -1,10 +1,10 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import 'react-native-get-random-values';
-import {Provider} from 'react-redux';
-import {store, persistor} from './redux/store';
-import {RootStackNavigator} from './navigators/RootStackNavigator';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {PersistGate} from 'redux-persist/integration/react';
+import { Provider } from 'react-redux';
+import { store, persistor } from './redux/store';
+import { RootStackNavigator } from './navigators/RootStackNavigator';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { PersistGate } from 'redux-persist/integration/react';
 
 GoogleSignin.configure({
   webClientId:

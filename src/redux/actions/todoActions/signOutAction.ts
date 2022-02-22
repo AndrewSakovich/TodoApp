@@ -1,4 +1,4 @@
-import {TodoActionTypes} from './index';
+import { TodoActionTypes } from './index';
 
 export const signOutAction = () => {
   return {

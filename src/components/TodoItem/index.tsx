@@ -1,14 +1,14 @@
-import {Text, View, Alert, TouchableOpacity} from 'react-native';
-import React, {FC} from 'react';
-import {style} from './style';
-import {useDispatch} from 'react-redux';
-import {deleteItemAction} from '../../redux/actions/todoActions/deleteItemAction';
-import {TodoItemPropsType} from './types';
-import {doneItemAction} from '../../redux/actions/todoActions/doneItemAction';
+import { Text, View, Alert, TouchableOpacity } from 'react-native';
+import React, { FC } from 'react';
+import { style } from './style';
+import { useDispatch } from 'react-redux';
+import { deleteItemAction } from '../../redux/actions/todoActions/deleteItemAction';
+import { TodoItemPropsType } from './types';
+import { doneItemAction } from '../../redux/actions/todoActions/doneItemAction';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
   const {
-    todoItem: {id, text, isDone},
+    todoItem: { id, text, isDone },
   } = props;
 
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
   const textStyle = isDone ? style.doneText : style.text;
 
   const onPressDone = () => {
-    dispatch(doneItemAction({id}));
+    dispatch(doneItemAction({ id }));
   };
 
   const onPressDelete = () => {
@@ -27,7 +27,7 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
       {
         text: 'OK',
         onPress: () => {
-          dispatch(deleteItemAction({id, isDone}));
+          dispatch(deleteItemAction({ id, isDone }));
         },
       },
     ]);

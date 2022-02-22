@@ -1,4 +1,4 @@
-import {StyleSheet, TextStyle, ViewStyle} from 'react-native';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 
 type TodoListEmptyComponentStyleType = {
   container: ViewStyle;

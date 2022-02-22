@@ -1,11 +1,11 @@
-import React, {FC} from 'react';
-import {useSelector} from 'react-redux';
-import {ReduxStoreType} from '../../redux/store';
-import {Image, Text, View} from 'react-native';
-import {TodoReducerState} from '../../redux/reducers/TodoReducer';
-import {SignOutButton} from '../../components/SignOutButton';
-import {style} from './style';
-import {TodoItemType} from '../../models';
+import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { ReduxStoreType } from '../../redux/store';
+import { Image, Text, View } from 'react-native';
+import { TodoReducerState } from '../../redux/reducers/TodoReducer';
+import { SignOutButton } from '../../components/SignOutButton';
+import { style } from './style';
+import { TodoItemType } from '../../models';
 
 export const UserInfoScreen: FC = () => {
   const userInfo = useSelector<ReduxStoreType, TodoReducerState['user']>(
@@ -36,7 +36,7 @@ export const UserInfoScreen: FC = () => {
     <View style={style.container}>
       <View>
         <View style={style.headerContainer}>
-          <Image source={{uri: photoUrl}} style={style.img} />
+          <Image source={{ uri: photoUrl }} style={style.img} />
           <Text style={style.nameFont}>{nameUser}</Text>
           <Text
             style={

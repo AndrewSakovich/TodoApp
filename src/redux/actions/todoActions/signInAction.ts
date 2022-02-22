@@ -1,5 +1,5 @@
-import {TodoActionTypes} from './index';
-import {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import { TodoActionTypes } from './index';
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 export const signInAction = (payload: SignInPayload) => {
   return {

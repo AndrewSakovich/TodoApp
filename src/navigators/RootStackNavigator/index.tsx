@@ -1,14 +1,14 @@
-import React, {FC} from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
-import {MainBottomTabNavigator} from '../MainBottomTabNavigator';
-import {AddNewItemScreen} from '../../screens/AddNewItemScreen';
-import {COLORS} from '../../COLORS';
-import {RootStackNavigationParamList} from './type';
-import {nameScreen} from '../nameScreen';
-import {useSelector} from 'react-redux';
-import {ReduxStoreType} from '../../redux/store';
-import {LoginScreen} from '../../screens/LoginScreen';
+import React, { FC } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { MainBottomTabNavigator } from '../MainBottomTabNavigator';
+import { AddNewItemScreen } from '../../screens/AddNewItemScreen';
+import { COLORS } from '../../COLORS';
+import { RootStackNavigationParamList } from './type';
+import { nameScreen } from '../nameScreen';
+import { useSelector } from 'react-redux';
+import { ReduxStoreType } from '../../redux/store';
+import { LoginScreen } from '../../screens/LoginScreen';
 
 export const RootStackNavigator: FC = () => {
   const Stack = createStackNavigator<RootStackNavigationParamList>();

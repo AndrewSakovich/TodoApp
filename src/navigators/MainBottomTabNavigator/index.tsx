@@ -1,13 +1,13 @@
-import React, {FC} from 'react';
-import {TodoListTopNavigator} from '../TodoListTopNavigator';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faList, faUserCheck} from '@fortawesome/free-solid-svg-icons';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {COLORS} from '../../COLORS';
-import {TodoListTopNavigatorHeader} from '../../components/TodoListTopNavigatorHeader';
-import {MainBottomTabParamList} from './type';
-import {nameScreen} from '../nameScreen';
-import {UserInfoScreen} from '../../screens/UserInfoScreen';
+import React, { FC } from 'react';
+import { TodoListTopNavigator } from '../TodoListTopNavigator';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faList, faUserCheck } from '@fortawesome/free-solid-svg-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { COLORS } from '../../COLORS';
+import { TodoListTopNavigatorHeader } from '../../components/TodoListTopNavigatorHeader';
+import { MainBottomTabParamList } from './type';
+import { nameScreen } from '../nameScreen';
+import { UserInfoScreen } from '../../screens/UserInfoScreen';
 
 export const MainBottomTabNavigator: FC = () => {
   const Tab = createBottomTabNavigator<MainBottomTabParamList>();
