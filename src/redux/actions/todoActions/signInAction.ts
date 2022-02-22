@@ -1,4 +1,5 @@
 import {TodoActionTypes} from './index';
+import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 export const signInAction = (payload: SignInPayload) => {
   return {
@@ -8,7 +9,8 @@ export const signInAction = (payload: SignInPayload) => {
 };
 
 export type SignInPayload = {
-  token: string;
+  userToken: FirebaseAuthTypes.User['uid'];
+  user: FirebaseAuthTypes.UserCredential['user'];
 };
 
 export type SignInAction = {

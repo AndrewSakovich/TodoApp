@@ -8,7 +8,7 @@ import {signInAction} from '../../redux/actions/todoActions/signInAction';
 import {signOutAction} from '../../redux/actions/todoActions/signOutAction';
 
 export const SignInButton: FC = () => {
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
   const googleSignIn = async () => {
     const {idToken} = await GoogleSignin.signIn();
@@ -17,9 +17,11 @@ export const SignInButton: FC = () => {
     // Create a Google credential with the token
     const googleCredential = await auth.GoogleAuthProvider.credential(idToken);
     // Sign-in the user with the credential
-    const token: string = await auth().signInWithCredential(googleCredential);
-    console.log(token);
-    dispath(signInAction({token}));
+    const {user} = await auth().signInWithCredential(googleCredential);
+    const userToken = user.uid;
+    console.log('USER', user);
+    console.log('TOKEN', userToken);
+    dispatch(signInAction({userToken, user}));
   };
 
   const googleSignOut = async () => {
@@ -29,7 +31,7 @@ export const SignInButton: FC = () => {
         console.log('user out');
       });
     await GoogleSignin.revokeAccess();
-    dispath(signOutAction());
+    dispatch(signOutAction());
   };
 
   return (

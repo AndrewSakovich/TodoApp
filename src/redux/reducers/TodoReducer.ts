@@ -7,12 +7,14 @@ import {SignInPayload} from '../actions/todoActions/signInAction';
 
 export type TodoReducerState = {
   todoItems: TodoItemType[];
-  userToken: string | null;
+  userToken: SignInPayload['userToken'] | null;
+  user: SignInPayload['user'] | null;
 };
 
 const initialState: TodoReducerState = {
   todoItems: [],
   userToken: null,
+  user: null,
 };
 
 export const todoReducer = (
@@ -62,10 +64,11 @@ export const todoReducer = (
       };
     }
     case TodoActionTypes.SIGN_IN: {
-      const {token}: SignInPayload = action.payload;
+      const {user, userToken}: SignInPayload = action.payload;
       return {
         ...state,
-        userToken: token,
+        userToken,
+        user,
       };
     }
     case TodoActionTypes.SIGN_OUT: {
