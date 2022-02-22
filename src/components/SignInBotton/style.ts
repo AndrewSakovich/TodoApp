@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {COLORS} from '../../COLORS';
 
 export const style = StyleSheet.create({
   container: {
@@ -10,11 +11,11 @@ export const style = StyleSheet.create({
     padding: 8,
     borderWidth: 1,
     borderRadius: 8,
-    borderColor: 'blue',
+    borderColor: COLORS.sapphire,
   },
   font: {
     fontWeight: 'bold',
     fontSize: 24,
-    color: 'blue',
+    color: COLORS.sapphire,
   },
 });
