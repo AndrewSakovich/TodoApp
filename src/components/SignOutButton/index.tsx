@@ -10,14 +10,15 @@ export const SignOutButton: FC = () => {
   const dispatch = useDispatch();
 
   const googleSignOut = async () => {
-    auth()
-      .signOut()
-      .then(() => {
-        console.log('user out');
-      });
-    await GoogleSignin.revokeAccess();
-    dispatch(signOutAction());
+    try {
+      await auth().signOut();
+      await GoogleSignin.revokeAccess();
+      dispatch(signOutAction());
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   return (
     <TouchableOpacity style={style.btn} onPress={googleSignOut}>
       <Text style={style.font}>{'Sign out'}</Text>
