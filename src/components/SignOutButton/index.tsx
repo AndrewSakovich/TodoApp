@@ -20,7 +20,7 @@ export const SignOutButton = () => {
   };
   return (
     <TouchableOpacity style={style.btn} onPress={googleSignOut}>
-      <Text style={style.font}>{'Google Sign out'}</Text>
+      <Text style={style.font}>{'Sign out'}</Text>
     </TouchableOpacity>
   );
 };

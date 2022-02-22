@@ -1,10 +1,11 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {ReduxStoreType} from '../../redux/store';
-import {ScrollView, Text, View} from 'react-native';
+import {Image, ScrollView, Text, View} from 'react-native';
 import {TodoReducerState} from '../../redux/reducers/TodoReducer';
 import {SignOutButton} from '../../components/SignOutButton';
 import {style} from './style';
+import {TodoItemType} from '../../models';
 
 export const UserInfoScreen = () => {
   const userInfo = useSelector<ReduxStoreType, TodoReducerState['user']>(
@@ -12,29 +13,45 @@ export const UserInfoScreen = () => {
       return state.user;
     },
   );
+  const todoItems = useSelector<ReduxStoreType, TodoItemType[]>(state => {
+    return state.todoItems;
+  });
+
+  const numberTask = todoItems.length;
+  const numberDoneTask = todoItems.filter(item => {
+    return item.done;
+  }).length;
 
   const phoneNumber = userInfo
     ? userInfo.phoneNumber
       ? userInfo.phoneNumber
       : 'phone number not provided'
     : '';
+
   const nameUser = userInfo ? userInfo.displayName : '';
   const emailUser = userInfo ? userInfo.email : '';
+  const photoUrl = userInfo ? userInfo.photoURL : undefined;
 
   return (
     <View style={style.container}>
-      <View style={style.info}>
-        <View style={style.itemInfo}>
-          <Text style={style.font}>{'User name:'}</Text>
-          <Text style={style.font}>{nameUser}</Text>
+      <View>
+        <View style={style.headerContainer}>
+          <Image source={{uri: photoUrl}} style={style.img} />
+          <Text style={style.nameFont}>{nameUser}</Text>
+          <Text
+            style={
+              style.font
+            }>{`completed ${numberDoneTask} out of ${numberTask}`}</Text>
         </View>
-        <View style={style.itemInfo}>
-          <Text style={style.font}>{'User email:'}</Text>
-          <Text style={style.font}>{emailUser}</Text>
-        </View>
-        <View style={style.itemInfo}>
-          <Text style={style.font}>{'User phone number:'}</Text>
-          <Text style={style.font}>{phoneNumber}</Text>
+        <View>
+          <View style={style.itemInfo}>
+            <Text style={style.fontBold}>{'Email:'}</Text>
+            <Text style={style.font}>{emailUser}</Text>
+          </View>
+          <View style={style.itemInfo}>
+            <Text style={style.fontBold}>{'Phone number:'}</Text>
+            <Text style={style.font}>{phoneNumber}</Text>
+          </View>
         </View>
       </View>
       <SignOutButton />
