@@ -4,6 +4,7 @@ import {ReduxStoreType} from '../../redux/store';
 import {ScrollView, Text, View} from 'react-native';
 import {TodoReducerState} from '../../redux/reducers/TodoReducer';
 import {SignOutButton} from '../../components/SignOutButton';
+import {style} from './style';
 
 export const UserInfoScreen = () => {
   const userInfo = useSelector<ReduxStoreType, TodoReducerState['user']>(
@@ -21,20 +22,22 @@ export const UserInfoScreen = () => {
   const emailUser = userInfo ? userInfo.email : '';
 
   return (
-    <ScrollView>
-      <View>
-        <Text>{'User name'}</Text>
-        <Text>{nameUser}</Text>
-      </View>
-      <View>
-        <Text>{'User email'}</Text>
-        <Text>{emailUser}</Text>
-      </View>
-      <View>
-        <Text>{'User phone number'}</Text>
-        <Text>{phoneNumber}</Text>
+    <View style={style.container}>
+      <View style={style.info}>
+        <View style={style.itemInfo}>
+          <Text style={style.font}>{'User name:'}</Text>
+          <Text style={style.font}>{nameUser}</Text>
+        </View>
+        <View style={style.itemInfo}>
+          <Text style={style.font}>{'User email:'}</Text>
+          <Text style={style.font}>{emailUser}</Text>
+        </View>
+        <View style={style.itemInfo}>
+          <Text style={style.font}>{'User phone number:'}</Text>
+          <Text style={style.font}>{phoneNumber}</Text>
+        </View>
       </View>
       <SignOutButton />
-    </ScrollView>
+    </View>
   );
 };
