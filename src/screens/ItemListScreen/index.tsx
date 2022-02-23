@@ -23,12 +23,11 @@ export const ItemListScreen: FC = () => {
   };
 
   return (
-    <View style={style.container}>
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        ListEmptyComponent={<TodoListEmptyComponent />}
-      />
-    </View>
+    <FlatList
+      style={style.container}
+      data={data}
+      renderItem={renderItem}
+      ListEmptyComponent={<TodoListEmptyComponent />}
+    />
   );
 };
