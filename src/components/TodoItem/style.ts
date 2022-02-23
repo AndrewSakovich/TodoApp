@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { COLORS } from '../../COLORS';
 
 export const style = StyleSheet.create({
   item: {
@@ -6,23 +7,23 @@ export const style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#3949ab',
+    backgroundColor: COLORS.sapphire,
     padding: 15,
     marginVertical: 5,
     marginHorizontal: 10,
     borderRadius: 5,
   },
   text: {
-    color: '#FFFFFF',
+    color: COLORS.white,
     fontSize: 15,
   },
   doneText: {
-    color: '#FFFFFF',
+    color: COLORS.white,
     fontSize: 15,
     textDecorationLine: 'line-through',
   },
   delete: {
-    color: '#FFFFFF',
+    color: COLORS.white,
   },
   touch: {
     flex: 1,

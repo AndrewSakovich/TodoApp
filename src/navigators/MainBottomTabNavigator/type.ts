@@ -1,6 +1,6 @@
-import { nameScreen } from '../nameScreen';
+import { NAMESCREEN } from '../nameScreen';
 
 export type MainBottomTabParamList = {
-  [nameScreen.TODO_LIST_TOP_NAVIGATOR]: undefined;
-  [nameScreen.USER_INFO_SCREEN]: undefined;
+  [NAMESCREEN.TODO_LIST_TOP_NAVIGATOR]: undefined;
+  [NAMESCREEN.USER_INFO_SCREEN]: undefined;
 };

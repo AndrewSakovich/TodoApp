@@ -1,9 +1,9 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { MainBottomTabParamList } from '../MainBottomTabNavigator/type';
-import { nameScreen } from '../nameScreen';
+import { NAMESCREEN } from '../nameScreen';
 
 export type RootStackNavigationParamList = {
-  [nameScreen.MAIN_BOTTOM_TAB_NAVIGATOR]: NavigatorScreenParams<MainBottomTabParamList>;
-  [nameScreen.ADD_NEW_ITEM_SCREEN]: undefined;
-  [nameScreen.LOGIN_SCREEN]: undefined;
+  [NAMESCREEN.MAIN_BOTTOM_TAB_NAVIGATOR]: NavigatorScreenParams<MainBottomTabParamList>;
+  [NAMESCREEN.ADD_NEW_ITEM_SCREEN]: undefined;
+  [NAMESCREEN.LOGIN_SCREEN]: undefined;
 };

@@ -6,13 +6,13 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { COLORS } from '../../COLORS';
 import { useNavigation } from '@react-navigation/native';
 import { TodoListTopNavigationProp } from '../../navigators/TodoListTopNavigator/type';
-import { nameScreen } from '../../navigators/nameScreen';
+import { NAMESCREEN } from '../../navigators/nameScreen';
 
 export const TodoListTopNavigatorHeader: FC = () => {
   const navigation = useNavigation<TodoListTopNavigationProp>();
 
   const navigateAddNewItemScreen = () => {
-    navigation.navigate(nameScreen.ADD_NEW_ITEM_SCREEN);
+    navigation.navigate(NAMESCREEN.ADD_NEW_ITEM_SCREEN);
   };
 
   return (

@@ -1,8 +1,8 @@
 import { RootStackNavigationParamList } from '../../navigators/RootStackNavigator/type';
 import { StackScreenProps } from '@react-navigation/stack';
-import { nameScreen } from '../../navigators/nameScreen';
+import { NAMESCREEN } from '../../navigators/NAMESCREEN';
 
 export type AddNewItemScreenNavigationProps = StackScreenProps<
   RootStackNavigationParamList,
-  nameScreen.ADD_NEW_ITEM_SCREEN
+  NAMESCREEN.ADD_NEW_ITEM_SCREEN
 >;

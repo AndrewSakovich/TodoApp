@@ -1,6 +1,6 @@
 export const COLORS = {
   sapphire: '#3949AB',
-  white: '#FFFFFF',
+  white: '#fff',
   black: '#000000',
   cararra: '#ECEBE9',
   lemonGrass: '#8E8F8A',

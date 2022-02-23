@@ -5,7 +5,7 @@ import { MainBottomTabNavigator } from '../MainBottomTabNavigator';
 import { AddNewItemScreen } from '../../screens/AddNewItemScreen';
 import { COLORS } from '../../COLORS';
 import { RootStackNavigationParamList } from './type';
-import { nameScreen } from '../nameScreen';
+import { NAMESCREEN } from '../nameScreen';
 import { useSelector } from 'react-redux';
 import { ReduxStoreType } from '../../redux/store';
 import { LoginScreen } from '../../screens/LoginScreen';
@@ -22,14 +22,14 @@ export const RootStackNavigator: FC = () => {
         {isSignIn ? (
           <React.Fragment>
             <Stack.Screen
-              name={nameScreen.MAIN_BOTTOM_TAB_NAVIGATOR}
+              name={NAMESCREEN.MAIN_BOTTOM_TAB_NAVIGATOR}
               component={MainBottomTabNavigator}
               options={{
                 headerShown: false,
               }}
             />
             <Stack.Screen
-              name={nameScreen.ADD_NEW_ITEM_SCREEN}
+              name={NAMESCREEN.ADD_NEW_ITEM_SCREEN}
               component={AddNewItemScreen}
               options={{
                 title: 'Add new task',
@@ -45,7 +45,7 @@ export const RootStackNavigator: FC = () => {
           </React.Fragment>
         ) : (
           <Stack.Screen
-            name={nameScreen.LOGIN_SCREEN}
+            name={NAMESCREEN.LOGIN_SCREEN}
             component={LoginScreen}
             options={{
               title: 'Login',

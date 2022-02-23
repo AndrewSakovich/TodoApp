@@ -1,4 +1,4 @@
-export enum nameScreen {
+export enum NAMESCREEN {
   TODO_LIST_TOP_NAVIGATOR = 'TodoListTopNavigator',
   LOGIN_SCREEN = 'LoginScreen',
   MAIN_BOTTOM_TAB_NAVIGATOR = 'MainBottomTabNavigator',

@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { COLORS } from '../../COLORS';
 import { TodoListTopNavigatorHeader } from '../../components/TodoListTopNavigatorHeader';
 import { MainBottomTabParamList } from './type';
-import { nameScreen } from '../nameScreen';
+import { NAMESCREEN } from '../nameScreen';
 import { UserInfoScreen } from '../../screens/UserInfoScreen';
 
 export const MainBottomTabNavigator: FC = () => {
@@ -24,7 +24,7 @@ export const MainBottomTabNavigator: FC = () => {
         tabBarInactiveBackgroundColor: COLORS.sapphire,
       }}>
       <Tab.Screen
-        name={nameScreen.TODO_LIST_TOP_NAVIGATOR}
+        name={NAMESCREEN.TODO_LIST_TOP_NAVIGATOR}
         component={TodoListTopNavigator}
         options={{
           title: 'Todo',
@@ -39,7 +39,7 @@ export const MainBottomTabNavigator: FC = () => {
         }}
       />
       <Tab.Screen
-        name={nameScreen.USER_INFO_SCREEN}
+        name={NAMESCREEN.USER_INFO_SCREEN}
         component={UserInfoScreen}
         options={{
           title: 'User info',
