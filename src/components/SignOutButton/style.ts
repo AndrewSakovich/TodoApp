@@ -1,7 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import { COLORS } from '../../COLORS';
 
-export const style = StyleSheet.create({
+type SignOutButtonStyleType = {
+  btn: ViewStyle;
+  font: TextStyle;
+};
+
+export const style = StyleSheet.create<SignOutButtonStyleType>({
   btn: {
     height: 40,
     backgroundColor: COLORS.sapphire,
