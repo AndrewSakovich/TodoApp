@@ -33,11 +33,9 @@ export const todoReducer = (
     case TodoActionTypes.DELETE_ITEM: {
       const { id }: ItemDeletePayload = action.payload;
 
-      const newTodoItems = [
-        ...state.todoItems.filter(item => {
-          return item.id !== id;
-        }),
-      ];
+      const newTodoItems = state.todoItems.filter(item => {
+        return item.id !== id;
+      });
       return {
         ...state,
         todoItems: newTodoItems,
