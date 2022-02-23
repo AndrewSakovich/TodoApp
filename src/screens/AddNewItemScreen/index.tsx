@@ -7,10 +7,10 @@ import { COLORS } from '../../COLORS';
 import { createNewItemHelper } from '../../helpers/createNewItemHelper';
 import { TodoItemType } from '../../models';
 import { useNavigation } from '@react-navigation/native';
-import { TodoListTopNavigationProp } from '../../navigators/TodoListTopNavigator/type';
+import { AddNewItemScreenNavigationProps } from './type';
 
 export const AddNewItemScreen: FC = () => {
-  const navigation = useNavigation<TodoListTopNavigationProp>();
+  const navigation = useNavigation<AddNewItemScreenNavigationProps>();
   const dispatch = useDispatch();
 
   const [text, setText] = useState<string>('');
