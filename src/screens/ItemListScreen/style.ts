@@ -7,8 +7,6 @@ type ItemListStyleType = {
 
 export const style = StyleSheet.create<ItemListStyleType>({
   container: {
-    borderTopWidth: 1,
-    borderTopColor: COLORS.silver,
     paddingTop: 5,
     flex: 1,
   },
