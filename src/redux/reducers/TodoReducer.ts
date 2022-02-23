@@ -1,5 +1,5 @@
 import { TodoItemType } from '../../models';
-import { AddItemPayload } from '../actions/todoActions/AddItemAction';
+import { AddItemPayload } from '../actions/todoActions/addItemAction';
 import { ItemDeletePayload } from '../actions/todoActions/deleteItemAction';
 import { TodoActionTypes } from '../actions/todoActions';
 import { DoneItemPayload } from '../actions/todoActions/doneItemAction';
