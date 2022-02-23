@@ -1,13 +1,28 @@
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStoreType } from '../../redux/store';
 import { Image, Text, View } from 'react-native';
 import { TodoReducerState } from '../../redux/reducers/TodoReducer';
 import { SignOutButton } from '../../components/SignOutButton';
 import { style } from './style';
 import { TodoItemType } from '../../models';
+import auth from '@react-native-firebase/auth';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { signOutAction } from '../../redux/actions/todoActions/signOutAction';
 
 export const UserInfoScreen: FC = () => {
+  const dispatch = useDispatch();
+
+  const googleSignOut = async () => {
+    try {
+      await auth().signOut();
+      await GoogleSignin.revokeAccess();
+      dispatch(signOutAction());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const userInfo = useSelector<ReduxStoreType, TodoReducerState['user']>(
     state => {
       return state.user;
@@ -49,7 +64,7 @@ export const UserInfoScreen: FC = () => {
           </View>
         </View>
       </View>
-      <SignOutButton />
+      <SignOutButton googleSignOut={googleSignOut} />
     </View>
   );
 };
