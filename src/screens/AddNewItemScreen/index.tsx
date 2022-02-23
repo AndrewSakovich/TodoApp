@@ -2,7 +2,7 @@ import React, { useState, FC } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { style } from './style';
 import { useDispatch } from 'react-redux';
-import { AddItemAction } from '../../redux/actions/todoActions/addItemAction';
+import { addItemAction } from '../../redux/actions/todoActions/addItemAction';
 import { COLORS } from '../../COLORS';
 import { createNewItemHelper } from '../../helpers/createNewItemHelper';
 import { TodoItemType } from '../../models';
@@ -19,7 +19,7 @@ export const AddNewItemScreen: FC = () => {
   const addItem = (text: TodoItemType['text']) => {
     const newItem = createNewItemHelper(text);
 
-    dispatch(AddItemAction({ newItem }));
+    dispatch(addItemAction({ newItem }));
   };
 
   const onPress = () => {
