@@ -8,6 +8,7 @@ import { createNewItemHelper } from '../../helpers/createNewItemHelper';
 import { TodoItemType } from '../../models';
 import { useNavigation } from '@react-navigation/native';
 import { AddNewItemScreenNavigationProps } from './type';
+import { firebase } from '@react-native-firebase/database';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -16,9 +17,19 @@ export const AddNewItemScreen: FC = () => {
   const [text, setText] = useState<string>('');
   const buttonStyle = text ? style.button : style.buttonDis;
 
+  const setData = async newItem => {
+    await firebase
+      .app()
+      .database(
+        'https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/',
+      )
+      .ref('/Todo')
+      .push(newItem);
+  };
+
   const addItem = (text: TodoItemType['text']) => {
     const newItem = createNewItemHelper(text);
-
+    setData(newItem);
     dispatch(addItemAction({ newItem }));
   };
 
