@@ -26,8 +26,9 @@ export const AddNewItemScreen: FC = () => {
       .database(
         `https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/`,
       )
-      .ref(`Users/User${userToken}/Todo`)
-      .push(newItem);
+      .ref(`Users/${userToken}/Todo/`)
+      .child(`${newItem.id}`)
+      .set(newItem);
   };
 
   const addItem = async (text: TodoItemType['text']) => {

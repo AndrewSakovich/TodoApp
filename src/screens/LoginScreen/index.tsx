@@ -36,7 +36,7 @@ export const LoginScreen: FC = () => {
 
   const setData = async userToken => {
     console.log('USERS  ', users);
-    const check = users.includes(`User${userToken}`);
+    const check = users.includes(userToken);
     console.log('CHECK  ', check);
     if (!check) {
       return await firebase
@@ -44,8 +44,9 @@ export const LoginScreen: FC = () => {
         .database(
           'https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/',
         )
-        .ref(`/Users/User${userToken}`)
-        .push(userToken);
+        .ref(`/Users/`)
+        .child(`${userToken}`)
+        .set(userToken);
     }
   };
 

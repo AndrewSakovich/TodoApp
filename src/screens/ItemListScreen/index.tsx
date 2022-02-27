@@ -19,7 +19,7 @@ export const ItemListScreen: FC = () => {
   });
   const flagDone = route.params.isDone;
   const path = userToken => {
-    return `Users/User${userToken}/Todo`;
+    return `Users/${userToken}/Todo`;
   };
 
   useEffect(() => {
