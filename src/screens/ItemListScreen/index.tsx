@@ -14,7 +14,13 @@ import { firebase } from '@react-native-firebase/database';
 export const ItemListScreen: FC = () => {
   const [data, setData] = useState([]);
   const route = useRoute<TodoListTopNavigationRouteProp>();
+  const userToken = useSelector(state => {
+    return state.userToken;
+  });
   const flagDone = route.params.isDone;
+  const path = userToken => {
+    return `Users/User${userToken}/Todo`;
+  };
 
   useEffect(() => {
     const data = firebase
@@ -22,11 +28,10 @@ export const ItemListScreen: FC = () => {
       .database(
         'https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/',
       )
-      .ref('/Todo')
+      .ref(path(userToken))
       .on('value', snapshot => {
-        console.log(snapshot.val());
-        const arrData = Object.values(snapshot.val());
-        console.log('DATAARR', arrData);
+        const obj = snapshot.val() ? snapshot.val() : {};
+        const arrData = Object.values(obj);
         setData(arrData);
       });
 
@@ -37,7 +42,7 @@ export const ItemListScreen: FC = () => {
         .database(
           'https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/',
         )
-        .ref('/Todo')
+        .ref(path(userToken))
         .off('child_added', data);
   }, []);
 
