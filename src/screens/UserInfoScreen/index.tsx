@@ -10,12 +10,13 @@ import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { signOutAction } from '../../redux/actions/todoActions/signOutAction';
 import { firebase } from '@react-native-firebase/database';
+import { SignInPayload } from '../../redux/actions/todoActions/signInAction';
 
 export const UserInfoScreen: FC = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<TodoItemType[]>([]);
   const dispatch = useDispatch();
 
-  const path = userToken => {
+  const path = (userToken: SignInPayload['userToken']) => {
     return `Users/${userToken}/Todo`;
   };
 
@@ -24,7 +25,7 @@ export const UserInfoScreen: FC = () => {
       return state.user;
     },
   );
-  const userToken = userInfo.uid;
+  const userToken = userInfo?.uid || null;
 
   useEffect(() => {
     const data = firebase
@@ -34,8 +35,8 @@ export const UserInfoScreen: FC = () => {
       )
       .ref(path(userToken))
       .on('value', snapshot => {
-        const obj = snapshot.val() ? snapshot.val() : {};
-        const arrData = Object.values(obj);
+        const obj = snapshot.val() ?? {};
+        const arrData: TodoItemType[] = Object.values(obj);
         setData(arrData);
       });
 

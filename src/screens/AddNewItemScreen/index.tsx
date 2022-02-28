@@ -9,19 +9,22 @@ import { TodoItemType } from '../../models';
 import { useNavigation } from '@react-navigation/native';
 import { AddNewItemScreenNavigationProps } from './type';
 import { firebase } from '@react-native-firebase/database';
+import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
+import { SignInPayload } from '../../redux/actions/todoActions/signInAction';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
   const dispatch = useDispatch();
 
-  const userToken = useSelector(state => {
-    return state.userToken;
-  });
+  const userToken = useSelector(userTokenSelector);
 
   const [text, setText] = useState<string>('');
   const buttonStyle = text ? style.button : style.buttonDis;
 
-  const setData = async (newItem, userToken) => {
+  const setData = async (
+    newItem: TodoItemType,
+    userToken: SignInPayload['userToken'],
+  ) => {
     await firebase
       .app()
       .database(

@@ -5,11 +5,14 @@ import { SignInButton } from '../../components/SignInButton';
 import { useDispatch } from 'react-redux';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
-import { signInAction } from '../../redux/actions/todoActions/signInAction';
+import {
+  signInAction,
+  SignInPayload,
+} from '../../redux/actions/todoActions/signInAction';
 import { firebase } from '@react-native-firebase/database';
 
 export const LoginScreen: FC = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<SignInPayload['userToken'][]>([]);
 
   useEffect(() => {
     const userArr = firebase
@@ -19,8 +22,8 @@ export const LoginScreen: FC = () => {
       )
       .ref('Users')
       .on('value', snapshot => {
-        const obj = snapshot.val() ? snapshot.val() : {};
-        const arr = Object.keys(obj);
+        const obj = snapshot.val() ?? {};
+        const arr: SignInPayload['userToken'][] = Object.keys(obj);
         console.log('ARR', arr);
         setUsers(arr);
       });
@@ -34,7 +37,7 @@ export const LoginScreen: FC = () => {
         .off('child_added', userArr);
   }, []);
 
-  const setData = async userToken => {
+  const setData = async (userToken: SignInPayload['userToken']) => {
     console.log('USERS  ', users);
     const check = users.includes(userToken);
     console.log('CHECK  ', check);

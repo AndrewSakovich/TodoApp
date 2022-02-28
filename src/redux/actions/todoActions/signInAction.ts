@@ -9,7 +9,7 @@ export const signInAction = (payload: SignInPayload) => {
 };
 
 export type SignInPayload = {
-  userToken: FirebaseAuthTypes.User['uid'];
+  userToken: FirebaseAuthTypes.User['uid'] | null;
   user: FirebaseAuthTypes.UserCredential['user'];
 };
 

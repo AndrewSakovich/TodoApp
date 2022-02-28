@@ -1,21 +1,22 @@
-import { Text, View, Alert, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import React, { FC } from 'react';
 import { style } from './style';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteItemAction } from '../../redux/actions/todoActions/deleteItemAction';
+import { useSelector } from 'react-redux';
 import { TodoItemPropsType } from './types';
-import { doneItemAction } from '../../redux/actions/todoActions/doneItemAction';
 import { firebase } from '@react-native-firebase/database';
+import { ReduxStoreType } from '../../redux/store';
+import { SignInPayload } from '../../redux/actions/todoActions/signInAction';
+import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
-  const userToken = useSelector(state => {
-    return state.userToken;
-  });
+  const userToken = useSelector<ReduxStoreType, SignInPayload['userToken']>(
+    userTokenSelector,
+  );
   const {
     todoItem: { id, text, isDone },
   } = props;
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const textStyle = isDone ? style.doneText : style.text;
 
@@ -27,7 +28,7 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
       )
       .ref(`Users/${userToken}/Todo/${id}`)
       .update({ isDone: !isDone });
-    dispatch(doneItemAction({ id }));
+    // dispatch(doneItemAction({ id }));
   };
 
   const onPressDelete = async () => {
