@@ -49,6 +49,20 @@ export const ItemListScreen: FC = () => {
   // const data = useSelector<ReduxStoreType, TodoItemType[]>(
   //   doneItemsSelectors(flagDone),
   // );
+
+  const filter = (data, flagDone) => {
+    if (flagDone) {
+      return data.filter(item => {
+        return item.isDone;
+      });
+    }
+
+    return data.filter(item => {
+      return !item.isDone;
+    });
+  };
+  const newData = filter(data, flagDone);
+
   const renderItem: ListRenderItem<TodoItemType> = ({ item }) => {
     return <TodoItem todoItem={item} />;
   };
@@ -56,7 +70,7 @@ export const ItemListScreen: FC = () => {
   return (
     <FlatList
       style={style.container}
-      data={data}
+      data={newData}
       renderItem={renderItem}
       ListEmptyComponent={<TodoListEmptyComponent />}
     />

@@ -1,12 +1,16 @@
 import { Text, View, Alert, TouchableOpacity } from 'react-native';
 import React, { FC } from 'react';
 import { style } from './style';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteItemAction } from '../../redux/actions/todoActions/deleteItemAction';
 import { TodoItemPropsType } from './types';
 import { doneItemAction } from '../../redux/actions/todoActions/doneItemAction';
+import { firebase } from '@react-native-firebase/database';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
+  const userToken = useSelector(state => {
+    return state.userToken;
+  });
   const {
     todoItem: { id, text, isDone },
   } = props;
@@ -15,22 +19,38 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
 
   const textStyle = isDone ? style.doneText : style.text;
 
-  const onPressDone = () => {
+  const onPressDone = async () => {
+    await firebase
+      .app()
+      .database(
+        'https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/',
+      )
+      .ref(`Users/${userToken}/Todo/${id}`)
+      .update({ isDone: !isDone });
     dispatch(doneItemAction({ id }));
   };
 
-  const onPressDelete = () => {
-    Alert.alert('Delete task', 'Are you sure?', [
-      {
-        text: 'Cancel',
-      },
-      {
-        text: 'OK',
-        onPress: () => {
-          dispatch(deleteItemAction({ id, isDone }));
-        },
-      },
-    ]);
+  const onPressDelete = async () => {
+    console.log('id  ', id);
+    console.log('userToken    ', userToken);
+    await firebase
+      .app()
+      .database(
+        'https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/',
+      )
+      .ref(`Users/${userToken}/Todo/${id}`)
+      .remove();
+    // Alert.alert('Delete task', 'Are you sure?', [
+    //   {
+    //     text: 'Cancel',
+    //   },
+    //   {
+    //     text: 'OK',
+    //     onPress: () => {
+    //       dispatch(deleteItemAction({ id, isDone }));
+    //     },
+    //   },
+    // ]);
   };
 
   return (
