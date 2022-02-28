@@ -13,6 +13,7 @@ import { firebase } from '@react-native-firebase/database';
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
   const dispatch = useDispatch();
+
   const userToken = useSelector(state => {
     return state.userToken;
   });

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStoreType } from '../../redux/store';
 import { Image, Text, View } from 'react-native';
@@ -9,9 +9,46 @@ import { TodoItemType } from '../../models';
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { signOutAction } from '../../redux/actions/todoActions/signOutAction';
+import { firebase } from '@react-native-firebase/database';
 
 export const UserInfoScreen: FC = () => {
+  const [data, setData] = useState([]);
   const dispatch = useDispatch();
+
+  const path = userToken => {
+    return `Users/${userToken}/Todo`;
+  };
+
+  const userInfo = useSelector<ReduxStoreType, TodoReducerState['user']>(
+    state => {
+      return state.user;
+    },
+  );
+  const userToken = userInfo.uid;
+
+  useEffect(() => {
+    const data = firebase
+      .app()
+      .database(
+        'https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/',
+      )
+      .ref(path(userToken))
+      .on('value', snapshot => {
+        const obj = snapshot.val() ? snapshot.val() : {};
+        const arrData = Object.values(obj);
+        setData(arrData);
+      });
+
+    // Stop listening for updates when no longer required
+    return () =>
+      firebase
+        .app()
+        .database(
+          'https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/',
+        )
+        .ref(path(userToken))
+        .off('child_added', data);
+  }, []);
 
   const googleSignOut = async () => {
     try {
@@ -23,17 +60,12 @@ export const UserInfoScreen: FC = () => {
     }
   };
 
-  const userInfo = useSelector<ReduxStoreType, TodoReducerState['user']>(
-    state => {
-      return state.user;
-    },
-  );
-  const todoItems = useSelector<ReduxStoreType, TodoItemType[]>(state => {
-    return state.todoItems;
-  });
+  // const todoItems = useSelector<ReduxStoreType, TodoItemType[]>(state => {
+  //   return state.todoItems;
+  // });
 
-  const numberTask = todoItems.length;
-  const numberDoneTask = todoItems.filter(item => {
+  const numberTask = data.length;
+  const numberDoneTask = data.filter(item => {
     return item.isDone;
   }).length;
 
