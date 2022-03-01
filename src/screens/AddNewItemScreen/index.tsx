@@ -14,7 +14,7 @@ import { SignInPayload } from '../../redux/actions/todoActions/signInAction';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const userToken = useSelector(userTokenSelector);
 
@@ -38,7 +38,7 @@ export const AddNewItemScreen: FC = () => {
   const addItem = async (text: TodoItemType['text']) => {
     const newItem = createNewItemHelper(text);
     await setData(newItem, userToken);
-    dispatch(addItemAction({ newItem }));
+    // dispatch(addItemAction({ newItem }));
   };
 
   const onPress = () => {

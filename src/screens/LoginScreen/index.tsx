@@ -24,7 +24,6 @@ export const LoginScreen: FC = () => {
       .on('value', snapshot => {
         const obj = snapshot.val() ?? {};
         const arr: SignInPayload['userToken'][] = Object.keys(obj);
-        console.log('ARR', arr);
         setUsers(arr);
       });
     return () =>
@@ -38,9 +37,7 @@ export const LoginScreen: FC = () => {
   }, []);
 
   const setData = async (userToken: SignInPayload['userToken']) => {
-    console.log('USERS  ', users);
     const check = users.includes(userToken);
-    console.log('CHECK  ', check);
     if (!check) {
       return await firebase
         .app()

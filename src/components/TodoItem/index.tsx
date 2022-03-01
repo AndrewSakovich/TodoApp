@@ -32,8 +32,6 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
   };
 
   const onPressDelete = async () => {
-    console.log('id  ', id);
-    console.log('userToken    ', userToken);
     await firebase
       .app()
       .database(
