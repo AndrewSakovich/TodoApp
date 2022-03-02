@@ -16,6 +16,7 @@ const App: FC = () => {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
+
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
