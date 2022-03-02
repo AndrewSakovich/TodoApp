@@ -11,6 +11,7 @@ import { AddNewItemScreenNavigationProps } from './type';
 import { firebase } from '@react-native-firebase/database';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
 import { SignInPayload } from '../../redux/actions/todoActions/signInAction';
+import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -25,11 +26,7 @@ export const AddNewItemScreen: FC = () => {
     newItem: TodoItemType,
     userToken: SignInPayload['userToken'],
   ) => {
-    await firebase
-      .app()
-      .database(
-        `https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/`,
-      )
+    await createReferenceHelper
       .ref(`Users/${userToken}/Todo/`)
       .child(`${newItem.id}`)
       .set(newItem);

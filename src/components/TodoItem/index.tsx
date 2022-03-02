@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import React, { FC } from 'react';
 import { style } from './style';
 import { useSelector } from 'react-redux';
@@ -7,14 +7,16 @@ import { firebase } from '@react-native-firebase/database';
 import { ReduxStoreType } from '../../redux/store';
 import { SignInPayload } from '../../redux/actions/todoActions/signInAction';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
+import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
-  const userToken = useSelector<ReduxStoreType, SignInPayload['userToken']>(
-    userTokenSelector,
-  );
   const {
     todoItem: { id, text, isDone },
   } = props;
+
+  const userToken = useSelector<ReduxStoreType, SignInPayload['userToken']>(
+    userTokenSelector,
+  );
 
   // const dispatch = useDispatch();
 
@@ -31,25 +33,21 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
     // dispatch(doneItemAction({ id }));
   };
 
-  const onPressDelete = async () => {
-    await firebase
-      .app()
-      .database(
-        'https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/',
-      )
-      .ref(`Users/${userToken}/Todo/${id}`)
-      .remove();
-    // Alert.alert('Delete task', 'Are you sure?', [
-    //   {
-    //     text: 'Cancel',
-    //   },
-    //   {
-    //     text: 'OK',
-    //     onPress: () => {
-    //       dispatch(deleteItemAction({ id, isDone }));
-    //     },
-    //   },
-    // ]);
+  const onPressDelete = () => {
+    Alert.alert('Delete task', 'Are you sure?', [
+      {
+        text: 'Cancel',
+      },
+      {
+        text: 'OK',
+        onPress: async () => {
+          await createReferenceHelper
+            .ref(`Users/${userToken}/Todo/${id}`)
+            .remove();
+          // dispatch(deleteItemAction({ id, isDone }));
+        },
+      },
+    ]);
   };
 
   return (

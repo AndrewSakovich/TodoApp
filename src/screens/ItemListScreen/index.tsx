@@ -11,6 +11,7 @@ import { TodoListTopNavigationRouteProp } from '../../navigators/TodoListTopNavi
 import { firebase } from '@react-native-firebase/database';
 import { SignInPayload } from '../../redux/actions/todoActions/signInAction';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
+import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 
 export const ItemListScreen: FC = () => {
   const [data, setData] = useState<TodoItemType[]>([]);
@@ -24,27 +25,14 @@ export const ItemListScreen: FC = () => {
   };
 
   useEffect(() => {
-    const data = firebase
-      .app()
-      .database(
-        'https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/',
-      )
-      .ref(path())
-      .on('value', snapshot => {
-        const obj = snapshot.val() ?? {};
-        const arrData: TodoItemType[] = Object.values(obj);
-        setData(arrData);
-      });
+    const data = createReferenceHelper.ref(path()).on('value', snapshot => {
+      const obj = snapshot.val() ?? {};
+      const arrData: TodoItemType[] = Object.values(obj);
+      setData(arrData);
+    });
 
     // Stop listening for updates when no longer required
-    return () =>
-      firebase
-        .app()
-        .database(
-          'https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/',
-        )
-        .ref(path())
-        .off('child_added', data);
+    return () => createReferenceHelper.ref(path()).off('child_added', data);
   }, []);
 
   // const data = useSelector<ReduxStoreType, TodoItemType[]>(

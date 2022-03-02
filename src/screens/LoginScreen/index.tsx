@@ -10,40 +10,26 @@ import {
   SignInPayload,
 } from '../../redux/actions/todoActions/signInAction';
 import { firebase } from '@react-native-firebase/database';
+import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 
 export const LoginScreen: FC = () => {
   const [users, setUsers] = useState<SignInPayload['userToken'][]>([]);
 
   useEffect(() => {
-    const userArr = firebase
-      .app()
-      .database(
-        'https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/',
-      )
-      .ref('Users')
-      .on('value', snapshot => {
-        const obj = snapshot.val() ?? {};
-        const arr: SignInPayload['userToken'][] = Object.keys(obj);
-        setUsers(arr);
-      });
-    return () =>
-      firebase
-        .app()
-        .database(
-          'https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/',
-        )
-        .ref('Users')
-        .off('child_added', userArr);
+    const userArr = createReferenceHelper.ref('Users').on('value', snapshot => {
+      const obj = snapshot.val() ?? {};
+      const arr: SignInPayload['userToken'][] = Object.keys(obj);
+      setUsers(arr);
+    });
+
+    return () => createReferenceHelper.ref('Users').off('child_added', userArr);
   }, []);
 
   const setData = async (userToken: SignInPayload['userToken']) => {
     const check = users.includes(userToken);
+
     if (!check) {
-      return await firebase
-        .app()
-        .database(
-          'https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/',
-        )
+      return await createReferenceHelper
         .ref(`/Users/`)
         .child(`${userToken}`)
         .set(userToken);
