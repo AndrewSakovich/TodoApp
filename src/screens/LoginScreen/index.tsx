@@ -8,7 +8,9 @@ import { TodoActionTypes } from '../../redux/actions/todoActions';
 export const LoginScreen: FC = () => {
   const dispatch = useDispatch();
 
-  const googleSignIn = dispatch({ type: TodoActionTypes.SIGN_IN_SAGA });
+  const googleSignIn = dispatch({
+    type: TodoActionTypes.SIGN_IN_SAGA,
+  });
 
   return (
     <View style={style.container}>
