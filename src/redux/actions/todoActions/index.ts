@@ -4,4 +4,5 @@ export enum TodoActionTypes {
   DONE_ITEM = 'DONE_ITEM',
   SIGN_IN = 'SIGN_IN',
   SIGN_OUT = 'SIGN_OUT',
+  SIGN_IN_SAGA = 'SIGN_IN_SAGA',
 }
