@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux';
 import { TodoItemPropsType } from './types';
 import { firebase } from '@react-native-firebase/database';
 import { ReduxStoreType } from '../../redux/store';
-import { SignInPayload } from '../../redux/actions/todoActions/signInAction';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
 import { createReferenceHelper } from '../../helpers/createReferenceHelper';
+import { SignInPayload } from '../../redux/actions/authActions/signInAction';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
   const {

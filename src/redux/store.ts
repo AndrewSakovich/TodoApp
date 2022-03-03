@@ -5,8 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import createSagaMiddleware from 'redux-saga';
 import { helloSaga } from './saga/SignInSaga';
 import { takeEvery } from 'redux-saga/effects';
-import { SignInAction } from './actions/todoActions/signInAction';
-import { TodoActionTypes } from './actions/todoActions';
+import { AuthSagaActions } from './actions/authSagaActions';
 
 const persistConfig = {
   key: 'root',
@@ -26,5 +25,5 @@ export const persistor = persistStore(store);
 sagaMiddleware.run(rootWatcher);
 
 function* rootWatcher() {
-  yield takeEvery(TodoActionTypes.SIGN_IN_SAGA, helloSaga);
+  yield takeEvery(AuthSagaActions.SIGN_IN_SAGA, helloSaga);
 }

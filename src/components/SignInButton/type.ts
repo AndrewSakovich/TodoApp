@@ -1,3 +1,3 @@
 export type SignInButtonPropsType = {
-    googleSignIn(): Promise<void>;
+  googleSignIn(): void;
 };

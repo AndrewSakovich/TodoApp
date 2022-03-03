@@ -1,8 +1,8 @@
 import { put } from 'redux-saga/effects';
-import { signInAction } from '../actions/todoActions/signInAction';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { createReferenceHelper } from '../../helpers/createReferenceHelper';
+import { signInAction } from '../actions/authActions/signInAction';
 
 export function* helloSaga() {
   const { idToken } = yield GoogleSignin.signIn();
