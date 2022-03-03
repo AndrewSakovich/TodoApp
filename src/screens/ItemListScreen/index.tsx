@@ -19,6 +19,8 @@ export const ItemListScreen: FC = () => {
   const userToken = useSelector<ReduxStoreType, SignInPayload['userToken']>(
     userTokenSelector,
   );
+  console.log(userToken);
+
   const flagDone = route.params.isDone;
   const path = () => {
     return `Users/${userToken}/Todo`;
