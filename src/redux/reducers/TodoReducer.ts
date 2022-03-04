@@ -58,9 +58,10 @@ export const todoReducer = (
       };
     }
     case AuthActionsTypes.SIGN_IN: {
-      const { user, userToken }: SignInPayload = action.payload;
+      const { user, userToken, todoItems }: SignInPayload = action.payload;
       return {
         ...state,
+        todoItems,
         userToken,
         user,
       };

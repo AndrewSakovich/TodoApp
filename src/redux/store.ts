@@ -3,9 +3,10 @@ import { todoReducer, TodoReducerState } from './reducers/TodoReducer';
 import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import createSagaMiddleware from 'redux-saga';
-import { helloSaga } from './saga/SignInSaga';
+import { signInSaga } from './saga/SignInSaga';
 import { takeEvery } from 'redux-saga/effects';
 import { AuthSagaActions } from './actions/authSagaActions';
+import { signOutSaga } from './saga/SignOutSaga';
 
 const persistConfig = {
   key: 'root',
@@ -25,5 +26,6 @@ export const persistor = persistStore(store);
 sagaMiddleware.run(rootWatcher);
 
 function* rootWatcher() {
-  yield takeEvery(AuthSagaActions.SIGN_IN_SAGA, helloSaga);
+  yield takeEvery(AuthSagaActions.SIGN_IN_SAGA, signInSaga);
+  yield takeEvery(AuthSagaActions.SIGN_OUT_SAGA, signOutSaga);
 }

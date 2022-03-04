@@ -8,10 +8,10 @@ import { style } from './style';
 import { TodoItemType } from '../../models';
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { signOutAction } from '../../redux/actions/todoActions/signOutAction';
-import { firebase } from '@react-native-firebase/database';
-import { SignInPayload } from '../../redux/actions/todoActions/signInAction';
 import { createReferenceHelper } from '../../helpers/createReferenceHelper';
+import { SignInPayload } from '../../redux/actions/authActions/signInAction';
+import { signOutAction } from '../../redux/actions/authActions/signOutAction';
+import { AuthSagaActions } from '../../redux/actions/authSagaActions';
 
 export const UserInfoScreen: FC = () => {
   const [data, setData] = useState<TodoItemType[]>([]);
@@ -43,13 +43,7 @@ export const UserInfoScreen: FC = () => {
   }, []);
 
   const googleSignOut = async () => {
-    try {
-      await auth().signOut();
-      await GoogleSignin.revokeAccess();
-      dispatch(signOutAction());
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch({ type: AuthSagaActions.SIGN_OUT_SAGA });
   };
 
   // const todoItems = useSelector<ReduxStoreType, TodoItemType[]>(state => {

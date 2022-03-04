@@ -9,9 +9,9 @@ import { TodoItemType } from '../../models';
 import { useRoute } from '@react-navigation/native';
 import { TodoListTopNavigationRouteProp } from '../../navigators/TodoListTopNavigator/type';
 import { firebase } from '@react-native-firebase/database';
-import { SignInPayload } from '../../redux/actions/todoActions/signInAction';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
 import { createReferenceHelper } from '../../helpers/createReferenceHelper';
+import { SignInPayload } from '../../redux/actions/authActions/signInAction';
 
 export const ItemListScreen: FC = () => {
   const [data, setData] = useState<TodoItemType[]>([]);
@@ -19,7 +19,6 @@ export const ItemListScreen: FC = () => {
   const userToken = useSelector<ReduxStoreType, SignInPayload['userToken']>(
     userTokenSelector,
   );
-  console.log(userToken);
 
   const flagDone = route.params.isDone;
   const path = () => {
