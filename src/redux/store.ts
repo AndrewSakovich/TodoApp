@@ -7,6 +7,8 @@ import { signInSaga } from './saga/SignInSaga';
 import { takeEvery } from 'redux-saga/effects';
 import { AuthSagaActions } from './actions/authSagaActions';
 import { signOutSaga } from './saga/SignOutSaga';
+import { TodoSagaActions } from './actions/todoSagaActions';
+import { addItemSaga } from './saga/adItemSaga';
 
 const persistConfig = {
   key: 'root',
@@ -28,4 +30,5 @@ sagaMiddleware.run(rootWatcher);
 function* rootWatcher() {
   yield takeEvery(AuthSagaActions.SIGN_IN_SAGA, signInSaga);
   yield takeEvery(AuthSagaActions.SIGN_OUT_SAGA, signOutSaga);
+  yield takeEvery(TodoSagaActions.ADD_ITEM_SAGA, addItemSaga);
 }

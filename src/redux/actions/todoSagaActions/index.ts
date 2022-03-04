@@ -1,0 +1,5 @@
+export enum TodoSagaActions {
+  ADD_ITEM_SAGA = 'ADD_ITEM_SAGA',
+  DELETE_ITEM_SAGA = 'DELETE_ITEM_SAGA',
+  DONE_ITEM_SAGA = 'DONE_ITEM_SAGA',
+}

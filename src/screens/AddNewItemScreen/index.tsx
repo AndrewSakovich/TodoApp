@@ -1,41 +1,27 @@
-import React, { useState, FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { style } from './style';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItemAction } from '../../redux/actions/todoActions/addItemAction';
 import { COLORS } from '../../COLORS';
 import { createNewItemHelper } from '../../helpers/createNewItemHelper';
 import { TodoItemType } from '../../models';
 import { useNavigation } from '@react-navigation/native';
 import { AddNewItemScreenNavigationProps } from './type';
-import { firebase } from '@react-native-firebase/database';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
-import { SignInPayload } from '../../redux/actions/todoActions/signInAction';
-import { createReferenceHelper } from '../../helpers/createReferenceHelper';
+import { TodoSagaActions } from '../../redux/actions/todoSagaActions';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const userToken = useSelector(userTokenSelector);
 
   const [text, setText] = useState<string>('');
   const buttonStyle = text ? style.button : style.buttonDis;
 
-  const setData = async (
-    newItem: TodoItemType,
-    userToken: SignInPayload['userToken'],
-  ) => {
-    await createReferenceHelper
-      .ref(`Users/${userToken}/Todo/`)
-      .child(`${newItem.id}`)
-      .set(newItem);
-  };
-
   const addItem = async (text: TodoItemType['text']) => {
     const newItem = createNewItemHelper(text);
-    await setData(newItem, userToken);
-    // dispatch(addItemAction({ newItem }));
+    dispatch({ type: TodoSagaActions.ADD_ITEM_SAGA, newItem, userToken });
   };
 
   const onPress = () => {
