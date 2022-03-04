@@ -9,6 +9,8 @@ import { AuthSagaActions } from './actions/authSagaActions';
 import { signOutSaga } from './saga/SignOutSaga';
 import { TodoSagaActions } from './actions/todoSagaActions';
 import { addItemSaga } from './saga/adItemSaga';
+import { doneItemSaga } from './saga/doneItemSaga';
+import { deleteItemSaga } from './saga/deleteItemSaga';
 
 const persistConfig = {
   key: 'root',
@@ -31,4 +33,6 @@ function* rootWatcher() {
   yield takeEvery(AuthSagaActions.SIGN_IN_SAGA, signInSaga);
   yield takeEvery(AuthSagaActions.SIGN_OUT_SAGA, signOutSaga);
   yield takeEvery(TodoSagaActions.ADD_ITEM_SAGA, addItemSaga);
+  yield takeEvery(TodoSagaActions.DONE_ITEM_SAGA, doneItemSaga);
+  yield takeEvery(TodoSagaActions.DELETE_ITEM_SAGA, deleteItemSaga);
 }

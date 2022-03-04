@@ -10,7 +10,6 @@ export const deleteItemAction = (payload: ItemDeletePayload) => {
 
 export type ItemDeletePayload = {
   id: TodoItemType['id'];
-  isDone: TodoItemType['isDone'];
 };
 
 export type ItemDeleteAction = {
