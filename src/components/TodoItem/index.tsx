@@ -1,36 +1,21 @@
-import { Text, View, TouchableOpacity, Alert } from 'react-native';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import React, { FC } from 'react';
 import { style } from './style';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { TodoItemPropsType } from './types';
-import { firebase } from '@react-native-firebase/database';
-import { ReduxStoreType } from '../../redux/store';
-import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
-import { createReferenceHelper } from '../../helpers/createReferenceHelper';
-import { SignInPayload } from '../../redux/actions/authActions/signInAction';
+import { TodoSagaActions } from '../../redux/actions/todoSagaActions';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
   const {
     todoItem: { id, text, isDone },
   } = props;
 
-  const userToken = useSelector<ReduxStoreType, SignInPayload['userToken']>(
-    userTokenSelector,
-  );
-
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const textStyle = isDone ? style.doneText : style.text;
 
-  const onPressDone = async () => {
-    await firebase
-      .app()
-      .database(
-        'https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/',
-      )
-      .ref(`Users/${userToken}/Todo/${id}`)
-      .update({ isDone: !isDone });
-    // dispatch(doneItemAction({ id }));
+  const onPressDone = () => {
+    dispatch({ type: TodoSagaActions.DONE_ITEM_SAGA, id });
   };
 
   const onPressDelete = () => {
@@ -40,11 +25,8 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
       },
       {
         text: 'OK',
-        onPress: async () => {
-          await createReferenceHelper
-            .ref(`Users/${userToken}/Todo/${id}`)
-            .remove();
-          // dispatch(deleteItemAction({ id, isDone }));
+        onPress: () => {
+          dispatch({ type: TodoSagaActions.DELETE_ITEM_SAGA, id });
         },
       },
     ]);
