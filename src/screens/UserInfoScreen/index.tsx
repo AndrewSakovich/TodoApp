@@ -6,7 +6,7 @@ import { TodoReducerState } from '../../redux/reducers/TodoReducer';
 import { SignOutButton } from '../../components/SignOutButton';
 import { style } from './style';
 import { TodoItemType } from '../../models';
-import { AuthSagaActions } from '../../redux/actions/authSagaActions';
+import { signOutSagaAction } from '../../redux/actions/authSagaActions/SignOutSagaAction';
 
 export const UserInfoScreen: FC = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export const UserInfoScreen: FC = () => {
   );
 
   const googleSignOut = () => {
-    dispatch({ type: AuthSagaActions.SIGN_OUT_SAGA });
+    dispatch(signOutSagaAction);
   };
 
   const todoItems = useSelector<ReduxStoreType, TodoItemType[]>(state => {
