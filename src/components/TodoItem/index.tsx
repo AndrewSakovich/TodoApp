@@ -3,8 +3,8 @@ import React, { FC } from 'react';
 import { style } from './style';
 import { useDispatch } from 'react-redux';
 import { TodoItemPropsType } from './types';
-import { TodoSagaActions } from '../../redux/actions/todoSagaActions';
 import { deleteItemSagaAction } from '../../redux/actions/todoSagaActions/deleteItemSagaAction';
+import { doneItemSagaAction } from '../../redux/actions/todoSagaActions/doneItemSagaAction';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
   const {
@@ -16,7 +16,7 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
   const textStyle = isDone ? style.doneText : style.text;
 
   const onPressDone = () => {
-    dispatch({ type: TodoSagaActions.DONE_ITEM_SAGA, id });
+    dispatch(doneItemSagaAction({ id, isDone }));
   };
 
   const onPressDelete = () => {

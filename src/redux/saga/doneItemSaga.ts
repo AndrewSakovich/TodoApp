@@ -2,9 +2,11 @@ import { put, select } from 'redux-saga/effects';
 import { doneItemAction } from '../actions/todoActions/doneItemAction';
 import { firebase } from '@react-native-firebase/database';
 import { userTokenSelector } from '../selectors/userTokenSelector';
+import { SignInPayload } from '../actions/authActions/signInAction';
+import { DoneItemSagaActionPayload } from '../actions/todoSagaActions/doneItemSagaAction';
 
-export function* doneItemSaga(props) {
-  const userToken = yield select(userTokenSelector);
+export function* doneItemSaga(props: DoneItemSagaActionPayload) {
+  const userToken: SignInPayload['userToken'] = yield select(userTokenSelector);
   console.log(userToken);
   const { id, isDone } = props;
 
