@@ -3,12 +3,11 @@ import { doneItemAction } from '../actions/todoActions/doneItemAction';
 import { firebase } from '@react-native-firebase/database';
 import { userTokenSelector } from '../selectors/userTokenSelector';
 import { SignInPayload } from '../actions/authActions/signInAction';
-import { DoneItemSagaActionPayload } from '../actions/todoSagaActions/doneItemSagaAction';
+import { DoneItemSagaAction } from '../actions/todoSagaActions/doneItemSagaAction';
 
-export function* doneItemSaga(props: DoneItemSagaActionPayload) {
+export function* doneItemSaga(action: DoneItemSagaAction) {
   const userToken: SignInPayload['userToken'] = yield select(userTokenSelector);
-  console.log(userToken);
-  const { id, isDone } = props;
+  const { id, isDone } = action.payload;
 
   yield firebase
     .app()
