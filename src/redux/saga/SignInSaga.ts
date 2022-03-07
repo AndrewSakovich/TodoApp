@@ -2,9 +2,10 @@ import { put } from 'redux-saga/effects';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { createReferenceHelper } from '../../helpers/createReferenceHelper';
-import {
-  signInAction,
-} from '../actions/authActions/signInAction';
+import { signInAction } from '../actions/authActions/signInAction';
+import { FirebaseDatabaseTypes } from '@react-native-firebase/database';
+import DataSnapshot = FirebaseDatabaseTypes.DataSnapshot;
+import { TodoItemType } from '../../models';
 
 export function* signInSaga() {
   const path = () => {
@@ -19,11 +20,15 @@ export function* signInSaga() {
 
   const userToken = user.uid;
 
-  const usersData = yield createReferenceHelper.ref(`/Users/`).once('value');
+  const usersData: DataSnapshot = yield createReferenceHelper
+    .ref(`/Users/`)
+    .once('value');
   const users = Object.keys(usersData.val() ?? {});
 
-  const todoItemsData = yield createReferenceHelper.ref(path()).once('value');
-  const todoItems = Object.values(todoItemsData.val() ?? {});
+  const todoItemsData: DataSnapshot = yield createReferenceHelper
+    .ref(path())
+    .once('value');
+  const todoItems: TodoItemType[] = Object.values(todoItemsData.val() ?? {});
 
   const checkUser = users.find(item => {
     return item === userToken;
