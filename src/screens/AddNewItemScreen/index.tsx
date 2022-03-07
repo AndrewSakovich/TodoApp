@@ -8,7 +8,7 @@ import { TodoItemType } from '../../models';
 import { useNavigation } from '@react-navigation/native';
 import { AddNewItemScreenNavigationProps } from './type';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
-import { TodoSagaActions } from '../../redux/actions/todoSagaActions';
+import { addItemSagaAction } from '../../redux/actions/todoSagaActions/addItemSagaAction';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -21,7 +21,7 @@ export const AddNewItemScreen: FC = () => {
 
   const addItem = async (text: TodoItemType['text']) => {
     const newItem = createNewItemHelper(text);
-    dispatch({ type: TodoSagaActions.ADD_ITEM_SAGA, newItem, userToken });
+    dispatch(addItemSagaAction({ newItem, userToken }));
   };
 
   const onPress = () => {
