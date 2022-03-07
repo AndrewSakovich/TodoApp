@@ -4,6 +4,7 @@ import { style } from './style';
 import { useDispatch } from 'react-redux';
 import { TodoItemPropsType } from './types';
 import { TodoSagaActions } from '../../redux/actions/todoSagaActions';
+import { deleteItemSagaAction } from '../../redux/actions/todoSagaActions/deleteItemSagaAction';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
   const {
@@ -26,7 +27,7 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
       {
         text: 'OK',
         onPress: () => {
-          dispatch({ type: TodoSagaActions.DELETE_ITEM_SAGA, id });
+          dispatch(deleteItemSagaAction({ id }));
         },
       },
     ]);
