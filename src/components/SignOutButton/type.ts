@@ -1,3 +1,3 @@
 export type SignOutButtonType = {
-    googleSignOut(): Promise<void>;
+  googleSignOut(): void;
 };
