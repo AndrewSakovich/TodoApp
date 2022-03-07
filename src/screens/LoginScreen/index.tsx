@@ -3,15 +3,13 @@ import { View } from 'react-native';
 import { style } from './style';
 import { SignInButton } from '../../components/SignInButton';
 import { useDispatch } from 'react-redux';
-import { AuthSagaActions } from '../../redux/actions/authSagaActions';
+import { signInSagaAction } from '../../redux/actions/authSagaActions/signInSagaAction';
 
 export const LoginScreen: FC = () => {
   const dispatch = useDispatch();
 
   const googleSignIn = () => {
-    dispatch({
-      type: AuthSagaActions.SIGN_IN_SAGA,
-    });
+    dispatch(signInSagaAction);
   };
 
   return (
