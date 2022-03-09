@@ -6,6 +6,7 @@ import { TodoSagaActions } from '../actions/todoSagaActions';
 import { addItemSaga } from './adItemSaga';
 import { doneItemSaga } from './doneItemSaga';
 import { deleteItemSaga } from './deleteItemSaga';
+import { getDataTodoItemsSaga } from './getDataTodoItemsSaga';
 
 export function* rootWatcher() {
   yield takeEvery(AuthSagaActions.SIGN_IN_SAGA, signInSaga);
@@ -13,4 +14,5 @@ export function* rootWatcher() {
   yield takeEvery(TodoSagaActions.ADD_ITEM_SAGA, addItemSaga);
   yield takeEvery(TodoSagaActions.DONE_ITEM_SAGA, doneItemSaga);
   yield takeEvery(TodoSagaActions.DELETE_ITEM_SAGA, deleteItemSaga);
+  yield takeEvery(TodoSagaActions.GET_DATA_ITEMS_SAGA, getDataTodoItemsSaga);
 }
