@@ -11,7 +11,7 @@ export const signInAction = (payload: SignInPayload) => {
 
 export type SignInPayload = {
   userToken: FirebaseAuthTypes.User['uid'] | null;
-  user: FirebaseAuthTypes.UserCredential['user'];
+  user: FirebaseAuthTypes.UserCredential['user'] | undefined;
   todoItems: TodoItemType[];
 };
 

@@ -9,13 +9,13 @@ import { SignInPayload } from '../actions/authActions/signInAction';
 export type TodoReducerState = {
   todoItems: TodoItemType[];
   userToken: SignInPayload['userToken'] | null;
-  user: SignInPayload['user'] | null;
+  user: SignInPayload['user'];
 };
 
 const initialState: TodoReducerState = {
   todoItems: [],
   userToken: null,
-  user: null,
+  user: undefined,
 };
 
 export const todoReducer = (
