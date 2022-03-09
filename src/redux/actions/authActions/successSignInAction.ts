@@ -2,7 +2,7 @@ import { AuthActionsTypes } from './index';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { TodoItemType } from '../../../models';
 
-export const signInAction = (payload: SignInPayload) => {
+export const successSignInAction = (payload: SignInPayload) => {
   return {
     type: AuthActionsTypes.SIGN_IN,
     payload,
