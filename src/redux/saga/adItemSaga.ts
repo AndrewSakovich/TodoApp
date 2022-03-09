@@ -10,8 +10,8 @@ export function* addItemSaga(action: AddItemSagaAction) {
       .ref(`Users/${userToken}/Todo/`)
       .child(`${newItem.id}`)
       .set(newItem);
+    yield put(addItemAction({ newItem }));
   } catch (error) {
     console.error(error);
   }
-  yield put(addItemAction({ newItem }));
 }

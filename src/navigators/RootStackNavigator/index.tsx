@@ -14,7 +14,7 @@ export const RootStackNavigator: FC = () => {
   const Stack = createNativeStackNavigator<RootStackNavigationParamList>();
 
   const isSignIn = useSelector<ReduxStoreType>(state => {
-    return state.userToken;
+    return state.auth.userToken;
   });
   return (
     <NavigationContainer>

@@ -2,7 +2,7 @@ import { put, select } from 'redux-saga/effects';
 import { doneItemAction } from '../actions/todoActions/doneItemAction';
 import { firebase } from '@react-native-firebase/database';
 import { userTokenSelector } from '../selectors/userTokenSelector';
-import { SignInPayload } from '../actions/authActions/signInAction';
+import { SignInPayload } from '../actions/authActions/successSignInAction';
 import { DoneItemSagaAction } from '../actions/todoSagaActions/doneItemSagaAction';
 
 export function* doneItemSaga(action: DoneItemSagaAction) {
@@ -16,9 +16,8 @@ export function* doneItemSaga(action: DoneItemSagaAction) {
       )
       .ref(`Users/${userToken}/Todo/${id}`)
       .update({ isDone: !isDone });
+    yield put(doneItemAction({ id }));
   } catch (error) {
     console.error(error);
   }
-
-  yield put(doneItemAction({ id }));
 }
