@@ -1,7 +1,7 @@
 import { takeEvery } from 'redux-saga/effects';
 import { AuthSagaActions } from '../actions/authSagaActions';
-import { signInSaga } from './SignInSaga';
-import { signOutSaga } from './SignOutSaga';
+import { signInSaga } from './signInSaga';
+import { signOutSaga } from './signOutSaga';
 import { TodoSagaActions } from '../actions/todoSagaActions';
 import { addItemSaga } from './adItemSaga';
 import { doneItemSaga } from './doneItemSaga';
