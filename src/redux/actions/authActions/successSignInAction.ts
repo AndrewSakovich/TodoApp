@@ -1,6 +1,5 @@
 import { AuthActionsTypes } from './index';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { TodoItemType } from '../../../models';
 
 export const successSignInAction = (payload: SignInPayload) => {
   return {
@@ -12,7 +11,6 @@ export const successSignInAction = (payload: SignInPayload) => {
 export type SignInPayload = {
   userToken: FirebaseAuthTypes.User['uid'] | null;
   user: FirebaseAuthTypes.UserCredential['user'] | undefined;
-  todoItems: TodoItemType[];
 };
 
 export type SignInAction = {
