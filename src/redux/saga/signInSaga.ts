@@ -1,9 +1,8 @@
-import { put, select } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 import { successSignInAction } from '../actions/authActions/successSignInAction';
-import { TodoItemType } from '../../models';
 import { FirebaseDatabaseTypes } from '@react-native-firebase/database';
 
 export function* signInSaga() {
@@ -14,29 +13,24 @@ export function* signInSaga() {
   const { user } = yield auth().signInWithCredential(googleCredential);
 
   const userToken = user.uid;
-  const path = `Users/${userToken}/Todo`;
   try {
     const usersData: FirebaseDatabaseTypes.DataSnapshot =
       yield createReferenceHelper.ref(`/Users/`).once('value');
     const users = Object.keys(usersData.val() ?? {});
-
-    const todoItemsData: FirebaseDatabaseTypes.DataSnapshot =
-      yield createReferenceHelper.ref(path).once('value');
-    const todoItems: TodoItemType[] = Object.values(todoItemsData.val() ?? {});
 
     const checkUser = users.find(item => {
       return item === userToken;
     });
 
     if (checkUser) {
-      yield put(successSignInAction({ userToken, user, todoItems }));
+      yield put(successSignInAction({ userToken, user }));
     } else {
       yield createReferenceHelper
         .ref(`/Users/`)
         .child(`${userToken}`)
         .set(userToken);
 
-      yield put(successSignInAction({ userToken, user, todoItems }));
+      yield put(successSignInAction({ userToken, user }));
     }
   } catch (error) {
     console.error(error);
