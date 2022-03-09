@@ -9,8 +9,11 @@ export function* deleteItemSaga(action: DeleteItemSagaAction) {
   const userToken: SignInPayload['userToken'] = yield select(userTokenSelector);
 
   const { id } = action.payload;
-
-  yield createReferenceHelper.ref(`Users/${userToken}/Todo/${id}`).remove();
+  try {
+    yield createReferenceHelper.ref(`Users/${userToken}/Todo/${id}`).remove();
+  } catch (error) {
+    console.error(error);
+  }
 
   yield put(deleteItemAction({ id }));
 }

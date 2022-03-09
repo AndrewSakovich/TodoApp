@@ -34,10 +34,14 @@ export function* signInSaga() {
   if (checkUser) {
     yield put(signInAction({ userToken, user, todoItems }));
   } else {
-    yield createReferenceHelper
-      .ref(`/Users/`)
-      .child(`${userToken}`)
-      .set(userToken);
+    try {
+      yield createReferenceHelper
+        .ref(`/Users/`)
+        .child(`${userToken}`)
+        .set(userToken);
+    } catch (error) {
+      console.error(error);
+    }
 
     yield put(signInAction({ userToken, user, todoItems }));
   }

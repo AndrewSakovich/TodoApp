@@ -5,11 +5,13 @@ import { AddItemSagaAction } from '../actions/todoSagaActions/addItemSagaAction'
 
 export function* addItemSaga(action: AddItemSagaAction) {
   const { newItem, userToken } = action.payload;
-
-  yield createReferenceHelper
-    .ref(`Users/${userToken}/Todo/`)
-    .child(`${newItem.id}`)
-    .set(newItem);
-
+  try {
+    yield createReferenceHelper
+      .ref(`Users/${userToken}/Todo/`)
+      .child(`${newItem.id}`)
+      .set(newItem);
+  } catch (error) {
+    console.error(error);
+  }
   yield put(addItemAction({ newItem }));
 }
