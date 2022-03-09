@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStoreType } from '../../redux/store';
 import { Image, Text, View } from 'react-native';
-import { TodoReducerState } from '../../redux/reducers/TodoReducer';
+import { TodoReducerState } from '../../redux/reducers/todoReducer';
 import { SignOutButton } from '../../components/SignOutButton';
 import { style } from './style';
 import { TodoItemType } from '../../models';
-import { signOutSagaAction } from '../../redux/actions/authSagaActions/SignOutSagaAction';
+import { signOutSagaAction } from '../../redux/actions/authSagaActions/signOutSagaAction';
 
 export const UserInfoScreen: FC = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export const UserInfoScreen: FC = () => {
   );
 
   const googleSignOut = () => {
-    dispatch(signOutSagaAction);
+    dispatch(signOutSagaAction());
   };
 
   const todoItems = useSelector<ReduxStoreType, TodoItemType[]>(state => {

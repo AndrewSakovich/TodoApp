@@ -9,7 +9,7 @@ export const LoginScreen: FC = () => {
   const dispatch = useDispatch();
 
   const googleSignIn = () => {
-    dispatch(signInSagaAction);
+    dispatch(signInSagaAction());
   };
 
   return (
