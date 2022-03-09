@@ -7,23 +7,23 @@ import { SignOutButton } from '../../components/SignOutButton';
 import { style } from './style';
 import { TodoItemType } from '../../models';
 import { signOutSagaAction } from '../../redux/actions/authSagaActions/signOutSagaAction';
+import { userSelector } from '../../redux/selectors/userSelector';
+import { todoItemsSelector } from '../../redux/selectors/todoItemsSelector';
 
 export const UserInfoScreen: FC = () => {
   const dispatch = useDispatch();
 
   const userInfo = useSelector<ReduxStoreType, TodoReducerState['user']>(
-    state => {
-      return state.user;
-    },
+    userSelector,
   );
 
   const googleSignOut = () => {
     dispatch(signOutSagaAction());
   };
 
-  const todoItems = useSelector<ReduxStoreType, TodoItemType[]>(state => {
-    return state.todoItems;
-  });
+  const todoItems = useSelector<ReduxStoreType, TodoItemType[]>(
+    todoItemsSelector,
+  );
 
   const numberTask = todoItems.length;
   const numberDoneTask = todoItems.filter(item => {
