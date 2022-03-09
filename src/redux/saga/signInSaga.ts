@@ -7,10 +7,6 @@ import { TodoItemType } from '../../models';
 import { FirebaseDatabaseTypes } from '@react-native-firebase/database';
 
 export function* signInSaga() {
-  const path = () => {
-    return `Users/${userToken}/Todo`;
-  };
-
   const { idToken } = yield GoogleSignin.signIn();
   // Create a Google credential with the token
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
@@ -18,13 +14,14 @@ export function* signInSaga() {
   const { user } = yield auth().signInWithCredential(googleCredential);
 
   const userToken = user.uid;
+  const path = `Users/${userToken}/Todo`;
 
   const usersData: FirebaseDatabaseTypes.DataSnapshot =
     yield createReferenceHelper.ref(`/Users/`).once('value');
   const users = Object.keys(usersData.val() ?? {});
 
   const todoItemsData: FirebaseDatabaseTypes.DataSnapshot =
-    yield createReferenceHelper.ref(path()).once('value');
+    yield createReferenceHelper.ref(path).once('value');
   const todoItems: TodoItemType[] = Object.values(todoItemsData.val() ?? {});
 
   const checkUser = users.find(item => {
