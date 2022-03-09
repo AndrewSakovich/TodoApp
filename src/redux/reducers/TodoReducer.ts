@@ -22,6 +22,13 @@ export const todoReducer = (
   action: any,
 ): TodoReducerState => {
   switch (action.type) {
+    case TodoActionTypes.DATA_ITEMS: {
+      const { todoItems } = action.payload;
+      return {
+        ...state,
+        todoItems,
+      };
+    }
     case TodoActionTypes.ADD_ITEM: {
       const { newItem }: AddItemPayload = action.payload;
 
