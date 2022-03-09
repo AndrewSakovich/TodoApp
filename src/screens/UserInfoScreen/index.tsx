@@ -33,8 +33,8 @@ export const UserInfoScreen: FC = () => {
   const phoneNumber = userInfo?.phoneNumber ?? 'Phone number not provided';
   const nameUser = userInfo?.displayName;
   const emailUser = userInfo?.email;
+  //use ?? because source can not be  null
   const photoUrl = userInfo?.photoURL ?? undefined;
-  // use ?? because source !== null
 
   return (
     <View style={style.container}>
