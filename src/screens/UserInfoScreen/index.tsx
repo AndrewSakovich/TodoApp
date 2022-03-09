@@ -34,6 +34,7 @@ export const UserInfoScreen: FC = () => {
   const nameUser = userInfo?.displayName;
   const emailUser = userInfo?.email;
   const photoUrl = userInfo?.photoURL ?? undefined;
+  // use ?? because source !== null
 
   return (
     <View style={style.container}>
