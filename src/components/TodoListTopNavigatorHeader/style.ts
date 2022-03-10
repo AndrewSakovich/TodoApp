@@ -11,7 +11,6 @@ export const style = StyleSheet.create<TodoListTopNavigatorHeaderStyleType>({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
-    height: 45,
     backgroundColor: COLORS.sapphire,
     justifyContent: 'space-between',
   },
