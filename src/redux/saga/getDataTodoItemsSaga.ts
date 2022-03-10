@@ -8,8 +8,8 @@ import { dataTodoItemsAction } from '../actions/todoActions/dataTodoItemsAction'
 import { GetDataTodoItemsSagaAction } from '../actions/todoSagaActions/getDataTodoItemsSagaAction';
 
 export function* getDataTodoItemsSaga(action: GetDataTodoItemsSagaAction) {
+  const { callback } = action.payload;
   try {
-    const { callback } = action.payload;
     const userToken: SignInPayload['userToken'] = yield select(
       userTokenSelector,
     );

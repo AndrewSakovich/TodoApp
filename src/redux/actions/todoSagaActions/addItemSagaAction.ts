@@ -1,6 +1,6 @@
 import { TodoSagaActions } from './index';
 import { TodoItemType } from '../../../models';
-import { SignInPayload } from '../authActions/successSignInAction';
+import { AuthReducerState } from '../../reducers/authReducer';
 
 export type AddItemSagaAction = {
   type: TodoSagaActions.ADD_ITEM_SAGA;
@@ -9,7 +9,7 @@ export type AddItemSagaAction = {
 
 export type AddItemSagaActionPayload = {
   newItem: TodoItemType;
-  userToken: SignInPayload['userToken'];
+  userToken: AuthReducerState['userToken'];
 };
 
 export const addItemSagaAction = (payload: AddItemSagaActionPayload) => {

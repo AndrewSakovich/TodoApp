@@ -10,13 +10,12 @@ import { useSelector } from 'react-redux';
 import { ReduxStoreType } from '../../redux/store';
 import { LoginScreen } from '../../screens/LoginScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
 
 export const RootStackNavigator: FC = () => {
   const Stack = createNativeStackNavigator<RootStackNavigationParamList>();
 
-  const isSignIn = useSelector<ReduxStoreType>(state => {
-    return state.auth.userToken;
-  });
+  const isSignIn = useSelector<ReduxStoreType>(userTokenSelector);
   return (
     <SafeAreaProvider>
       <NavigationContainer>

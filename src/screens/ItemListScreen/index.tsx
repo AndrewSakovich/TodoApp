@@ -44,6 +44,7 @@ export const ItemListScreen: FC = () => {
       />
     );
   }
+
   return (
     <FlatList
       style={style.container}

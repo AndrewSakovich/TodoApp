@@ -4,7 +4,7 @@ import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 export type AuthReducerState = {
   userToken: FirebaseAuthTypes.User['uid'] | null;
-  user: FirebaseAuthTypes.UserCredential['user'] | undefined;
+  user?: FirebaseAuthTypes.UserCredential['user'];
 };
 
 const initialState: AuthReducerState = {
@@ -27,8 +27,7 @@ export const authReducer = (
     }
     case AuthActionsTypes.SIGN_OUT: {
       return {
-        ...state,
-        userToken: null,
+        ...initialState,
       };
     }
   }
