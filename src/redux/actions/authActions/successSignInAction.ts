@@ -1,5 +1,6 @@
 import { AuthActionsTypes } from './index';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { AuthReducerState } from '../../reducers/authReducer';
 
 export const successSignInAction = (payload: SignInPayload) => {
   return {
@@ -9,8 +10,8 @@ export const successSignInAction = (payload: SignInPayload) => {
 };
 
 export type SignInPayload = {
-  userToken: FirebaseAuthTypes.User['uid'] | null;
-  user: FirebaseAuthTypes.UserCredential['user'] | undefined;
+  userToken: AuthReducerState['userToken'];
+  user: AuthReducerState['user'];
 };
 
 export type SignInAction = {
