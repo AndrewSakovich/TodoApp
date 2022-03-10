@@ -8,15 +8,21 @@ import { dataTodoItemsAction } from '../actions/todoActions/dataTodoItemsAction'
 import { GetDataTodoItemsSagaAction } from '../actions/todoSagaActions/getDataTodoItemsSagaAction';
 
 export function* getDataTodoItemsSaga(action: GetDataTodoItemsSagaAction) {
-  const { setLoading } = action.payload;
-  const userToken: SignInPayload['userToken'] = yield select(userTokenSelector);
+  try {
+    const { setLoading } = action.payload;
+    const userToken: SignInPayload['userToken'] = yield select(
+      userTokenSelector,
+    );
 
-  const path = `Users/${userToken}/Todo`;
+    const path = `Users/${userToken}/Todo`;
 
-  const todoItemsData: FirebaseDatabaseTypes.DataSnapshot =
-    yield createReferenceHelper.ref(path).once('value');
-  const todoItems: TodoItemType[] = Object.values(todoItemsData.val() ?? {});
+    const todoItemsData: FirebaseDatabaseTypes.DataSnapshot =
+      yield createReferenceHelper.ref(path).once('value');
+    const todoItems: TodoItemType[] = Object.values(todoItemsData.val() ?? {});
 
-  yield put(dataTodoItemsAction({ todoItems }));
-  yield setLoading(false);
+    yield put(dataTodoItemsAction({ todoItems }));
+    yield setLoading(false);
+  } catch (error) {
+    console.error(error);
+  }
 }

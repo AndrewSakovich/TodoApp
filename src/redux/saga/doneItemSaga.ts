@@ -6,9 +6,12 @@ import { SignInPayload } from '../actions/authActions/successSignInAction';
 import { DoneItemSagaAction } from '../actions/todoSagaActions/doneItemSagaAction';
 
 export function* doneItemSaga(action: DoneItemSagaAction) {
-  const userToken: SignInPayload['userToken'] = yield select(userTokenSelector);
   const { id, isDone } = action.payload;
   try {
+    const userToken: SignInPayload['userToken'] = yield select(
+      userTokenSelector,
+    );
+
     yield firebase
       .app()
       .database(
