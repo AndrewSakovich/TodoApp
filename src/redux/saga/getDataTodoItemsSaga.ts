@@ -5,8 +5,10 @@ import { SignInPayload } from '../actions/authActions/successSignInAction';
 import { put, select } from 'redux-saga/effects';
 import { userTokenSelector } from '../selectors/userTokenSelector';
 import { dataTodoItemsAction } from '../actions/todoActions/dataTodoItemsAction';
+import { GetDataTodoItemsSagaAction } from '../actions/todoSagaActions/getDataTodoItemsSagaAction';
 
-export function* getDataTodoItemsSaga() {
+export function* getDataTodoItemsSaga(action: GetDataTodoItemsSagaAction) {
+  const { setLoading } = action.payload;
   const userToken: SignInPayload['userToken'] = yield select(userTokenSelector);
 
   const path = `Users/${userToken}/Todo`;
@@ -15,5 +17,6 @@ export function* getDataTodoItemsSaga() {
     yield createReferenceHelper.ref(path).once('value');
   const todoItems: TodoItemType[] = Object.values(todoItemsData.val() ?? {});
 
-  put(dataTodoItemsAction({ todoItems }));
+  yield put(dataTodoItemsAction({ todoItems }));
+  yield setLoading(false);
 }
