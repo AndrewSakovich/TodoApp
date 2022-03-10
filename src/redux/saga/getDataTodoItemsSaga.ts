@@ -9,7 +9,7 @@ import { GetDataTodoItemsSagaAction } from '../actions/todoSagaActions/getDataTo
 
 export function* getDataTodoItemsSaga(action: GetDataTodoItemsSagaAction) {
   try {
-    const { setLoading } = action.payload;
+    const { callback } = action.payload;
     const userToken: SignInPayload['userToken'] = yield select(
       userTokenSelector,
     );
@@ -21,7 +21,7 @@ export function* getDataTodoItemsSaga(action: GetDataTodoItemsSagaAction) {
     const todoItems: TodoItemType[] = Object.values(todoItemsData.val() ?? {});
 
     yield put(dataTodoItemsAction({ todoItems }));
-    yield setLoading(false);
+    yield callback();
   } catch (error) {
     console.error(error);
   }

@@ -1,9 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  ListRenderItem,
-} from 'react-native';
+import { ActivityIndicator, FlatList, ListRenderItem } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { TodoItem } from '../../components/TodoItem';
 import { style } from './style';
@@ -20,8 +16,12 @@ export const ItemListScreen: FC = () => {
   const [isLoading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
+  const callback = () => {
+    setLoading(false);
+  };
+
   useEffect(() => {
-    dispatch(getDataTodoItemsSagaAction({ setLoading }));
+    dispatch(getDataTodoItemsSagaAction({ callback }));
   }, []);
 
   const route = useRoute<TodoListTopNavigationRouteProp>();

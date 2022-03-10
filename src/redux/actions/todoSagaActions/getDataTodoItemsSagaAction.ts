@@ -6,7 +6,7 @@ export type GetDataTodoItemsSagaAction = {
 };
 
 export type GetDataTodoItemsSagaActionPayload = {
-  setLoading: (value: boolean) => void;
+  callback: () => void;
 };
 
 export const getDataTodoItemsSagaAction = (
