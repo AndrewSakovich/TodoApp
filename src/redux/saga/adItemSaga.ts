@@ -2,6 +2,7 @@ import { put } from 'redux-saga/effects';
 import { addItemAction } from '../actions/todoActions/addItemAction';
 import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 import { AddItemSagaAction } from '../actions/todoSagaActions/addItemSagaAction';
+import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
 
 export function* addItemSaga(action: AddItemSagaAction) {
   const { newItem, userToken } = action.payload;
@@ -12,6 +13,6 @@ export function* addItemSaga(action: AddItemSagaAction) {
       .set(newItem);
     yield put(addItemAction({ newItem }));
   } catch (error) {
-    console.error(error);
+    createErrorAlertMessageHelper('Failed to add task');
   }
 }

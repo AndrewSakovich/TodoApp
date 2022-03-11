@@ -4,6 +4,7 @@ import auth from '@react-native-firebase/auth';
 import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 import { successSignInAction } from '../actions/authActions/successSignInAction';
 import { FirebaseDatabaseTypes } from '@react-native-firebase/database';
+import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
 
 export function* signInSaga() {
   try {
@@ -17,7 +18,6 @@ export function* signInSaga() {
     const usersData: FirebaseDatabaseTypes.DataSnapshot =
       yield createReferenceHelper.ref(`/Users/`).once('value');
     const users = Object.keys(usersData.val() ?? {});
-
     const checkUser = users.find(item => {
       return item === userToken;
     });
@@ -32,7 +32,7 @@ export function* signInSaga() {
 
       yield put(successSignInAction({ userToken, user }));
     }
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    createErrorAlertMessageHelper(`${error.message}`, 'Login error');
   }
 }

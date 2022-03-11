@@ -4,6 +4,7 @@ import { firebase } from '@react-native-firebase/database';
 import { userTokenSelector } from '../selectors/userTokenSelector';
 import { SignInPayload } from '../actions/authActions/successSignInAction';
 import { DoneItemSagaAction } from '../actions/todoSagaActions/doneItemSagaAction';
+import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
 
 export function* doneItemSaga(action: DoneItemSagaAction) {
   const { id, isDone } = action.payload;
@@ -11,7 +12,6 @@ export function* doneItemSaga(action: DoneItemSagaAction) {
     const userToken: SignInPayload['userToken'] = yield select(
       userTokenSelector,
     );
-
     yield firebase
       .app()
       .database(
@@ -21,6 +21,6 @@ export function* doneItemSaga(action: DoneItemSagaAction) {
       .update({ isDone: !isDone });
     yield put(doneItemAction({ id }));
   } catch (error) {
-    console.error(error);
+    createErrorAlertMessageHelper('failed update your task');
   }
 }

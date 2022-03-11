@@ -6,6 +6,7 @@ import { put, select } from 'redux-saga/effects';
 import { userTokenSelector } from '../selectors/userTokenSelector';
 import { dataTodoItemsAction } from '../actions/todoActions/dataTodoItemsAction';
 import { GetDataTodoItemsSagaAction } from '../actions/todoSagaActions/getDataTodoItemsSagaAction';
+import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
 
 export function* getDataTodoItemsSaga(action: GetDataTodoItemsSagaAction) {
   const { callback } = action.payload;
@@ -25,6 +26,6 @@ export function* getDataTodoItemsSaga(action: GetDataTodoItemsSagaAction) {
     yield put(dataTodoItemsAction({ todoItems }));
     yield callback();
   } catch (error) {
-    console.error(error);
+    createErrorAlertMessageHelper('field download your Todo List');
   }
 }
