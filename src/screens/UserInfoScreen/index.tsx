@@ -1,69 +1,40 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReduxStoreType } from '../../redux/store';
+import { ReduxStoreType, RootStateType } from '../../redux/store';
 import { Image, Text, View } from 'react-native';
-import { TodoReducerState } from '../../redux/reducers/TodoReducer';
+import { TodoReducerState } from '../../redux/reducers/todoReducer';
 import { SignOutButton } from '../../components/SignOutButton';
 import { style } from './style';
 import { TodoItemType } from '../../models';
-import auth from '@react-native-firebase/auth';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { signOutAction } from '../../redux/actions/todoActions/signOutAction';
-import { firebase } from '@react-native-firebase/database';
-import { SignInPayload } from '../../redux/actions/todoActions/signInAction';
-import { createReferenceHelper } from '../../helpers/createReferenceHelper';
+import { signOutSagaAction } from '../../redux/actions/authSagaActions/signOutSagaAction';
+import { userSelector } from '../../redux/selectors/userSelector';
+import { todoItemsSelector } from '../../redux/selectors/todoItemsSelector';
+import { AuthReducerState } from '../../redux/reducers/authReducer';
 
 export const UserInfoScreen: FC = () => {
-  const [data, setData] = useState<TodoItemType[]>([]);
   const dispatch = useDispatch();
 
-  const path = (userToken: SignInPayload['userToken']) => {
-    return `Users/${userToken}/Todo`;
-  };
-
-  const userInfo = useSelector<ReduxStoreType, TodoReducerState['user']>(
-    state => {
-      return state.user;
-    },
+  const userInfo = useSelector<RootStateType, AuthReducerState['user']>(
+    userSelector,
   );
-  const userToken = userInfo?.uid ?? null;
 
-  useEffect(() => {
-    const data = createReferenceHelper
-      .ref(path(userToken))
-      .on('value', snapshot => {
-        const obj = snapshot.val() ?? {};
-        const arrData: TodoItemType[] = Object.values(obj);
-        setData(arrData);
-      });
-
-    // Stop listening for updates when no longer required
-    return () =>
-      createReferenceHelper.ref(path(userToken)).off('child_added', data);
-  }, []);
-
-  const googleSignOut = async () => {
-    try {
-      await auth().signOut();
-      await GoogleSignin.revokeAccess();
-      dispatch(signOutAction());
-    } catch (error) {
-      console.error(error);
-    }
+  const googleSignOut = () => {
+    dispatch(signOutSagaAction());
   };
 
-  // const todoItems = useSelector<ReduxStoreType, TodoItemType[]>(state => {
-  //   return state.todoItems;
-  // });
+  const todoItems = useSelector<RootStateType, TodoItemType[]>(
+    todoItemsSelector,
+  );
 
-  const numberTask = data.length;
-  const numberDoneTask = data.filter(item => {
+  const numberTask = todoItems.length;
+  const numberDoneTask = todoItems.filter(item => {
     return item.isDone;
   }).length;
 
   const phoneNumber = userInfo?.phoneNumber ?? 'Phone number not provided';
-  const nameUser = userInfo?.displayName ?? undefined;
-  const emailUser = userInfo?.email ?? undefined;
+  const nameUser = userInfo?.displayName;
+  const emailUser = userInfo?.email;
+  //use ?? because source can not be  null
   const photoUrl = userInfo?.photoURL ?? undefined;
 
   return (

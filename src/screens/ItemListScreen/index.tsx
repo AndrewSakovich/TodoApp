@@ -1,68 +1,54 @@
 import React, { FC, useEffect, useState } from 'react';
-import { FlatList, ListRenderItem } from 'react-native';
-import { useSelector } from 'react-redux';
+import { ActivityIndicator, FlatList, ListRenderItem } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { TodoItem } from '../../components/TodoItem';
 import { style } from './style';
 import { TodoListEmptyComponent } from '../../components/TodoListEmptyComponent';
-import { ReduxStoreType } from '../../redux/store';
+import { RootStateType } from '../../redux/store';
 import { TodoItemType } from '../../models';
 import { useRoute } from '@react-navigation/native';
 import { TodoListTopNavigationRouteProp } from '../../navigators/TodoListTopNavigator/type';
-import { firebase } from '@react-native-firebase/database';
-import { SignInPayload } from '../../redux/actions/todoActions/signInAction';
-import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
-import { createReferenceHelper } from '../../helpers/createReferenceHelper';
+import { doneItemsSelectors } from '../../redux/selectors/doneItemsSelector';
+import { getDataTodoItemsSagaAction } from '../../redux/actions/todoSagaActions/getDataTodoItemsSagaAction';
+import { COLORS } from '../../COLORS';
 
 export const ItemListScreen: FC = () => {
-  const [data, setData] = useState<TodoItemType[]>([]);
+  const [isLoading, setLoading] = useState(true);
+
+  const dispatch = useDispatch();
+
   const route = useRoute<TodoListTopNavigationRouteProp>();
-  const userToken = useSelector<ReduxStoreType, SignInPayload['userToken']>(
-    userTokenSelector,
-  );
+
   const flagDone = route.params.isDone;
-  const path = () => {
-    return `Users/${userToken}/Todo`;
-  };
+
+  const data = useSelector<RootStateType, TodoItemType[]>(
+    doneItemsSelectors(flagDone),
+  );
 
   useEffect(() => {
-    const data = createReferenceHelper.ref(path()).on('value', snapshot => {
-      const obj = snapshot.val() ?? {};
-      const arrData: TodoItemType[] = Object.values(obj);
-      setData(arrData);
-    });
-
-    // Stop listening for updates when no longer required
-    return () => createReferenceHelper.ref(path()).off('child_added', data);
+    const callback = () => {
+      setLoading(false);
+    };
+    dispatch(getDataTodoItemsSagaAction({ callback }));
   }, []);
-
-  // const data = useSelector<ReduxStoreType, TodoItemType[]>(
-  //   doneItemsSelectors(flagDone),
-  // );
-
-  const filter = (
-    data: TodoItemType[],
-    flagDone: TodoItemType['isDone'],
-  ): TodoItemType[] => {
-    if (flagDone) {
-      return data.filter(item => {
-        return item.isDone;
-      });
-    }
-
-    return data.filter(item => {
-      return !item.isDone;
-    });
-  };
-  const newData = filter(data, flagDone);
 
   const renderItem: ListRenderItem<TodoItemType> = ({ item }) => {
     return <TodoItem todoItem={item} />;
   };
+  if (isLoading) {
+    return (
+      <ActivityIndicator
+        size="large"
+        color={COLORS.sapphire}
+        style={style.loader}
+      />
+    );
+  }
 
   return (
     <FlatList
       style={style.container}
-      data={newData}
+      data={data}
       renderItem={renderItem}
       ListEmptyComponent={<TodoListEmptyComponent />}
     />

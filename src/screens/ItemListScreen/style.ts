@@ -1,13 +1,18 @@
 import { StyleSheet, ViewStyle } from 'react-native';
-import { COLORS } from '../../COLORS';
 
 type ItemListStyleType = {
   container: ViewStyle;
+  loader: ViewStyle;
 };
 
 export const style = StyleSheet.create<ItemListStyleType>({
   container: {
-    paddingTop: 5,
     flex: 1,
+  },
+  loader: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    transform: [{ scale: 2 }],
   },
 });

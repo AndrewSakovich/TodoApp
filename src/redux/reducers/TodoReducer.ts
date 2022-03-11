@@ -3,18 +3,13 @@ import { AddItemPayload } from '../actions/todoActions/addItemAction';
 import { ItemDeletePayload } from '../actions/todoActions/deleteItemAction';
 import { TodoActionTypes } from '../actions/todoActions';
 import { DoneItemPayload } from '../actions/todoActions/doneItemAction';
-import { SignInPayload } from '../actions/todoActions/signInAction';
 
 export type TodoReducerState = {
   todoItems: TodoItemType[];
-  userToken: SignInPayload['userToken'] | null;
-  user: SignInPayload['user'] | null;
 };
 
 const initialState: TodoReducerState = {
   todoItems: [],
-  userToken: null,
-  user: null,
 };
 
 export const todoReducer = (
@@ -22,6 +17,13 @@ export const todoReducer = (
   action: any,
 ): TodoReducerState => {
   switch (action.type) {
+    case TodoActionTypes.DATA_ITEMS: {
+      const { todoItems } = action.payload;
+      return {
+        ...state,
+        todoItems,
+      };
+    }
     case TodoActionTypes.ADD_ITEM: {
       const { newItem }: AddItemPayload = action.payload;
 
@@ -54,20 +56,6 @@ export const todoReducer = (
       return {
         ...state,
         todoItems: newTodoItems,
-      };
-    }
-    case TodoActionTypes.SIGN_IN: {
-      const { user, userToken }: SignInPayload = action.payload;
-      return {
-        ...state,
-        userToken,
-        user,
-      };
-    }
-    case TodoActionTypes.SIGN_OUT: {
-      return {
-        ...state,
-        userToken: null,
       };
     }
   }
