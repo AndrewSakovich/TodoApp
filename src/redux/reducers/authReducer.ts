@@ -26,9 +26,7 @@ export const authReducer = (
       };
     }
     case AuthActionsTypes.SIGN_OUT: {
-      return {
-        ...initialState,
-      };
+      return initialState;
     }
   }
   return state;
