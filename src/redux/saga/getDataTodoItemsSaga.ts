@@ -18,7 +18,9 @@ export function* getDataTodoItemsSaga(action: GetDataTodoItemsSagaAction) {
 
     const todoItemsData: FirebaseDatabaseTypes.DataSnapshot =
       yield createReferenceHelper.ref(path).once('value');
-    const todoItems: TodoItemType[] = Object.values(todoItemsData.val()) ?? [];
+    const todoItems: TodoItemType[] = todoItemsData.val()
+      ? Object.values(todoItemsData.val())
+      : [];
 
     yield put(dataTodoItemsAction({ todoItems }));
     yield callback();
