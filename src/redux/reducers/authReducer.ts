@@ -1,5 +1,5 @@
 import { AuthActionsTypes } from '../actions/authActions';
-import { SignInPayload } from '../actions/authActions/successSignInAction';
+import { SuccessSignInPayload } from '../actions/authActions/successSignInAction';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 export type AuthReducerState = {
@@ -18,7 +18,7 @@ export const authReducer = (
 ): AuthReducerState => {
   switch (action.type) {
     case AuthActionsTypes.SIGN_IN: {
-      const { user, userToken }: SignInPayload = action.payload;
+      const { user, userToken }: SuccessSignInPayload = action.payload;
       return {
         ...state,
         userToken,

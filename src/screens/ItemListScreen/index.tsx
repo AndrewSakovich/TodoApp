@@ -14,15 +14,8 @@ import { COLORS } from '../../COLORS';
 
 export const ItemListScreen: FC = () => {
   const [isLoading, setLoading] = useState(true);
+
   const dispatch = useDispatch();
-
-  const callback = () => {
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    dispatch(getDataTodoItemsSagaAction({ callback }));
-  }, []);
 
   const route = useRoute<TodoListTopNavigationRouteProp>();
 
@@ -31,6 +24,13 @@ export const ItemListScreen: FC = () => {
   const data = useSelector<RootStateType, TodoItemType[]>(
     doneItemsSelectors(flagDone),
   );
+
+  useEffect(() => {
+    const callback = () => {
+      setLoading(false);
+    };
+    dispatch(getDataTodoItemsSagaAction({ callback }));
+  }, []);
 
   const renderItem: ListRenderItem<TodoItemType> = ({ item }) => {
     return <TodoItem todoItem={item} />;

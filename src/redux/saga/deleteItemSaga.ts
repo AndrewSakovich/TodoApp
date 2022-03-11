@@ -3,11 +3,13 @@ import { deleteItemAction } from '../actions/todoActions/deleteItemAction';
 import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 import { userTokenSelector } from '../selectors/userTokenSelector';
 import { DeleteItemSagaAction } from '../actions/todoSagaActions/deleteItemSagaAction';
-import { SignInPayload } from '../actions/authActions/successSignInAction';
+import { SuccessSignInPayload } from '../actions/authActions/successSignInAction';
 import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
 
 export function* deleteItemSaga(action: DeleteItemSagaAction) {
-  const userToken: SignInPayload['userToken'] = yield select(userTokenSelector);
+  const userToken: SuccessSignInPayload['userToken'] = yield select(
+    userTokenSelector,
+  );
 
   const { id } = action.payload;
   try {
