@@ -3,18 +3,13 @@ import { AddItemPayload } from '../actions/todoActions/addItemAction';
 import { ItemDeletePayload } from '../actions/todoActions/deleteItemAction';
 import { TodoActionTypes } from '../actions/todoActions';
 import { DoneItemPayload } from '../actions/todoActions/doneItemAction';
-import { SuccessSignInPayload } from '../actions/authActions/successSignInAction';
 
 export type TodoReducerState = {
   todoItems: TodoItemType[];
-  userToken: SuccessSignInPayload['userToken'] | null;
-  user: SuccessSignInPayload['user'];
 };
 
 const initialState: TodoReducerState = {
   todoItems: [],
-  userToken: null,
-  user: undefined,
 };
 
 export const todoReducer = (

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TodoItem } from '../../components/TodoItem';
 import { style } from './style';
 import { TodoListEmptyComponent } from '../../components/TodoListEmptyComponent';
-import { ReduxStoreType, RootStateType } from '../../redux/store';
+import { RootStateType } from '../../redux/store';
 import { TodoItemType } from '../../models';
 import { useRoute } from '@react-navigation/native';
 import { TodoListTopNavigationRouteProp } from '../../navigators/TodoListTopNavigator/type';
