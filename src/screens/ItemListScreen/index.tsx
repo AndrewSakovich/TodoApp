@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TodoItem } from '../../components/TodoItem';
 import { style } from './style';
 import { TodoListEmptyComponent } from '../../components/TodoListEmptyComponent';
-import { ReduxStoreType } from '../../redux/store';
+import { ReduxStoreType, RootStateType } from '../../redux/store';
 import { TodoItemType } from '../../models';
 import { useRoute } from '@react-navigation/native';
 import { TodoListTopNavigationRouteProp } from '../../navigators/TodoListTopNavigator/type';
@@ -28,7 +28,7 @@ export const ItemListScreen: FC = () => {
 
   const flagDone = route.params.isDone;
 
-  const data = useSelector<ReduxStoreType, TodoItemType[]>(
+  const data = useSelector<RootStateType, TodoItemType[]>(
     doneItemsSelectors(flagDone),
   );
 

@@ -15,4 +15,6 @@ const sagaMiddleware = createSagaMiddleware();
 export const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 export const persistor = persistStore(store);
 
+export type RootStateType = ReturnType<typeof store.getState>;
+
 sagaMiddleware.run(rootWatcher);

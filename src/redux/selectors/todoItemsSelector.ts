@@ -1,5 +1,5 @@
-import { ReduxStoreType } from '../store';
+import { RootStateType } from '../store';
 
-export const todoItemsSelector = (state: ReduxStoreType) => {
+export const todoItemsSelector = (state: RootStateType) => {
   return state.todo.todoItems;
 };

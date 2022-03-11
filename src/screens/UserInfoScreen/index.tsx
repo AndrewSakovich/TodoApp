@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReduxStoreType } from '../../redux/store';
+import { ReduxStoreType, RootStateType } from '../../redux/store';
 import { Image, Text, View } from 'react-native';
 import { TodoReducerState } from '../../redux/reducers/todoReducer';
 import { SignOutButton } from '../../components/SignOutButton';
@@ -9,11 +9,12 @@ import { TodoItemType } from '../../models';
 import { signOutSagaAction } from '../../redux/actions/authSagaActions/signOutSagaAction';
 import { userSelector } from '../../redux/selectors/userSelector';
 import { todoItemsSelector } from '../../redux/selectors/todoItemsSelector';
+import { AuthReducerState } from '../../redux/reducers/authReducer';
 
 export const UserInfoScreen: FC = () => {
   const dispatch = useDispatch();
 
-  const userInfo = useSelector<ReduxStoreType, TodoReducerState['user']>(
+  const userInfo = useSelector<RootStateType, AuthReducerState['user']>(
     userSelector,
   );
 
@@ -21,7 +22,7 @@ export const UserInfoScreen: FC = () => {
     dispatch(signOutSagaAction());
   };
 
-  const todoItems = useSelector<ReduxStoreType, TodoItemType[]>(
+  const todoItems = useSelector<RootStateType, TodoItemType[]>(
     todoItemsSelector,
   );
 

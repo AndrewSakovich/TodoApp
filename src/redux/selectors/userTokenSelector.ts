@@ -1,5 +1,5 @@
-import { ReduxStoreType } from '../store';
+import { RootStateType } from '../store';
 
-export const userTokenSelector = (state: ReduxStoreType) => {
+export const userTokenSelector = (state: RootStateType) => {
   return state.auth.userToken;
 };

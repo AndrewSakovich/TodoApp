@@ -7,7 +7,7 @@ import { COLORS } from '../../COLORS';
 import { RootStackNavigationParamList } from './type';
 import { NAMESCREEN } from '../nameScreen';
 import { useSelector } from 'react-redux';
-import { ReduxStoreType } from '../../redux/store';
+import {ReduxStoreType, RootStateType} from '../../redux/store';
 import { LoginScreen } from '../../screens/LoginScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
@@ -15,7 +15,7 @@ import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
 export const RootStackNavigator: FC = () => {
   const Stack = createNativeStackNavigator<RootStackNavigationParamList>();
 
-  const isSignIn = useSelector<ReduxStoreType>(userTokenSelector);
+  const isSignIn = useSelector<RootStateType>(userTokenSelector);
   return (
     <SafeAreaProvider>
       <NavigationContainer>
