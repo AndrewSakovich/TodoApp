@@ -12,11 +12,13 @@ export const LoginScreen: FC = () => {
   const googleObject = {
     signInMethod: () => dispatch(googleSignInSagaAction()),
     title: 'Sign in with Google',
+    typeStyle: 'google',
   };
 
   const fbObject = {
     signInMethod: () => dispatch(fbSignInSagaAction()),
     title: 'Sign in with Facebook',
+    typeStyle: 'fb',
   };
 
   return (

@@ -1,16 +1,21 @@
 import React, { FC } from 'react';
-import { style } from './style';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { SignInButtonPropsType } from './type';
+import { style } from './style';
 
 export const SignInButton: FC<SignInButtonPropsType> = props => {
   const { signIn } = props;
 
+  const textStyle = () => {
+    if (signIn.typeStyle === 'google') {
+      return style.fontGoogle;
+    }
+    return style.fontFb;
+  };
+
   return (
-    <View style={style.container}>
-      <TouchableOpacity style={style.btn} onPress={signIn.signInMethod}>
-        <Text style={style.font}>{signIn.title}</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity onPress={signIn.signInMethod}>
+      <Text style={textStyle()}>{signIn.title}</Text>
+    </TouchableOpacity>
   );
 };

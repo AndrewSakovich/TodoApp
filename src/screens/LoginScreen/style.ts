@@ -5,9 +5,8 @@ type LoginScreenStylesType = {
 };
 export const style = StyleSheet.create<LoginScreenStylesType>({
   container: {
-    padding: 10,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

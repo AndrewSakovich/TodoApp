@@ -1,25 +1,18 @@
-import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { StyleSheet, TextStyle } from 'react-native';
 import { COLORS } from '../../COLORS';
 
 type SignInButtonStyle = {
-  container: ViewStyle;
-  btn: ViewStyle;
-  font: TextStyle;
+  fontGoogle: TextStyle;
+  fontFb: TextStyle;
 };
 
 export const style = StyleSheet.create<SignInButtonStyle>({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  fontGoogle: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    color: COLORS.sapphire,
   },
-  btn: {
-    padding: 8,
-    borderWidth: 1,
-    borderRadius: 8,
-    borderColor: COLORS.sapphire,
-  },
-  font: {
+  fontFb: {
     fontWeight: 'bold',
     fontSize: 24,
     color: COLORS.sapphire,

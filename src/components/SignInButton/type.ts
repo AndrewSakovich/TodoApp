@@ -1,9 +1,8 @@
-import { Dispatch } from 'redux';
-
 export type SignInButtonPropsType = {
   signIn: SignInType;
 };
 type SignInType = {
-  signInMethod: any;
+  signInMethod(): void;
   title: string;
+  typeStyle: string;
 };
