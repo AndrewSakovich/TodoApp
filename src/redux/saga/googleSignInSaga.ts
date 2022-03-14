@@ -9,7 +9,7 @@ import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMes
 export function* googleSignInSaga() {
   try {
     const { idToken } = yield GoogleSignin.signIn();
-    // Create a Google credential with the token
+    // Create a Google credential with the accessToken
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
     // Sign-in the user with the credential
     const { user } = yield auth().signInWithCredential(googleCredential);

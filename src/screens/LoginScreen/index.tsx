@@ -3,18 +3,26 @@ import { View } from 'react-native';
 import { style } from './style';
 import { SignInButton } from '../../components/SignInButton';
 import { useDispatch } from 'react-redux';
-import { signInSagaAction } from '../../redux/actions/authSagaActions/signInSagaAction';
+import { googleSignInSagaAction } from '../../redux/actions/authSagaActions/googleSignInSagaAction';
+import { fbSignInSagaAction } from '../../redux/actions/authSagaActions/fbSignInSagaAction';
 
 export const LoginScreen: FC = () => {
   const dispatch = useDispatch();
 
-  const googleSignIn = () => {
-    dispatch(signInSagaAction());
+  const googleObject = {
+    signInMethod: () => dispatch(googleSignInSagaAction()),
+    title: 'Sign in with Google',
+  };
+
+  const fbObject = {
+    signInMethod: () => dispatch(fbSignInSagaAction()),
+    title: 'Sign in with Facebook',
   };
 
   return (
     <View style={style.container}>
-      <SignInButton googleSignIn={googleSignIn} />
+      <SignInButton signIn={googleObject} />
+      <SignInButton signIn={fbObject} />
     </View>
   );
 };
