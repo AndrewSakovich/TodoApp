@@ -4,5 +4,5 @@ export type SignInButtonPropsType = {
 type SignInType = {
   signInMethod(): void;
   title: string;
-  typeStyle: string;
+  typeStyle: boolean;
 };

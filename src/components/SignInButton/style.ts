@@ -10,11 +10,13 @@ export const style = StyleSheet.create<SignInButtonStyle>({
   fontGoogle: {
     fontWeight: 'bold',
     fontSize: 24,
-    color: COLORS.sapphire,
+    color: COLORS.punch,
+    padding: 10,
   },
   fontFb: {
     fontWeight: 'bold',
     fontSize: 24,
-    color: COLORS.sapphire,
+    color: COLORS.sanMarino,
+    padding: 10,
   },
 });

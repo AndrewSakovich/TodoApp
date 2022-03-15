@@ -4,7 +4,10 @@ import { style } from './style';
 import { SignInButton } from '../../components/SignInButton';
 import { useDispatch } from 'react-redux';
 import { googleSignInSagaAction } from '../../redux/actions/authSagaActions/googleSignInSagaAction';
-import { fbSignInSagaAction } from '../../redux/actions/authSagaActions/fbSignInSagaAction';
+import { facebookSignInSagaAction } from '../../redux/actions/authSagaActions/facebookSignInSagaAction';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faFacebook, faGooglePlusG } from '@fortawesome/free-brands-svg-icons';
+import { COLORS } from '../../COLORS';
 
 export const LoginScreen: FC = () => {
   const dispatch = useDispatch();
@@ -12,19 +15,25 @@ export const LoginScreen: FC = () => {
   const googleObject = {
     signInMethod: () => dispatch(googleSignInSagaAction()),
     title: 'Sign in with Google',
-    typeStyle: 'google',
+    typeStyle: true,
   };
 
-  const fbObject = {
-    signInMethod: () => dispatch(fbSignInSagaAction()),
+  const facebookObject = {
+    signInMethod: () => dispatch(facebookSignInSagaAction()),
     title: 'Sign in with Facebook',
-    typeStyle: 'fb',
+    typeStyle: false,
   };
 
   return (
     <View style={style.container}>
-      <SignInButton signIn={googleObject} />
-      <SignInButton signIn={fbObject} />
+      <View style={style.googleButton}>
+        <SignInButton signIn={googleObject} />
+        <FontAwesomeIcon icon={faGooglePlusG} size={30} color={COLORS.punch} />
+      </View>
+      <View style={style.facebookButton}>
+        <SignInButton signIn={facebookObject} />
+        <FontAwesomeIcon icon={faFacebook} size={25} color={COLORS.sapphire} />
+      </View>
     </View>
   );
 };

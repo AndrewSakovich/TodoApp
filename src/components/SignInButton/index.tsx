@@ -6,16 +6,10 @@ import { style } from './style';
 export const SignInButton: FC<SignInButtonPropsType> = props => {
   const { signIn } = props;
 
-  const textStyle = () => {
-    if (signIn.typeStyle === 'google') {
-      return style.fontGoogle;
-    }
-    return style.fontFb;
-  };
-
+  const textStyle = signIn.typeStyle ? style.fontGoogle : style.fontFb;
   return (
     <TouchableOpacity onPress={signIn.signInMethod}>
-      <Text style={textStyle()}>{signIn.title}</Text>
+      <Text style={textStyle}>{signIn.title}</Text>
     </TouchableOpacity>
   );
 };
