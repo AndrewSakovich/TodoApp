@@ -6,6 +6,7 @@ import { FirebaseDatabaseTypes } from '@react-native-firebase/database';
 import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 import { put } from 'redux-saga/effects';
 import { successSignInAction } from '../actions/authActions/successSignInAction';
+import { checkFirebaseUsersSagaAction } from '../actions/checkFirebaseUsersSagaAction';
 
 export function* facebookSignInSaga() {
   try {
@@ -19,29 +20,13 @@ export function* facebookSignInSaga() {
     // Create a Firebase credential with the AccessToken
     const facebookCredential =
       auth.FacebookAuthProvider.credential(accessToken);
-    console.log('facebookCredential   ', facebookCredential);
 
     // Sign-in the user with the credential
     yield auth().signInWithCredential(facebookCredential);
     const { user } = yield auth().signInWithCredential(facebookCredential);
     const userToken = user.uid;
-    const usersData: FirebaseDatabaseTypes.DataSnapshot =
-      yield createReferenceHelper.ref(`/Users/`).once('value');
-    const users = Object.keys(usersData.val() ?? {});
-    const checkUser = users.find(item => {
-      return item === userToken;
-    });
 
-    if (checkUser) {
-      yield put(successSignInAction({ userToken, user }));
-    } else {
-      yield createReferenceHelper
-        .ref(`/Users/`)
-        .child(`${userToken}`)
-        .set(userToken);
-
-      yield put(successSignInAction({ userToken, user }));
-    }
+    yield put(checkFirebaseUsersSagaAction({ user, userToken }));
   } catch (error: any) {
     createErrorAlertMessageHelper(error.message);
   }

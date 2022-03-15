@@ -5,6 +5,7 @@ import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 import { successSignInAction } from '../actions/authActions/successSignInAction';
 import { FirebaseDatabaseTypes } from '@react-native-firebase/database';
 import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
+import { checkFirebaseUsersSagaAction } from '../actions/checkFirebaseUsersSagaAction';
 
 export function* googleSignInSaga() {
   try {
@@ -15,23 +16,7 @@ export function* googleSignInSaga() {
     const { user } = yield auth().signInWithCredential(googleCredential);
 
     const userToken = user.uid;
-    const usersData: FirebaseDatabaseTypes.DataSnapshot =
-      yield createReferenceHelper.ref(`/Users/`).once('value');
-    const users = Object.keys(usersData.val() ?? {});
-    const checkUser = users.find(item => {
-      return item === userToken;
-    });
-
-    if (checkUser) {
-      yield put(successSignInAction({ userToken, user }));
-    } else {
-      yield createReferenceHelper
-        .ref(`/Users/`)
-        .child(`${userToken}`)
-        .set(userToken);
-
-      yield put(successSignInAction({ userToken, user }));
-    }
+    yield put(checkFirebaseUsersSagaAction({ user, userToken }));
   } catch (error: any) {
     createErrorAlertMessageHelper(`${error.message}`, 'Login error');
   }
