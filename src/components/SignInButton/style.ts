@@ -3,7 +3,7 @@ import { COLORS } from '../../COLORS';
 
 type SignInButtonStyle = {
   fontGoogle: TextStyle;
-  fontFb: TextStyle;
+  fontFacebook: TextStyle;
 };
 
 export const style = StyleSheet.create<SignInButtonStyle>({
@@ -13,7 +13,7 @@ export const style = StyleSheet.create<SignInButtonStyle>({
     color: COLORS.punch,
     padding: 10,
   },
-  fontFb: {
+  fontFacebook: {
     fontWeight: 'bold',
     fontSize: 24,
     color: COLORS.sanMarino,
