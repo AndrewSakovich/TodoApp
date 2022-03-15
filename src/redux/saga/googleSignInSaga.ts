@@ -1,9 +1,6 @@
 import { put } from 'redux-saga/effects';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
-import { createReferenceHelper } from '../../helpers/createReferenceHelper';
-import { successSignInAction } from '../actions/authActions/successSignInAction';
-import { FirebaseDatabaseTypes } from '@react-native-firebase/database';
 import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
 import { checkFirebaseUsersSagaAction } from '../actions/checkFirebaseUsersSagaAction';
 
