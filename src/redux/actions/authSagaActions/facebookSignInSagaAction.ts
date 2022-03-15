@@ -1,10 +1,10 @@
 import { AuthSagaActions } from './index';
 
-export type FbSignInSagaAction = {
+export type FacebookSignInSagaAction = {
   type: AuthSagaActions.FB_SIGN_IN_SAGA;
 };
 
-export const fbSignInSagaAction = () => {
+export const facebookSignInSagaAction = () => {
   return {
     type: AuthSagaActions.FB_SIGN_IN_SAGA,
   };

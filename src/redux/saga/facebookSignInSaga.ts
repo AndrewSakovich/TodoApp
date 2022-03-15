@@ -7,7 +7,7 @@ import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 import { put } from 'redux-saga/effects';
 import { successSignInAction } from '../actions/authActions/successSignInAction';
 
-export function* fbSignInSaga() {
+export function* facebookSignInSaga() {
   try {
     // Attempt login with permissions
     yield LoginManager.logInWithPermissions(['public_profile', 'email']);
