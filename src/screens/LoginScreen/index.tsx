@@ -27,12 +27,12 @@ export const LoginScreen: FC = () => {
   return (
     <View style={style.container}>
       <View style={style.googleButton}>
-        <SignInButton signIn={googleObject} />
         <FontAwesomeIcon icon={faGooglePlusG} size={30} color={COLORS.punch} />
+        <SignInButton signIn={googleObject} />
       </View>
       <View style={style.facebookButton}>
-        <SignInButton signIn={facebookObject} />
         <FontAwesomeIcon icon={faFacebook} size={25} color={COLORS.sapphire} />
+        <SignInButton signIn={facebookObject} />
       </View>
     </View>
   );
