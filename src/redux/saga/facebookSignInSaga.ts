@@ -15,18 +15,10 @@ export function* facebookSignInSaga() {
     // Once signed in, get the users AccessToken
     const dataToken: AccessTokenMap = yield AccessToken.getCurrentAccessToken();
     const accessToken = dataToken.accessToken;
-    // const user = profileRequest.callback();
-    if (!accessToken) {
-      createErrorAlertMessageHelper(
-        'Something went wrong obtaining access accessToken',
-      );
-    }
 
-    console.log('dataToken', dataToken);
     // Create a Firebase credential with the AccessToken
-    const facebookCredential = auth.FacebookAuthProvider.credential(
-      dataToken.accessToken,
-    );
+    const facebookCredential =
+      auth.FacebookAuthProvider.credential(accessToken);
     console.log('facebookCredential   ', facebookCredential);
 
     // Sign-in the user with the credential
