@@ -1,7 +1,7 @@
-import { AuthSagaActions } from './authSagaActions';
-import { AuthReducerState } from '../reducers/authReducer';
+import { AuthSagaActions } from './index';
+import { AuthReducerState } from '../../reducers/authReducer';
 
-export type CheckFirebaseUsersSagaAction = {
+export type CheckUsersSagaAction = {
   type: AuthSagaActions.CHECK_FIREBASE_USERS_SAGA;
   payload: CheckFirebaseUsersSagaActionPayload;
 };

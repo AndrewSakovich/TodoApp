@@ -3,7 +3,7 @@ import auth from '@react-native-firebase/auth';
 import { AccessTokenMap } from 'react-native-fbsdk-next/src/FBAccessToken';
 import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
 import { put } from 'redux-saga/effects';
-import { checkFirebaseUsersSagaAction } from '../actions/checkFirebaseUsersSagaAction';
+import { checkFirebaseUsersSagaAction } from '../actions/authSagaActions/checkUsersSagaAction';
 
 export function* facebookSignInSaga() {
   try {

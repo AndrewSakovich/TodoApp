@@ -2,7 +2,7 @@ import { put } from 'redux-saga/effects';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
-import { checkFirebaseUsersSagaAction } from '../actions/checkFirebaseUsersSagaAction';
+import { checkFirebaseUsersSagaAction } from '../actions/authSagaActions/checkUsersSagaAction';
 
 export function* googleSignInSaga() {
   try {
