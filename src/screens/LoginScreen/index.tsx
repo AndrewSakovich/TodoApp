@@ -11,11 +11,14 @@ import { COLORS } from '../../COLORS';
 export const LoginScreen: FC = () => {
   const dispatch = useDispatch();
 
+  const fontStyle = style.font;
+  const button = style.button;
+
   const googleObject = {
     signInMethod: () => dispatch(googleSignInSagaAction()),
     title: 'Sign in with Google',
-    styleFont: style.fontGoogle,
-    styleContainer: style.googleButton,
+    styleFont: { ...fontStyle, ...style.fontGoogle },
+    styleContainer: { ...button, ...style.googleButton },
     icon: faGooglePlusG,
     iconColor: COLORS.punch,
   };
@@ -23,17 +26,19 @@ export const LoginScreen: FC = () => {
   const facebookObject = {
     signInMethod: () => dispatch(facebookSignInSagaAction()),
     title: 'Sign in with Facebook',
-    styleFont: style.fontFacebook,
-    styleContainer: style.facebookButton,
+    styleFont: { ...fontStyle, ...style.fontFacebook },
+    styleContainer: {
+      ...button,
+      ...style.facebookButton,
+    },
     icon: faFacebook,
     iconColor: COLORS.sanMarino,
   };
 
   return (
     <View style={style.container}>
-      <SignInButton signIn={googleObject} />
-      <SignInButton signIn={facebookObject} />
-      {/*</View>*/}
+      <SignInButton options={googleObject} />
+      <SignInButton options={facebookObject} />
     </View>
   );
 };

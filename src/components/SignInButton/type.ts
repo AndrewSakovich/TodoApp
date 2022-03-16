@@ -1,18 +1,14 @@
-import { LoginScreenStylesType } from '../../screens/LoginScreen/style';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { TextStyle, ViewStyle } from 'react-native';
 
 export type SignInButtonPropsType = {
-  signIn: SignInType;
+  options: SignInButtonOptionsType;
 };
-type SignInType = {
+type SignInButtonOptionsType = {
   signInMethod(): void;
   title: string;
-  styleFont:
-    | LoginScreenStylesType['fontFacebook']
-    | LoginScreenStylesType['fontGoogle'];
-  styleContainer:
-    | LoginScreenStylesType['googleButton']
-    | LoginScreenStylesType['facebookButton'];
+  styleFont: TextStyle;
+  styleContainer: ViewStyle;
   icon: IconDefinition;
   iconColor: string;
 };
