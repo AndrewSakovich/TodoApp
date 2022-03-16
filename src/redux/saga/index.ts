@@ -8,12 +8,10 @@ import { doneItemSaga } from './doneItemSaga';
 import { deleteItemSaga } from './deleteItemSaga';
 import { getDataTodoItemsSaga } from './getDataTodoItemsSaga';
 import { facebookSignInSaga } from './facebookSignInSaga';
-import { checkUsersSaga } from './checkUsersSaga';
 
 export function* rootWatcher() {
   yield takeLatest(AuthSagaActions.GOOGLE_SIGN_IN_SAGA, googleSignInSaga);
   yield takeLatest(AuthSagaActions.FACEBOOK_SIGN_IN_SAGA, facebookSignInSaga);
-  yield takeLatest(AuthSagaActions.CHECK_FIREBASE_USERS_SAGA, checkUsersSaga);
   yield takeLatest(AuthSagaActions.SIGN_OUT_SAGA, signOutSaga);
   yield takeLatest(TodoSagaActions.ADD_ITEM_SAGA, addItemSaga);
   yield takeLatest(TodoSagaActions.DONE_ITEM_SAGA, doneItemSaga);

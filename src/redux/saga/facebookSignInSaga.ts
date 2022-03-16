@@ -2,8 +2,8 @@ import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
 import auth from '@react-native-firebase/auth';
 import { AccessTokenMap } from 'react-native-fbsdk-next/src/FBAccessToken';
 import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
-import { put } from 'redux-saga/effects';
-import { checkFirebaseUsersSagaAction } from '../actions/authSagaActions/checkUsersSagaAction';
+import { put, call } from 'redux-saga/effects';
+import { checkUsersSaga } from './checkUsersSaga';
 
 export function* facebookSignInSaga() {
   try {
@@ -23,8 +23,7 @@ export function* facebookSignInSaga() {
     const { user } = yield auth().signInWithCredential(facebookCredential);
 
     const userToken = user.uid;
-
-    yield put(checkFirebaseUsersSagaAction({ user, userToken }));
+    yield call(checkUsersSaga, userToken, user);
   } catch (error: any) {
     createErrorAlertMessageHelper(error.message);
   }

@@ -2,10 +2,18 @@ import { FirebaseDatabaseTypes } from '@react-native-firebase/database';
 import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 import { put } from 'redux-saga/effects';
 import { successSignInAction } from '../actions/authActions/successSignInAction';
-import { CheckUsersSagaAction } from '../actions/authSagaActions/checkUsersSagaAction';
+import { AuthReducerState } from '../reducers/authReducer';
 
-export function* checkUsersSaga(action: CheckUsersSagaAction) {
-  const { userToken, user } = action.payload;
+export type CheckUsersSagaType = {
+  userToken: AuthReducerState['userToken'];
+  user: AuthReducerState['user'];
+};
+
+export function* checkUsersSaga(
+  userToken: CheckUsersSagaType['userToken'],
+  user: CheckUsersSagaType['user'],
+) {
+  console.log(userToken);
   const usersData: FirebaseDatabaseTypes.DataSnapshot =
     yield createReferenceHelper.ref(`/Users/`).once('value');
   const users = Object.keys(usersData.val() ?? {});

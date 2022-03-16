@@ -1,8 +1,8 @@
-import { put } from 'redux-saga/effects';
+import { call } from 'redux-saga/effects';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
-import { checkFirebaseUsersSagaAction } from '../actions/authSagaActions/checkUsersSagaAction';
+import { checkUsersSaga } from './checkUsersSaga';
 
 export function* googleSignInSaga() {
   try {
@@ -13,7 +13,7 @@ export function* googleSignInSaga() {
     const { user } = yield auth().signInWithCredential(googleCredential);
 
     const userToken = user.uid;
-    yield put(checkFirebaseUsersSagaAction({ user, userToken }));
+    yield call(checkUsersSaga, userToken, user);
   } catch (error: any) {
     createErrorAlertMessageHelper(`${error.message}`, 'Login error');
   }
