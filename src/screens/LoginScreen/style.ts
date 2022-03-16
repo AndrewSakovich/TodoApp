@@ -1,12 +1,12 @@
-import { StyleSheet, ViewStyle } from 'react-native';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import { COLORS } from '../../COLORS';
 
 export type LoginScreenStylesType = {
   container: ViewStyle;
   googleButton: ViewStyle;
   facebookButton: ViewStyle;
-  fontFacebook: ViewStyle;
-  fontGoogle: ViewStyle;
+  fontFacebook: TextStyle;
+  fontGoogle: TextStyle;
 };
 export const style = StyleSheet.create<LoginScreenStylesType>({
   container: {
