@@ -1,13 +1,42 @@
-import { StyleSheet, ViewStyle } from 'react-native';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { COLORS } from '../../COLORS';
 
-type LoginScreenStylesType = {
+export type LoginScreenStylesType = {
   container: ViewStyle;
+  button: ViewStyle;
+  googleButton: ViewStyle;
+  facebookButton: ViewStyle;
+  fontFacebook: TextStyle;
+  fontGoogle: TextStyle;
+  font: TextStyle;
 };
 export const style = StyleSheet.create<LoginScreenStylesType>({
   container: {
-    padding: 10,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  googleButton: {
+    backgroundColor: COLORS.dawnPink,
+  },
+  facebookButton: {
+    backgroundColor: COLORS.catskillWhite,
+  },
+  font: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    padding: 10,
+  },
+  fontGoogle: {
+    color: COLORS.punch,
+  },
+  fontFacebook: {
+    color: COLORS.sanMarino,
   },
 });

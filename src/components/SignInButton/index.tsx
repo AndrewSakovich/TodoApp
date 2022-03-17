@@ -1,17 +1,21 @@
 import React, { FC } from 'react';
-import { style } from './style';
-import { StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { SignInButtonPropsType } from './type';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 export const SignInButton: FC<SignInButtonPropsType> = props => {
-  const { googleSignIn } = props;
+  const { options } = props;
 
   return (
-    <View style={style.container}>
-      <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
-      <TouchableOpacity style={style.btn} onPress={googleSignIn}>
-        <Text style={style.font}>{'Google Sign In'}</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      style={options.styleContainer}
+      onPress={options.signInMethod}>
+      <FontAwesomeIcon
+        icon={options.icon}
+        size={30}
+        color={options.iconColor}
+      />
+      <Text style={options.styleFont}>{options.title}</Text>
+    </TouchableOpacity>
   );
 };
