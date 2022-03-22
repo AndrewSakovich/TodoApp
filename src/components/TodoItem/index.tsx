@@ -9,7 +9,7 @@ import PushNotification from 'react-native-push-notification';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
   const {
-    todoItem: { id, text, isDone },
+    todoItem: { id, text, isDone, notificationId },
   } = props;
 
   const dispatch = useDispatch();
@@ -17,12 +17,14 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
   const textStyle = isDone ? style.doneText : style.text;
 
   const onPressDone = () => {
-    PushNotification.cancelLocalNotification(id);
+    PushNotification.cancelLocalNotification(`${notificationId}`);
 
     dispatch(doneItemSagaAction({ id, isDone }));
   };
 
   const onPressDelete = () => {
+    PushNotification.cancelLocalNotification(`${notificationId}`);
+
     Alert.alert('Delete task', 'Are you sure?', [
       {
         text: 'Cancel',

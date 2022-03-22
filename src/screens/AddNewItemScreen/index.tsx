@@ -11,6 +11,7 @@ import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
 import { addItemSagaAction } from '../../redux/actions/todoSagaActions/addItemSagaAction';
 import { deviceTokenSelector } from '../../redux/selectors/deviceTokenSelector';
 import { createNotificationHelper } from '../../helpers/createNotificationHelper';
+import { createNotificationIdHelper } from '../../helpers/createNotificationIdHelper';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -24,8 +25,7 @@ export const AddNewItemScreen: FC = () => {
 
   const addItem = async (text: TodoItemType['text']) => {
     const newItem = createNewItemHelper(text);
-    const id = newItem.id;
-    createNotificationHelper({ id, channelId, text });
+    createNotificationHelper({ channelId, newItem });
     dispatch(addItemSagaAction({ newItem, userToken }));
   };
 
