@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStoreType, RootStateType } from '../../redux/store';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Button, Image, Text, TouchableOpacity, View } from 'react-native';
 import { TodoReducerState } from '../../redux/reducers/todoReducer';
 import { SignOutButton } from '../../components/SignOutButton';
 import { style } from './style';
@@ -12,23 +12,36 @@ import { todoItemsSelector } from '../../redux/selectors/todoItemsSelector';
 import { AuthReducerState } from '../../redux/reducers/authReducer';
 import messaging from '@react-native-firebase/messaging';
 import PushNotification from 'react-native-push-notification';
+import notifee from '@notifee/react-native';
 
 export const UserInfoScreen: FC = () => {
-  const getDeviceToken = async () => {
-    const token = await messaging().getToken();
-    console.log('token ', token);
-  };
+  // const getDeviceToken = async () => {
+  //   const token = await messaging().getToken();
+  //   console.log('token ', token);
+  //   return token;
+  // };
+
+  async function onDisplayNotification() {
+    // Create a channel
+    const channelId = await notifee.createChannel({
+      id: await messaging().getToken(),
+      name: 'Default Channel',
+    });
+    // Display a notification
+    await notifee.displayNotification({
+      title: 'Notification Title',
+      body: 'Main body content of the notification',
+      android: {
+        channelId,
+      },
+    });
+  }
 
   const notif = async () => {
-    await PushNotification.localNotificationSchedule({
-      channelId: getDeviceToken,
+    return PushNotification.localNotification({
+      channelId: await messaging().getToken(),
       message: 'hello',
       title: 'hello title',
-      date: new Date(Date.now() + 5 * 1000), // in 60 secs
-      allowWhileIdle: false, // (optional) set notification to work while on doze, default: false
-
-      /* Android Only Properties */
-      repeatTime: 1,
     });
   };
 
@@ -38,7 +51,7 @@ export const UserInfoScreen: FC = () => {
 
   useEffect(() => {
     const unsub = messaging().onMessage(getPush);
-    getDeviceToken();
+    // getDeviceToken();
     return unsub;
   }, []);
 
@@ -93,6 +106,14 @@ export const UserInfoScreen: FC = () => {
       <TouchableOpacity onPress={notif}>
         <Text>{'clickk'}</Text>
       </TouchableOpacity>
+      <View>
+        <Button
+          title="Display Notification"
+          onPress={() => {
+            onDisplayNotification();
+          }}
+        />
+      </View>
     </View>
   );
 };
