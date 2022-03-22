@@ -1,8 +1,7 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReduxStoreType, RootStateType } from '../../redux/store';
+import { RootStateType } from '../../redux/store';
 import { Button, Image, Text, TouchableOpacity, View } from 'react-native';
-import { TodoReducerState } from '../../redux/reducers/todoReducer';
 import { SignOutButton } from '../../components/SignOutButton';
 import { style } from './style';
 import { TodoItemType } from '../../models';
@@ -10,51 +9,8 @@ import { signOutSagaAction } from '../../redux/actions/authSagaActions/signOutSa
 import { userSelector } from '../../redux/selectors/userSelector';
 import { todoItemsSelector } from '../../redux/selectors/todoItemsSelector';
 import { AuthReducerState } from '../../redux/reducers/authReducer';
-import messaging from '@react-native-firebase/messaging';
-import PushNotification from 'react-native-push-notification';
-import notifee from '@notifee/react-native';
 
 export const UserInfoScreen: FC = () => {
-  // const getDeviceToken = async () => {
-  //   const token = await messaging().getToken();
-  //   console.log('token ', token);
-  //   return token;
-  // };
-
-  async function onDisplayNotification() {
-    // Create a channel
-    const channelId = await notifee.createChannel({
-      id: await messaging().getToken(),
-      name: 'Default Channel',
-    });
-    // Display a notification
-    await notifee.displayNotification({
-      title: 'Notification Title',
-      body: 'Main body content of the notification',
-      android: {
-        channelId,
-      },
-    });
-  }
-
-  const notif = async () => {
-    return PushNotification.localNotification({
-      channelId: await messaging().getToken(),
-      message: 'hello',
-      title: 'hello title',
-    });
-  };
-
-  const getPush = async message => {
-    console.log(message);
-  };
-
-  useEffect(() => {
-    const unsub = messaging().onMessage(getPush);
-    // getDeviceToken();
-    return unsub;
-  }, []);
-
   const dispatch = useDispatch();
 
   const userInfo = useSelector<RootStateType, AuthReducerState['user']>(
@@ -103,17 +59,6 @@ export const UserInfoScreen: FC = () => {
         </View>
       </View>
       <SignOutButton googleSignOut={googleSignOut} />
-      <TouchableOpacity onPress={notif}>
-        <Text>{'clickk'}</Text>
-      </TouchableOpacity>
-      <View>
-        <Button
-          title="Display Notification"
-          onPress={() => {
-            onDisplayNotification();
-          }}
-        />
-      </View>
     </View>
   );
 };
