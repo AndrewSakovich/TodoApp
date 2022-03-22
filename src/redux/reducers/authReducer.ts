@@ -5,11 +5,13 @@ import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 export type AuthReducerState = {
   userToken: FirebaseAuthTypes.User['uid'] | null;
   user?: FirebaseAuthTypes.UserCredential['user'];
+  deviceToken: string;
 };
 
 const initialState: AuthReducerState = {
   userToken: null,
   user: undefined,
+  deviceToken: '',
 };
 
 export const authReducer = (
@@ -18,11 +20,13 @@ export const authReducer = (
 ): AuthReducerState => {
   switch (action.type) {
     case AuthActionsTypes.SIGN_IN: {
-      const { user, userToken }: SuccessSignInPayload = action.payload;
+      const { user, userToken, deviceToken }: SuccessSignInPayload =
+        action.payload;
       return {
         ...state,
         userToken,
         user,
+        deviceToken,
       };
     }
     case AuthActionsTypes.SIGN_OUT: {
