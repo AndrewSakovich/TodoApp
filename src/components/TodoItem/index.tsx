@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { TodoItemPropsType } from './types';
 import { deleteItemSagaAction } from '../../redux/actions/todoSagaActions/deleteItemSagaAction';
 import { doneItemSagaAction } from '../../redux/actions/todoSagaActions/doneItemSagaAction';
+import PushNotification from 'react-native-push-notification';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
   const {
@@ -16,6 +17,8 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
   const textStyle = isDone ? style.doneText : style.text;
 
   const onPressDone = () => {
+    PushNotification.cancelLocalNotification(id);
+
     dispatch(doneItemSagaAction({ id, isDone }));
   };
 
