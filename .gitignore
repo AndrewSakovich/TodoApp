@@ -61,4 +61,5 @@ buck-out/
 
 /tsconfig.json
 /test.ts
+/package-lock.json
 
