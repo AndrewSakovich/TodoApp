@@ -2,15 +2,15 @@ import PushNotification from 'react-native-push-notification';
 import { AuthReducerState } from '../redux/reducers/authReducer';
 import { TodoItemType } from '../models';
 
-export type CreateNotificationHelperPropsType = {
+export type CreateNotificationHelperDataType = {
   channelId: AuthReducerState['deviceToken'];
   newItem: TodoItemType;
 };
 
 export const createNotificationHelper = (
-  props: CreateNotificationHelperPropsType,
+  notificationData: CreateNotificationHelperDataType,
 ) => {
-  const { channelId, newItem } = props;
+  const { channelId, newItem } = notificationData;
 
   return PushNotification.localNotificationSchedule({
     channelId: channelId,

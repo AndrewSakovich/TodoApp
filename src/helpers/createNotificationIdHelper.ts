@@ -1,3 +1,5 @@
 export const createNotificationIdHelper = () => {
-  return Math.floor(Math.random() * 10000);
+  const id = Date.now().toString().slice(-9);
+  console.log(id);
+  return id;
 };
