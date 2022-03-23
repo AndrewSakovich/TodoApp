@@ -27,7 +27,7 @@ export const AddNewItemScreen: FC = () => {
 
   const addItem = async (text: TodoItemType['text']) => {
     const newItem = createNewItemHelper(text);
-    createNotificationHelper({ channelId, newItem });
+    createNotificationHelper({ channelId, newItem, date });
     dispatch(addItemSagaAction({ newItem, userToken }));
   };
 
@@ -45,7 +45,12 @@ export const AddNewItemScreen: FC = () => {
         value={text}
         selectionColor={COLORS.black}
       />
-      <DatePicker date={date} onDateChange={setDate} />
+      <DatePicker
+        date={date}
+        onDateChange={setDate}
+        minimumDate={date}
+        textColor={COLORS.sapphire}
+      />
       <TouchableOpacity disabled={!text} style={buttonStyle} onPress={onPress}>
         <Text style={style.text}>{'Add new task'}</Text>
       </TouchableOpacity>
