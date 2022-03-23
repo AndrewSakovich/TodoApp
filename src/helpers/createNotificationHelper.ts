@@ -5,18 +5,19 @@ import { TodoItemType } from '../models';
 export type CreateNotificationHelperDataType = {
   channelId: AuthReducerState['deviceToken'];
   newItem: TodoItemType;
+  date: Date;
 };
 
 export const createNotificationHelper = (
   notificationData: CreateNotificationHelperDataType,
 ) => {
-  const { channelId, newItem } = notificationData;
+  const { channelId, newItem, date } = notificationData;
 
   return PushNotification.localNotificationSchedule({
     channelId: channelId,
     id: newItem.notificationId,
     message: `your task: ${newItem.text}, not implemented`,
-    date: new Date(Date.now() + 5 * 1000),
+    date: date,
     allowWhileIdle: false,
     repeatTime: 1,
   });
