@@ -14,10 +14,12 @@ export const style = StyleSheet.create<AddNewItemScreenStyleType>({
   container: {
     padding: 10,
     flexDirection: 'column',
+    alignItems: 'center',
     justifyContent: 'space-between',
     flex: 1,
   },
   button: {
+    width: '100%',
     height: 40,
     backgroundColor: COLORS.sapphire,
     borderStyle: 'solid',
@@ -28,6 +30,7 @@ export const style = StyleSheet.create<AddNewItemScreenStyleType>({
     justifyContent: 'center',
   },
   buttonDis: {
+    width: '100%',
     height: 40,
     backgroundColor: COLORS.silver,
     borderRadius: 5,
