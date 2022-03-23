@@ -11,7 +11,7 @@ import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
 import { addItemSagaAction } from '../../redux/actions/todoSagaActions/addItemSagaAction';
 import { deviceTokenSelector } from '../../redux/selectors/deviceTokenSelector';
 import { createNotificationHelper } from '../../helpers/createNotificationHelper';
-import { createNotificationIdHelper } from '../../helpers/createNotificationIdHelper';
+import DatePicker from 'react-native-date-picker';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -21,6 +21,8 @@ export const AddNewItemScreen: FC = () => {
   const channelId = useSelector(deviceTokenSelector);
 
   const [text, setText] = useState<string>('');
+  const [date, setDate] = useState(new Date());
+
   const buttonStyle = text ? style.button : style.buttonDis;
 
   const addItem = async (text: TodoItemType['text']) => {
@@ -43,6 +45,7 @@ export const AddNewItemScreen: FC = () => {
         value={text}
         selectionColor={COLORS.black}
       />
+      <DatePicker date={date} onDateChange={setDate} />
       <TouchableOpacity disabled={!text} style={buttonStyle} onPress={onPress}>
         <Text style={style.text}>{'Add new task'}</Text>
       </TouchableOpacity>
