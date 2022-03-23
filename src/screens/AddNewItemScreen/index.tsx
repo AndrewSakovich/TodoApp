@@ -48,7 +48,7 @@ export const AddNewItemScreen: FC = () => {
       <DatePicker
         date={date}
         onDateChange={setDate}
-        minimumDate={date}
+        minimumDate={new Date()}
         textColor={COLORS.sapphire}
       />
       <TouchableOpacity disabled={!text} style={buttonStyle} onPress={onPress}>
