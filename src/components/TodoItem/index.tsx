@@ -23,8 +23,6 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
   };
 
   const onPressDelete = () => {
-    PushNotification.cancelLocalNotification(`${notificationId}`);
-
     Alert.alert('Delete task', 'Are you sure?', [
       {
         text: 'Cancel',
@@ -32,6 +30,7 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
       {
         text: 'OK',
         onPress: () => {
+          PushNotification.cancelLocalNotification(`${notificationId}`);
           dispatch(deleteItemSagaAction({ id }));
         },
       },
