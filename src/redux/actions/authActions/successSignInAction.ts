@@ -11,7 +11,7 @@ export const successSignInAction = (payload: SuccessSignInPayload) => {
 export type SuccessSignInPayload = {
   userToken: AuthReducerState['userToken'];
   user: AuthReducerState['user'];
-  deviceToken: string;
+  deviceToken: AuthReducerState['deviceToken'];
 };
 
 export type SuccessSignInAction = {
