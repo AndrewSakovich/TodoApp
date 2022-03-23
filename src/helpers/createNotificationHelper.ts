@@ -13,13 +13,11 @@ export const createNotificationHelper = (
   const { channelId, newItem } = props;
 
   return PushNotification.localNotificationSchedule({
-    //... You can use all the options from localNotifications
     channelId: channelId,
     id: newItem.notificationId,
-    message: `your task: ${newItem.text}, not implemented`, // (required)
-    date: new Date(Date.now() + 5 * 1000), // in 60 secs
-    allowWhileIdle: false, // (optional) set notification to work while on doze, default: false
-
+    message: `your task: ${newItem.text}, not implemented`,
+    date: new Date(Date.now() + 5 * 1000),
+    allowWhileIdle: false,
     repeatTime: 1,
   });
 };
