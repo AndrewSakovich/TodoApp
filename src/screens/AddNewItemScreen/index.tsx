@@ -9,18 +9,23 @@ import { useNavigation } from '@react-navigation/native';
 import { AddNewItemScreenNavigationProps } from './type';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
 import { addItemSagaAction } from '../../redux/actions/todoSagaActions/addItemSagaAction';
+import { deviceTokenSelector } from '../../redux/selectors/deviceTokenSelector';
+import { createNotificationHelper } from '../../helpers/createNotificationHelper';
+import { createNotificationIdHelper } from '../../helpers/createNotificationIdHelper';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
   const dispatch = useDispatch();
 
   const userToken = useSelector(userTokenSelector);
+  const channelId = useSelector(deviceTokenSelector);
 
   const [text, setText] = useState<string>('');
   const buttonStyle = text ? style.button : style.buttonDis;
 
   const addItem = async (text: TodoItemType['text']) => {
     const newItem = createNewItemHelper(text);
+    createNotificationHelper({ channelId, newItem });
     dispatch(addItemSagaAction({ newItem, userToken }));
   };
 

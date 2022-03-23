@@ -1,5 +1,6 @@
 import { TodoItemType } from '../models';
 import { v4 as uuid } from 'uuid';
+import { createNotificationIdHelper } from './createNotificationIdHelper';
 
 export const createNewItemHelper = (
   text: TodoItemType['text'],
@@ -8,5 +9,6 @@ export const createNewItemHelper = (
     id: uuid(),
     text,
     isDone: false,
+    notificationId: createNotificationIdHelper(),
   };
 };

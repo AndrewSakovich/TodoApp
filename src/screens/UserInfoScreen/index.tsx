@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReduxStoreType, RootStateType } from '../../redux/store';
+import { RootStateType } from '../../redux/store';
 import { Image, Text, View } from 'react-native';
-import { TodoReducerState } from '../../redux/reducers/todoReducer';
 import { SignOutButton } from '../../components/SignOutButton';
 import { style } from './style';
 import { TodoItemType } from '../../models';
