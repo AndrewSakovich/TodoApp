@@ -15,6 +15,7 @@ export function* googleSignInSaga() {
     const userToken = user.uid;
     yield call(checkUsersSaga, userToken, user);
   } catch (error: any) {
+    console.log(error);
     createErrorAlertMessageHelper(`${error.message}`, "Login error");
   }
 }

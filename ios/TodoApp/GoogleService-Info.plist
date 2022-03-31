@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>740273410229-7c5n5usel5rat72q3k2c8n902nvjhqqe.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.740273410229-7c5n5usel5rat72q3k2c8n902nvjhqqe</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>740273410229-8sf21c54aaropqni8cm6m7gdukbds1b6.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBZrKgZPO2waECQPXDtZe0qXrJY_8jWxfo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>740273410229</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.reactjs.native.example.TodoApp</string>
+	<key>PROJECT_ID</key>
+	<string>todolistfirebase-cb428</string>
+	<key>STORAGE_BUCKET</key>
+	<string>todolistfirebase-cb428.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:740273410229:ios:c14b7aff349b8359246efc</string>
+	<key>DATABASE_URL</key>
+	<string>https://todolistfirebase-cb428-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>
