@@ -15,7 +15,7 @@ export function* doneItemSaga(action: DoneItemSagaAction) {
     yield firebase
       .app()
       .database(
-        'https://fir-2f0d3-default-rtdb.europe-west1.firebasedatabase.app/',
+        'https://todolistfirebase-cb428-default-rtdb.europe-west1.firebasedatabase.app/',
       )
       .ref(`Users/${userToken}/Todo/${id}`)
       .update({ isDone: !isDone });

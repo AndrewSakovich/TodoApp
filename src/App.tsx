@@ -9,7 +9,7 @@ import SplashScreen from 'react-native-splash-screen';
 
 GoogleSignin.configure({
   webClientId:
-    '222403238077-0v19c0s4j3gtehel6m40u0c90hjjn2gu.apps.googleusercontent.com',
+    '740273410229-9m3gobecp9lkem8at25cmohe0vnke464.apps.googleusercontent.com',
 });
 
 const App: FC = () => {

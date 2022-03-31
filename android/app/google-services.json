@@ -1,42 +1,50 @@
 {
   "project_info": {
-    "project_number": "222403238077",
-    "project_id": "fir-2f0d3",
-    "storage_bucket": "fir-2f0d3.appspot.com"
+    "project_number": "740273410229",
+    "firebase_url": "https://todolistfirebase-cb428-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "todolistfirebase-cb428",
+    "storage_bucket": "todolistfirebase-cb428.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:222403238077:android:078bc2d2ab2a2d38e13fd4",
+        "mobilesdk_app_id": "1:740273410229:android:76f46026f24e7f72246efc",
         "android_client_info": {
-          "package_name": "com.appwithsignin"
+          "package_name": "com.todolist"
         }
       },
       "oauth_client": [
         {
-          "client_id": "222403238077-06hn1jajs0osodoo1htlv78urmd983n5.apps.googleusercontent.com",
+          "client_id": "740273410229-8sf21c54aaropqni8cm6m7gdukbds1b6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.appwithsignin",
-            "certificate_hash": "3c0d6a681513581468e9521fa47615a5766a76a6"
+            "package_name": "com.todolist",
+            "certificate_hash": "5d76558a87301c9e974259f456c9ecc3e309ab87"
           }
         },
         {
-          "client_id": "222403238077-0v19c0s4j3gtehel6m40u0c90hjjn2gu.apps.googleusercontent.com",
+          "client_id": "740273410229-9m3gobecp9lkem8at25cmohe0vnke464.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAodoq6QHnH7cTH74IcsU8_eq1kVvX4dJQ"
+          "current_key": "AIzaSyB5KiqMGikifR1YjMWUUfuZBhcgJmXPyPg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "222403238077-0v19c0s4j3gtehel6m40u0c90hjjn2gu.apps.googleusercontent.com",
+              "client_id": "740273410229-9m3gobecp9lkem8at25cmohe0vnke464.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "740273410229-7c5n5usel5rat72q3k2c8n902nvjhqqe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.TodoApp"
+              }
             }
           ]
         }
