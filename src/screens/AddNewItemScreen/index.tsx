@@ -1,5 +1,5 @@
-import React, { FC, useRef, useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { FC, useState } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { style } from './style';
 import { useDispatch, useSelector } from 'react-redux';
 import { COLORS } from '../../COLORS';
@@ -20,7 +20,6 @@ export const AddNewItemScreen: FC = () => {
 
   const userToken = useSelector(userTokenSelector);
   const channelId = useSelector(deviceTokenSelector);
-  const inputRef = useRef<TextInput>(null);
 
   const [text, setText] = useState<string>('');
   const [date, setDate] = useState(new Date());
@@ -43,15 +42,13 @@ export const AddNewItemScreen: FC = () => {
     setOpen(false);
     setDate(date);
   };
+
   const onCancelDate = () => {
     setOpen(false);
   };
 
   const openDate = () => {
     return setOpen(true);
-  };
-  const openInput = () => {
-    return inputRef.current?.focus();
   };
 
   return (
@@ -63,9 +60,7 @@ export const AddNewItemScreen: FC = () => {
           value={text}
           selectionColor={COLORS.black}
           title={'Add new tack'}
-          onPress={openInput}
           editable={true}
-          inputRef={inputRef}
         />
         <CustomInput
           value={currentDate}
