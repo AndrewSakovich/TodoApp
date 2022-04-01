@@ -38,6 +38,14 @@ export const AddNewItemScreen: FC = () => {
     navigation.goBack();
   };
 
+  const onConfirmDate = (date: Date) => {
+    setOpen(false);
+    setDate(date);
+  };
+  const onCancelDate = () => {
+    setOpen(false);
+  };
+
   return (
     <View style={style.container}>
       <View style={{ width: '100%' }}>
@@ -63,13 +71,8 @@ export const AddNewItemScreen: FC = () => {
         modal
         open={open}
         date={date}
-        onConfirm={date => {
-          setOpen(false);
-          setDate(date);
-        }}
-        onCancel={() => {
-          setOpen(false);
-        }}
+        onConfirm={onConfirmDate}
+        onCancel={onCancelDate}
       />
       <TouchableOpacity disabled={!text} style={buttonStyle} onPress={onPress}>
         <Text style={style.text}>{'Add new task'}</Text>
