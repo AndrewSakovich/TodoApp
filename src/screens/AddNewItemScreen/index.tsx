@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { style } from './style';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,10 +19,12 @@ export const AddNewItemScreen: FC = () => {
 
   const userToken = useSelector(userTokenSelector);
   const channelId = useSelector(deviceTokenSelector);
+  const inputRef = useRef<TextInput | null>(null);
 
   const [text, setText] = useState<string>('');
   const [date, setDate] = useState(new Date());
-
+  const [open, setOpen] = useState<boolean>();
+  const currentDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`;
   const buttonStyle = text ? style.button : style.buttonDis;
 
   const addItem = async (text: TodoItemType['text']) => {
@@ -38,18 +40,36 @@ export const AddNewItemScreen: FC = () => {
 
   return (
     <View style={style.container}>
-      <TextInput
-        style={style.input}
-        placeholder="New task"
-        onChangeText={setText}
-        value={text}
-        selectionColor={COLORS.black}
-      />
+      <View style={{ width: '100%' }}>
+        <TouchableOpacity
+          style={style.input}
+          onPress={() => inputRef.current?.focus()}>
+          <Text>{'Add new task'}</Text>
+          <TextInput
+            ref={inputRef}
+            placeholder="New task"
+            onChangeText={setText}
+            value={text}
+            selectionColor={COLORS.black}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setOpen(true)} style={style.input}>
+          <Text>{'Set the reminder send time'}</Text>
+          <Text>{`${currentDate}`}</Text>
+        </TouchableOpacity>
+      </View>
       <DatePicker
-        date={date}
-        onDateChange={setDate}
         minimumDate={new Date()}
-        textColor={COLORS.sapphire}
+        modal
+        open={open}
+        date={date}
+        onConfirm={date => {
+          setOpen(false);
+          setDate(date);
+        }}
+        onCancel={() => {
+          setOpen(false);
+        }}
       />
       <TouchableOpacity disabled={!text} style={buttonStyle} onPress={onPress}>
         <Text style={style.text}>{'Add new task'}</Text>

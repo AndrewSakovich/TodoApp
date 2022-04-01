@@ -39,13 +39,15 @@ export const style = StyleSheet.create<AddNewItemScreenStyleType>({
     justifyContent: 'center',
   },
   input: {
+    justifyContent: 'center',
     borderWidth: 1,
     borderRadius: 5,
     borderColor: COLORS.sapphire,
     paddingHorizontal: 10,
     width: '100%',
     backgroundColor: COLORS.cararra,
-    height: 40,
+    height: 50,
+    marginTop: 10,
   },
   text: {
     fontSize: 18,
