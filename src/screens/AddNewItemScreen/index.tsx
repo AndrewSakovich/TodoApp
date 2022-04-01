@@ -12,6 +12,7 @@ import { addItemSagaAction } from '../../redux/actions/todoSagaActions/addItemSa
 import { deviceTokenSelector } from '../../redux/selectors/deviceTokenSelector';
 import { createNotificationHelper } from '../../helpers/createNotificationHelper';
 import DatePicker from 'react-native-date-picker';
+import { CustomInput } from '../../components/CustomInput';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -46,25 +47,33 @@ export const AddNewItemScreen: FC = () => {
     setOpen(false);
   };
 
+  const openDate = () => {
+    return setOpen(true);
+  };
+  const openInput = () => {
+    return inputRef.current?.focus();
+  };
+
   return (
     <View style={style.container}>
       <View style={{ width: '100%' }}>
-        <TouchableOpacity
-          style={style.input}
-          onPress={() => inputRef.current?.focus()}>
-          <Text>{'Add new task'}</Text>
-          <TextInput
-            ref={inputRef}
-            placeholder="New task"
-            onChangeText={setText}
-            value={text}
-            selectionColor={COLORS.black}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setOpen(true)} style={style.input}>
-          <Text>{'Set the reminder send time'}</Text>
-          <Text>{`${currentDate}`}</Text>
-        </TouchableOpacity>
+        <CustomInput
+          onChangeText={setText}
+          placeholder={'New task'}
+          value={text}
+          selectionColor={COLORS.black}
+          title={'Add new tack'}
+          onPress={openInput}
+          editable={true}
+          inputRef={inputRef}
+        />
+        <CustomInput
+          value={currentDate}
+          selectionColor={COLORS.black}
+          title={'Set the reminder send time'}
+          editable={false}
+          onPress={openDate}
+        />
       </View>
       <DatePicker
         minimumDate={new Date()}
