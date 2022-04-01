@@ -19,15 +19,15 @@ export const AddNewItemScreen: FC = () => {
 
   const userToken = useSelector(userTokenSelector);
   const channelId = useSelector(deviceTokenSelector);
-  const inputRef = useRef<TextInput | null>(null);
+  const inputRef = useRef<TextInput>(null);
 
   const [text, setText] = useState<string>('');
   const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState<boolean>();
+  const [open, setOpen] = useState<boolean>(false);
   const currentDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`;
   const buttonStyle = text ? style.button : style.buttonDis;
 
-  const addItem = async (text: TodoItemType['text']) => {
+  const addItem = (text: TodoItemType['text']) => {
     const newItem = createNewItemHelper(text);
     createNotificationHelper({ channelId, newItem, date });
     dispatch(addItemSagaAction({ newItem, userToken }));
