@@ -16,6 +16,7 @@ target 'TodoApp' do
     inherit! :complete
     # Pods for testing
   end
+    pod 'FBSDKLoginKit'
 
   # Enables Flipper.
   #
