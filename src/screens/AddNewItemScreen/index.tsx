@@ -56,7 +56,7 @@ export const AddNewItemScreen: FC = () => {
 
   return (
     <View style={style.container}>
-      <View style={{ width: '100%' }}>
+      <View style={style.inputContainer}>
         <CustomInput
           onChangeText={setText}
           placeholder={'New task'}
