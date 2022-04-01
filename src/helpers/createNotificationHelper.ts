@@ -53,7 +53,7 @@ export const createNotificationHelper = (
     channelId: channelId,
     id: newItem.notificationId,
     message: `your task: ${newItem.text}, not implemented`,
-    date: date,
+    date,
     allowWhileIdle: false,
     repeatTime: 1,
   });

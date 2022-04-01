@@ -9,7 +9,6 @@ export type CustomInputPropsType = {
   selectionColor: string;
   title: string;
   onPress?: () => void;
-  editable: boolean;
   inputRef?: MutableRefObject<TextInput | null>;
 };
 

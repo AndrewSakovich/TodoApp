@@ -39,7 +39,7 @@ export const AddNewItemScreen: FC = () => {
   };
 
   const onConfirmDate = (date: Date) => {
-    setOpen(false);
+    onCancelDate();
     setDate(date);
   };
 
@@ -48,7 +48,7 @@ export const AddNewItemScreen: FC = () => {
   };
 
   const openDate = () => {
-    return setOpen(true);
+    setOpen(true);
   };
 
   return (
@@ -60,13 +60,11 @@ export const AddNewItemScreen: FC = () => {
           value={text}
           selectionColor={COLORS.black}
           title={'Add new tack'}
-          editable={true}
         />
         <CustomInput
           value={currentDate}
           selectionColor={COLORS.black}
           title={'Set the reminder send time'}
-          editable={false}
           onPress={openDate}
         />
       </View>
