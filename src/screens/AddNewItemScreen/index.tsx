@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { style } from './style';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewItemHelper } from '../../helpers/createNewItemHelper';
 import { TodoItemType } from '../../models';
@@ -12,6 +11,7 @@ import { deviceTokenSelector } from '../../redux/selectors/deviceTokenSelector';
 import { createNotificationHelper } from '../../helpers/createNotificationHelper';
 import DatePicker from 'react-native-date-picker';
 import { CustomInput } from '../../components/CustomInput';
+import { style } from './style';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -20,7 +20,7 @@ export const AddNewItemScreen: FC = () => {
   const userToken = useSelector(userTokenSelector);
   const channelId = useSelector(deviceTokenSelector);
 
-  const [text, setText] = useState<string>('');
+  const [text, setText] = useState('');
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState<boolean>(false);
   const currentDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`;

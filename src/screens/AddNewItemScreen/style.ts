@@ -6,8 +6,16 @@ type AddNewItemScreenStyleType = {
   button: ViewStyle;
   buttonDis: ViewStyle;
   text: TextStyle;
-  textDis: TextStyle;
   inputContainer: ViewStyle;
+};
+
+const button: ViewStyle = {
+  width: '100%',
+  height: 40,
+  backgroundColor: COLORS.sapphire,
+  borderRadius: 5,
+  alignItems: 'center',
+  justifyContent: 'center',
 };
 
 export const style = StyleSheet.create<AddNewItemScreenStyleType>({
@@ -21,32 +29,13 @@ export const style = StyleSheet.create<AddNewItemScreenStyleType>({
   inputContainer: {
     width: '100%',
   },
-  button: {
-    width: '100%',
-    height: 40,
-    backgroundColor: COLORS.sapphire,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: COLORS.sapphire,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  button,
   buttonDis: {
-    width: '100%',
-    height: 40,
+    ...button,
     backgroundColor: COLORS.silver,
-    borderRadius: 5,
-    borderColor: COLORS.sapphire,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   text: {
     fontSize: 18,
     color: COLORS.white,
-  },
-  textDis: {
-    fontSize: 18,
-    color: COLORS.lemonGrass,
   },
 });
