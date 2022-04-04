@@ -2,7 +2,6 @@ import React, { FC, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { style } from './style';
 import { useDispatch, useSelector } from 'react-redux';
-import { COLORS } from '../../COLORS';
 import { createNewItemHelper } from '../../helpers/createNewItemHelper';
 import { TodoItemType } from '../../models';
 import { useNavigation } from '@react-navigation/native';
@@ -58,12 +57,10 @@ export const AddNewItemScreen: FC = () => {
           onChangeText={setText}
           placeholder={'New task'}
           value={text}
-          selectionColor={COLORS.black}
           title={'Add new tack'}
         />
         <CustomInput
           value={currentDate}
-          selectionColor={COLORS.black}
           title={'Set the reminder send time'}
           onPress={openDate}
         />
