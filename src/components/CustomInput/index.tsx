@@ -1,5 +1,5 @@
 import { Text, TextInput, TouchableOpacity } from 'react-native';
-import { style } from '../../screens/AddNewItemScreen/style';
+import { style } from './style';
 import React, { FC, MutableRefObject, useRef } from 'react';
 
 export type CustomInputPropsType = {

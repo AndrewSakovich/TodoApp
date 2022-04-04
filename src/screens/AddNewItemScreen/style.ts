@@ -5,9 +5,9 @@ type AddNewItemScreenStyleType = {
   container: ViewStyle;
   button: ViewStyle;
   buttonDis: ViewStyle;
-  input: ViewStyle;
   text: TextStyle;
   textDis: TextStyle;
+  inputContainer: ViewStyle;
 };
 
 export const style = StyleSheet.create<AddNewItemScreenStyleType>({
@@ -17,6 +17,9 @@ export const style = StyleSheet.create<AddNewItemScreenStyleType>({
     alignItems: 'center',
     justifyContent: 'space-between',
     flex: 1,
+  },
+  inputContainer: {
+    width: '100%',
   },
   button: {
     width: '100%',
@@ -37,17 +40,6 @@ export const style = StyleSheet.create<AddNewItemScreenStyleType>({
     borderColor: COLORS.sapphire,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  input: {
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: COLORS.sapphire,
-    paddingHorizontal: 10,
-    width: '100%',
-    backgroundColor: COLORS.cararra,
-    height: 50,
-    marginTop: 10,
   },
   text: {
     fontSize: 18,
