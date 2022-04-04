@@ -1,16 +1,7 @@
 import { Text, TextInput, TouchableOpacity } from 'react-native';
 import { style } from './style';
-import React, { FC, MutableRefObject, useRef } from 'react';
-
-export type CustomInputPropsType = {
-  onChangeText?: React.Dispatch<React.SetStateAction<string>>;
-  placeholder?: string;
-  value: string;
-  selectionColor: string;
-  title: string;
-  onPress?: () => void;
-  inputRef?: MutableRefObject<TextInput | null>;
-};
+import React, { FC, useRef } from 'react';
+import { CustomInputPropsType } from './type';
 
 export const CustomInput: FC<CustomInputPropsType> = props => {
   const { onChangeText, placeholder, selectionColor, value, title, onPress } =
