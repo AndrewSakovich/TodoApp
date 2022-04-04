@@ -5,51 +5,37 @@ type AddNewItemScreenStyleType = {
   container: ViewStyle;
   button: ViewStyle;
   buttonDis: ViewStyle;
-  input: ViewStyle;
   text: TextStyle;
-  textDis: TextStyle;
+  inputContainer: ViewStyle;
+};
+
+const button: ViewStyle = {
+  width: '100%',
+  height: 40,
+  backgroundColor: COLORS.sapphire,
+  borderRadius: 5,
+  alignItems: 'center',
+  justifyContent: 'center',
 };
 
 export const style = StyleSheet.create<AddNewItemScreenStyleType>({
   container: {
     padding: 10,
     flexDirection: 'column',
+    alignItems: 'center',
     justifyContent: 'space-between',
     flex: 1,
   },
-  button: {
-    height: 40,
-    backgroundColor: COLORS.sapphire,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: COLORS.sapphire,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonDis: {
-    height: 40,
-    backgroundColor: COLORS.silver,
-    borderRadius: 5,
-    borderColor: COLORS.sapphire,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  input: {
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: COLORS.sapphire,
-    paddingHorizontal: 10,
+  inputContainer: {
     width: '100%',
-    backgroundColor: COLORS.cararra,
-    height: 40,
+  },
+  button,
+  buttonDis: {
+    ...button,
+    backgroundColor: COLORS.silver,
   },
   text: {
     fontSize: 18,
     color: COLORS.white,
-  },
-  textDis: {
-    fontSize: 18,
-    color: COLORS.lemonGrass,
   },
 });

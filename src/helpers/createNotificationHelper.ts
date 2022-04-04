@@ -7,12 +7,13 @@ import PushNotificationIOS from '@react-native-community/push-notification-ios';
 export type CreateNotificationHelperDataType = {
   channelId: AuthReducerState['deviceToken'];
   newItem: TodoItemType;
+  date: Date;
 };
 
 export const createNotificationHelper = (
   notificationData: CreateNotificationHelperDataType,
 ) => {
-  const { channelId, newItem } = notificationData;
+  const { channelId, newItem, date } = notificationData;
 
   if (Platform.OS === 'ios') {
     PushNotification.configure({
@@ -52,7 +53,7 @@ export const createNotificationHelper = (
     channelId: channelId,
     id: newItem.notificationId,
     message: `your task: ${newItem.text}, not implemented`,
-    date: new Date(Date.now() + 5 * 1000),
+    date,
     allowWhileIdle: false,
     repeatTime: 1,
   });
