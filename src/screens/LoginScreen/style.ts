@@ -1,4 +1,4 @@
-import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { ImageStyle, StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import { COLORS } from '../../COLORS';
 
 export type LoginScreenStylesType = {
@@ -9,12 +9,18 @@ export type LoginScreenStylesType = {
   fontFacebook: TextStyle;
   fontGoogle: TextStyle;
   font: TextStyle;
+  img: ImageStyle;
 };
 export const style = StyleSheet.create<LoginScreenStylesType>({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  img: {
+    height: 100,
+    width: 100,
+    margin: 20,
   },
   button: {
     width: '100%',
