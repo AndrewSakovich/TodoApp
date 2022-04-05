@@ -37,10 +37,7 @@ export const LoginScreen: FC = () => {
 
   return (
     <View style={style.container}>
-      <Image
-        style={style.img}
-        source={require('../../../android/app/src/main/res/drawable/todo.png')}
-      />
+      <Image style={style.img} source={require('./todo.png')} />
       <SignInButton options={googleObject} />
       <SignInButton options={facebookObject} />
     </View>

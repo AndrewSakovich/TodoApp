@@ -16,11 +16,12 @@ export const style = StyleSheet.create<LoginScreenStylesType>({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 100,
   },
   img: {
-    height: 100,
-    width: 100,
-    margin: 20,
+    height: 150,
+    width: 150,
+    margin: 50,
   },
   button: {
     width: '100%',
