@@ -13,8 +13,8 @@ export const LoginScreen: FC = () => {
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const callback = (flag: boolean) => {
-    setLoading(flag);
+  const callback = () => {
+    setLoading(false);
   };
   const fontStyle = style.font;
   const button = style.button;
@@ -23,6 +23,7 @@ export const LoginScreen: FC = () => {
 
   const googleObject = {
     signInMethod: () => {
+      setLoading(true);
       dispatch(googleSignInSagaAction({ callback }));
     },
     title: 'Sign in with Google',
@@ -34,6 +35,7 @@ export const LoginScreen: FC = () => {
 
   const facebookObject = {
     signInMethod: () => {
+      setLoading(true);
       dispatch(facebookSignInSagaAction({ callback }));
     },
     title: 'Sign in with Facebook',

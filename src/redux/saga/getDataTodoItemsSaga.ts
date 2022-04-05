@@ -2,7 +2,7 @@ import { FirebaseDatabaseTypes } from '@react-native-firebase/database';
 import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 import { TodoItemType } from '../../models';
 import { SuccessSignInPayload } from '../actions/authActions/successSignInAction';
-import { put, select } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import { userTokenSelector } from '../selectors/userTokenSelector';
 import { setTodoItemsAction } from '../actions/todoActions/setTodoItemsAction';
 import { GetDataTodoItemsSagaAction } from '../actions/todoSagaActions/getDataTodoItemsSagaAction';
@@ -27,6 +27,6 @@ export function* getDataTodoItemsSaga(action: GetDataTodoItemsSagaAction) {
   } catch (error) {
     createErrorAlertMessageHelper('error while loading your Todo List');
   } finally {
-    yield callback();
+    yield call(callback);
   }
 }

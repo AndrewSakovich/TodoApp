@@ -5,7 +5,7 @@ export type GoogleSignInSagaAction = {
   payload: GoogleSignInSagaActionPayload;
 };
 export type GoogleSignInSagaActionPayload = {
-  callback: (flag: boolean) => void;
+  callback: () => void;
 };
 
 export const googleSignInSagaAction = (

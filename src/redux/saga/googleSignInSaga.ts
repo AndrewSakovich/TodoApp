@@ -8,16 +8,15 @@ import { GoogleSignInSagaAction } from '../actions/authSagaActions/googleSignInS
 export function* googleSignInSaga(action: GoogleSignInSagaAction) {
   const { callback } = action.payload;
   try {
-    callback(true);
     const { idToken } = yield GoogleSignin.signIn();
     // Create a Google credential with the accessToken
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
     // Sign-in the user with the credential
     const { user } = yield auth().signInWithCredential(googleCredential);
     const userToken = user.uid;
+    yield call(callback);
     yield call(checkUsersSaga, userToken, user);
   } catch (error: any) {
-    callback(false);
     createErrorAlertMessageHelper(`${error.message}`, 'Login error');
   }
 }
