@@ -7,9 +7,9 @@ import { checkUsersSaga } from './checkUsersSaga';
 import { FacebookSignInSagaAction } from '../actions/authSagaActions/facebookSignInSagaAction';
 
 export function* facebookSignInSaga(action: FacebookSignInSagaAction) {
-  const { setLoading } = action.payload;
+  const { callback } = action.payload;
   try {
-    setLoading(true);
+    callback();
     // Attempt login with permissions
     yield LoginManager.logInWithPermissions(['public_profile', 'email']);
 

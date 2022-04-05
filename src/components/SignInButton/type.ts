@@ -3,6 +3,7 @@ import { TextStyle, ViewStyle } from 'react-native';
 
 export type SignInButtonPropsType = {
   options: SignInButtonOptionsType;
+  disable: boolean;
 };
 type SignInButtonOptionsType = {
   signInMethod(): void;

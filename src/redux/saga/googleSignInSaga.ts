@@ -6,9 +6,9 @@ import { checkUsersSaga } from './checkUsersSaga';
 import { GoogleSignInSagaAction } from '../actions/authSagaActions/googleSignInSagaAction';
 
 export function* googleSignInSaga(action: GoogleSignInSagaAction) {
-  const { setLoading } = action.payload;
+  const { callback } = action.payload;
   try {
-    setLoading(true);
+    callback();
     const { idToken } = yield GoogleSignin.signIn();
     // Create a Google credential with the accessToken
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);

@@ -13,6 +13,9 @@ export const LoginScreen: FC = () => {
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
+  const callback = () => {
+    setLoading(true);
+  };
   const fontStyle = style.font;
   const button = style.button;
 
@@ -20,7 +23,7 @@ export const LoginScreen: FC = () => {
 
   const googleObject = {
     signInMethod: () => {
-      dispatch(googleSignInSagaAction({ setLoading }));
+      dispatch(googleSignInSagaAction({ callback }));
     },
     title: 'Sign in with Google',
     styleFont: { ...fontStyle, ...style.fontGoogle },
@@ -31,7 +34,7 @@ export const LoginScreen: FC = () => {
 
   const facebookObject = {
     signInMethod: () => {
-      dispatch(facebookSignInSagaAction({ setLoading }));
+      dispatch(facebookSignInSagaAction({ callback }));
     },
     title: 'Sign in with Facebook',
     styleFont: { ...fontStyle, ...style.fontFacebook },
@@ -43,13 +46,18 @@ export const LoginScreen: FC = () => {
     iconColor: COLORS.sanMarino,
   };
 
-  return isLoading ? (
-    <SkypeIndicator size={70} color={COLORS.sapphire} />
-  ) : (
+  return (
     <View style={style.container}>
+      {isLoading && (
+        <SkypeIndicator
+          style={style.loader}
+          size={70}
+          color={COLORS.sapphire}
+        />
+      )}
       <Image style={style.img} source={loginScreenImagePath} />
-      <SignInButton options={googleObject} />
-      <SignInButton options={facebookObject} />
+      <SignInButton options={googleObject} disable={isLoading} />
+      <SignInButton options={facebookObject} disable={isLoading} />
     </View>
   );
 };

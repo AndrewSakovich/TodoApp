@@ -10,6 +10,7 @@ export type LoginScreenStylesType = {
   fontGoogle: TextStyle;
   font: TextStyle;
   img: ImageStyle;
+  loader: ViewStyle;
 };
 export const style = StyleSheet.create<LoginScreenStylesType>({
   container: {
@@ -45,5 +46,12 @@ export const style = StyleSheet.create<LoginScreenStylesType>({
   },
   fontFacebook: {
     color: COLORS.sanMarino,
+  },
+  loader: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    zIndex: 1,
   },
 });
