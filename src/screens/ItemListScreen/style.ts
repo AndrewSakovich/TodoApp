@@ -13,6 +13,5 @@ export const style = StyleSheet.create<ItemListStyleType>({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    transform: [{ scale: 2 }],
   },
 });
