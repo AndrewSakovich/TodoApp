@@ -8,13 +8,13 @@ import { facebookSignInSagaAction } from '../../redux/actions/authSagaActions/fa
 import { faFacebook, faGooglePlusG } from '@fortawesome/free-brands-svg-icons';
 import { COLORS } from '../../COLORS';
 
-const img = <Image style={style.img} source={require('./todo.png')} />;
-
 export const LoginScreen: FC = () => {
   const dispatch = useDispatch();
 
   const fontStyle = style.font;
   const button = style.button;
+
+  const loginScreenImagePath = require('./todo.png');
 
   const googleObject = {
     signInMethod: () => dispatch(googleSignInSagaAction()),
@@ -39,7 +39,7 @@ export const LoginScreen: FC = () => {
 
   return (
     <View style={style.container}>
-      {img}
+      <Image style={style.img} source={loginScreenImagePath} />;
       <SignInButton options={googleObject} />
       <SignInButton options={facebookObject} />
     </View>
