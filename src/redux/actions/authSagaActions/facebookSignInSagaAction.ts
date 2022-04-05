@@ -5,7 +5,7 @@ export type FacebookSignInSagaAction = {
   payload: FacebookSignInSagaActionPayload;
 };
 export type FacebookSignInSagaActionPayload = {
-  callback: () => void;
+  callback: (flag: boolean) => void;
 };
 export const facebookSignInSagaAction = (
   payload: FacebookSignInSagaActionPayload,

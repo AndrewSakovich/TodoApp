@@ -9,7 +9,7 @@ import { FacebookSignInSagaAction } from '../actions/authSagaActions/facebookSig
 export function* facebookSignInSaga(action: FacebookSignInSagaAction) {
   const { callback } = action.payload;
   try {
-    callback();
+    callback(true);
     // Attempt login with permissions
     yield LoginManager.logInWithPermissions(['public_profile', 'email']);
 
@@ -28,6 +28,7 @@ export function* facebookSignInSaga(action: FacebookSignInSagaAction) {
     const userToken = user.uid;
     yield call(checkUsersSaga, userToken, user);
   } catch (error: any) {
+    callback(false);
     createErrorAlertMessageHelper(error.message);
   }
 }

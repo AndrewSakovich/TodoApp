@@ -13,8 +13,8 @@ export const LoginScreen: FC = () => {
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const callback = () => {
-    setLoading(true);
+  const callback = (flag: boolean) => {
+    setLoading(flag);
   };
   const fontStyle = style.font;
   const button = style.button;
