@@ -39,7 +39,7 @@ export const LoginScreen: FC = () => {
 
   return (
     <View style={style.container}>
-      <Image style={style.img} source={loginScreenImagePath} />;
+      <Image style={style.img} source={loginScreenImagePath} />
       <SignInButton options={googleObject} />
       <SignInButton options={facebookObject} />
     </View>
