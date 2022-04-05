@@ -7,7 +7,7 @@ import { COLORS } from '../../COLORS';
 import { RootStackNavigationParamList } from './type';
 import { NAMESCREEN } from '../nameScreen';
 import { useSelector } from 'react-redux';
-import {ReduxStoreType, RootStateType} from '../../redux/store';
+import { RootStateType } from '../../redux/store';
 import { LoginScreen } from '../../screens/LoginScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
