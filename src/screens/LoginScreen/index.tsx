@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Image, View } from 'react-native';
 import { style } from './style';
 import { SignInButton } from '../../components/SignInButton';
@@ -7,8 +7,10 @@ import { googleSignInSagaAction } from '../../redux/actions/authSagaActions/goog
 import { facebookSignInSagaAction } from '../../redux/actions/authSagaActions/facebookSignInSagaAction';
 import { faFacebook, faGooglePlusG } from '@fortawesome/free-brands-svg-icons';
 import { COLORS } from '../../COLORS';
+import { SkypeIndicator } from 'react-native-indicators';
 
 export const LoginScreen: FC = () => {
+  const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const fontStyle = style.font;
@@ -17,7 +19,9 @@ export const LoginScreen: FC = () => {
   const loginScreenImagePath = require('./todo.png');
 
   const googleObject = {
-    signInMethod: () => dispatch(googleSignInSagaAction()),
+    signInMethod: () => {
+      dispatch(googleSignInSagaAction({ setLoading }));
+    },
     title: 'Sign in with Google',
     styleFont: { ...fontStyle, ...style.fontGoogle },
     styleContainer: { ...button, ...style.googleButton },
@@ -26,7 +30,9 @@ export const LoginScreen: FC = () => {
   };
 
   const facebookObject = {
-    signInMethod: () => dispatch(facebookSignInSagaAction()),
+    signInMethod: () => {
+      dispatch(facebookSignInSagaAction({ setLoading }));
+    },
     title: 'Sign in with Facebook',
     styleFont: { ...fontStyle, ...style.fontFacebook },
     styleContainer: {
@@ -37,7 +43,9 @@ export const LoginScreen: FC = () => {
     iconColor: COLORS.sanMarino,
   };
 
-  return (
+  return isLoading ? (
+    <SkypeIndicator size={70} color={COLORS.sapphire} />
+  ) : (
     <View style={style.container}>
       <Image style={style.img} source={loginScreenImagePath} />
       <SignInButton options={googleObject} />
