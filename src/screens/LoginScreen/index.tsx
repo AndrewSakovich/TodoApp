@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { View } from 'react-native';
+import { Image, View } from 'react-native';
 import { style } from './style';
 import { SignInButton } from '../../components/SignInButton';
 import { useDispatch } from 'react-redux';
@@ -13,6 +13,8 @@ export const LoginScreen: FC = () => {
 
   const fontStyle = style.font;
   const button = style.button;
+
+  const loginScreenImagePath = require('./todo.png');
 
   const googleObject = {
     signInMethod: () => dispatch(googleSignInSagaAction()),
@@ -37,6 +39,7 @@ export const LoginScreen: FC = () => {
 
   return (
     <View style={style.container}>
+      <Image style={style.img} source={loginScreenImagePath} />;
       <SignInButton options={googleObject} />
       <SignInButton options={facebookObject} />
     </View>
