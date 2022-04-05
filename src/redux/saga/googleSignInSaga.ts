@@ -3,9 +3,12 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
 import { checkUsersSaga } from './checkUsersSaga';
+import { GoogleSignInSagaAction } from '../actions/authSagaActions/googleSignInSagaAction';
 
-export function* googleSignInSaga() {
+export function* googleSignInSaga(action: GoogleSignInSagaAction) {
+  const { setLoading } = action.payload;
   try {
+    setLoading(true);
     const { idToken } = yield GoogleSignin.signIn();
     // Create a Google credential with the accessToken
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);

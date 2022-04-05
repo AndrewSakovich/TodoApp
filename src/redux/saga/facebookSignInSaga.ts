@@ -2,11 +2,14 @@ import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
 import auth from '@react-native-firebase/auth';
 import { AccessTokenMap } from 'react-native-fbsdk-next/src/FBAccessToken';
 import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
-import { put, call } from 'redux-saga/effects';
+import { call } from 'redux-saga/effects';
 import { checkUsersSaga } from './checkUsersSaga';
+import { FacebookSignInSagaAction } from '../actions/authSagaActions/facebookSignInSagaAction';
 
-export function* facebookSignInSaga() {
+export function* facebookSignInSaga(action: FacebookSignInSagaAction) {
+  const { setLoading } = action.payload;
   try {
+    setLoading(true);
     // Attempt login with permissions
     yield LoginManager.logInWithPermissions(['public_profile', 'email']);
 
