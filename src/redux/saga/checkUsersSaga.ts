@@ -3,7 +3,7 @@ import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 import { put } from 'redux-saga/effects';
 import { successSignInAction } from '../actions/authActions/successSignInAction';
 import { AuthReducerState } from '../reducers/authReducer';
-import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
+import { createErrorAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 import messaging from '@react-native-firebase/messaging';
 
 export type CheckUsersSagaType = {

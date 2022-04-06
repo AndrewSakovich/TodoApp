@@ -4,7 +4,7 @@ import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 import { userTokenSelector } from '../selectors/userTokenSelector';
 import { DeleteItemSagaAction } from '../actions/todoSagaActions/deleteItemSagaAction';
 import { SuccessSignInPayload } from '../actions/authActions/successSignInAction';
-import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
+import { createErrorAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 
 export function* deleteItemSaga(action: DeleteItemSagaAction) {
   const userToken: SuccessSignInPayload['userToken'] = yield select(

@@ -6,7 +6,7 @@ import { call, put, select } from 'redux-saga/effects';
 import { userTokenSelector } from '../selectors/userTokenSelector';
 import { setTodoItemsAction } from '../actions/todoActions/setTodoItemsAction';
 import { GetDataTodoItemsSagaAction } from '../actions/todoSagaActions/getDataTodoItemsSagaAction';
-import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
+import { createErrorAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 
 export function* getDataTodoItemsSaga(action: GetDataTodoItemsSagaAction) {
   const { callback } = action.payload;

@@ -2,7 +2,7 @@ import { put } from 'redux-saga/effects';
 import { addItemAction } from '../actions/todoActions/addItemAction';
 import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 import { AddItemSagaAction } from '../actions/todoSagaActions/addItemSagaAction';
-import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
+import { createErrorAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 
 export function* addItemSaga(action: AddItemSagaAction) {
   const { newItem, userToken } = action.payload;

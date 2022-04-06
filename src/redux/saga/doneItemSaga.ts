@@ -4,7 +4,7 @@ import { firebase } from '@react-native-firebase/database';
 import { userTokenSelector } from '../selectors/userTokenSelector';
 import { SuccessSignInPayload } from '../actions/authActions/successSignInAction';
 import { DoneItemSagaAction } from '../actions/todoSagaActions/doneItemSagaAction';
-import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
+import { createErrorAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 
 export function* doneItemSaga(action: DoneItemSagaAction) {
   const { id, isDone } = action.payload;
