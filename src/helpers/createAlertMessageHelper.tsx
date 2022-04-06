@@ -3,10 +3,10 @@ import { Alert, AlertButton } from 'react-native';
 export type CreateErrorAlertMessageHelperParamsType = {
   title: string;
   message: string;
-  cancelButtonTitle: string;
+  cancelButtonTitle: AlertButton['text'];
 
-  onPress?: () => void;
-  confirmButtonTitle?: string;
+  onPress?: () => AlertButton['onPress'];
+  confirmButtonTitle?: AlertButton['text'];
 };
 
 export const createAlertMessageHelper = (
