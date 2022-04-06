@@ -5,7 +5,7 @@ export type CreateErrorAlertMessageHelperParamsType = {
   message: string;
   cancelButtonTitle: AlertButton['text'];
 
-  onPress?: () => AlertButton['onPress'];
+  onPress?: AlertButton['onPress'];
   confirmButtonTitle?: AlertButton['text'];
 };
 
