@@ -1,12 +1,35 @@
 import { Alert } from 'react-native';
 
-export const createErrorAlertMessageHelper = (
-  alertMessage: string,
-  alertTitle = 'Something went wrong',
+export type CreateErrorAlertMessageHelperParamsType = {
+  title: string;
+  message: string;
+  cancelButtonTitle: string;
+
+  onPress?: () => void;
+  confirmButtonTitle?: string;
+};
+
+export const createAlertMessageHelper = (
+  params: CreateErrorAlertMessageHelperParamsType,
 ) => {
-  return Alert.alert(`${alertTitle}`, `${alertMessage}`, [
-    {
-      text: 'Cancel',
-    },
-  ]);
+  const { title, message, onPress, confirmButtonTitle, cancelButtonTitle } =
+    params;
+
+  const buttons = onPress
+    ? [
+        {
+          text: `${cancelButtonTitle}`,
+        },
+        {
+          text: `${confirmButtonTitle}`,
+          onPress: onPress,
+        },
+      ]
+    : [
+        {
+          text: `${cancelButtonTitle}`,
+        },
+      ];
+
+  return Alert.alert(`${title}`, `${message}`, [...buttons]);
 };
