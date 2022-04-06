@@ -15,21 +15,18 @@ export const createAlertMessageHelper = (
   const { title, message, onPress, confirmButtonTitle, cancelButtonTitle } =
     params;
 
-  const buttons = onPress
-    ? [
-        {
-          text: `${cancelButtonTitle}`,
-        },
-        {
-          text: `${confirmButtonTitle}`,
-          onPress: onPress,
-        },
-      ]
-    : [
-        {
-          text: `${cancelButtonTitle}`,
-        },
-      ];
+  const buttons: Array<{}> = [
+    {
+      text: `${cancelButtonTitle}`,
+    },
+  ];
+
+  if (onPress) {
+    buttons.push({
+      text: `${confirmButtonTitle}`,
+      onPress,
+    });
+  }
 
   return Alert.alert(`${title}`, `${message}`, [...buttons]);
 };
