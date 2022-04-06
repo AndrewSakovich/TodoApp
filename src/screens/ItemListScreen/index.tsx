@@ -36,6 +36,7 @@ export const ItemListScreen: FC = () => {
   const renderItem: ListRenderItem<TodoItemType> = ({ item }) => {
     return <TodoItem todoItem={item} />;
   };
+
   if (isLoading) {
     return (
       <SkypeIndicator size={70} color={COLORS.sapphire} style={style.loader} />

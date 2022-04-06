@@ -28,6 +28,7 @@ export function* facebookSignInSaga(action: FacebookSignInSagaAction) {
     yield call(callback);
     yield call(checkUsersSaga, userToken, user);
   } catch (error: any) {
+    yield call(callback);
     createErrorAlertMessageHelper(error.message);
   }
 }

@@ -16,6 +16,7 @@ export const LoginScreen: FC = () => {
   const callback = () => {
     setLoading(false);
   };
+
   const fontStyle = style.font;
   const button = style.button;
 
