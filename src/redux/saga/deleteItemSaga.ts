@@ -4,7 +4,7 @@ import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 import { userTokenSelector } from '../selectors/userTokenSelector';
 import { DeleteItemSagaAction } from '../actions/todoSagaActions/deleteItemSagaAction';
 import { SuccessSignInPayload } from '../actions/authActions/successSignInAction';
-import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
+import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 
 export function* deleteItemSaga(action: DeleteItemSagaAction) {
   const userToken: SuccessSignInPayload['userToken'] = yield select(
@@ -15,7 +15,11 @@ export function* deleteItemSaga(action: DeleteItemSagaAction) {
   try {
     yield createReferenceHelper.ref(`Users/${userToken}/Todo/${id}`).remove();
     yield put(deleteItemAction({ id }));
-  } catch (error) {
-    createErrorAlertMessageHelper('failed to delete task');
+  } catch (error: any) {
+    createAlertMessageHelper({
+      message: `${error.message}`,
+      title: 'Something went wrong',
+      cancelButtonTitle: 'Cancel',
+    });
   }
 }

@@ -6,7 +6,7 @@ import { call, put, select } from 'redux-saga/effects';
 import { userTokenSelector } from '../selectors/userTokenSelector';
 import { setTodoItemsAction } from '../actions/todoActions/setTodoItemsAction';
 import { GetDataTodoItemsSagaAction } from '../actions/todoSagaActions/getDataTodoItemsSagaAction';
-import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
+import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 
 export function* getDataTodoItemsSaga(action: GetDataTodoItemsSagaAction) {
   const { callback } = action.payload;
@@ -24,8 +24,12 @@ export function* getDataTodoItemsSaga(action: GetDataTodoItemsSagaAction) {
       : [];
 
     yield put(setTodoItemsAction({ todoItems }));
-  } catch (error) {
-    createErrorAlertMessageHelper('error while loading your Todo List');
+  } catch (error: any) {
+    createAlertMessageHelper({
+      message: `${error.message}`,
+      title: 'Login error',
+      cancelButtonTitle: 'Cancel',
+    });
   } finally {
     yield call(callback);
   }

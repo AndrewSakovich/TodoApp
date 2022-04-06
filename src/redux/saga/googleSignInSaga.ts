@@ -1,7 +1,7 @@
 import { call } from 'redux-saga/effects';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
-import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
+import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 import { checkUsersSaga } from './checkUsersSaga';
 import { GoogleSignInSagaAction } from '../actions/authSagaActions/googleSignInSagaAction';
 
@@ -18,6 +18,10 @@ export function* googleSignInSaga(action: GoogleSignInSagaAction) {
     yield call(checkUsersSaga, userToken, user);
   } catch (error: any) {
     yield call(callback);
-    createErrorAlertMessageHelper(`${error.message}`, 'Login error');
+    createAlertMessageHelper({
+      message: `${error.message}`,
+      title: 'Login error',
+      cancelButtonTitle: 'Cancel',
+    });
   }
 }
