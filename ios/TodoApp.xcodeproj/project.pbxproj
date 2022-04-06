@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* TodoAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TodoAppTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		4A40A66727F5BB0500CD82CC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4A40A66627F5BB0500CD82CC /* GoogleService-Info.plist */; };
+		4A4EABC627FD7FA500C8EE8F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		BC46B4649E905328658E3C27 /* libPods-TodoApp-TodoAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E88094BE261A1EE2737A97 /* libPods-TodoApp-TodoAppTests.a */; };
 		D4E22E88288DC8A2A0749231 /* libPods-TodoApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC9FCB7715585907D0AECBFE /* libPods-TodoApp.a */; };
@@ -248,9 +248,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A4EABC627FD7FA500C8EE8F /* Images.xcassets in Resources */,
 				4A40A66727F5BB0500CD82CC /* GoogleService-Info.plist in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
