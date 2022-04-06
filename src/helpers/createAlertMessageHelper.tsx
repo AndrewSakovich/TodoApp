@@ -1,4 +1,4 @@
-import { Alert } from 'react-native';
+import { Alert, AlertButton } from 'react-native';
 
 export type CreateErrorAlertMessageHelperParamsType = {
   title: string;
@@ -15,7 +15,7 @@ export const createAlertMessageHelper = (
   const { title, message, onPress, confirmButtonTitle, cancelButtonTitle } =
     params;
 
-  const buttons: Array<{}> = [
+  const buttons: AlertButton[] = [
     {
       text: `${cancelButtonTitle}`,
     },
