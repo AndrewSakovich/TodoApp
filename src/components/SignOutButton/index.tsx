@@ -7,15 +7,15 @@ import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper
 export const SignOutButton: FC<SignOutButtonType> = props => {
   const { googleSignOut } = props;
 
-  const alertParams = {
-    title: 'Log out',
-    message: 'Are you sure?',
-    confirmButtonTitle: 'Yes',
-    cancelButtonTitle: 'Come back',
-    onPress: googleSignOut,
-  };
-
   const onPress = () => {
+    const alertParams = {
+      title: 'Log out',
+      message: 'Are you sure?',
+      confirmButtonTitle: 'Yes',
+      cancelButtonTitle: 'Come back',
+      onPress: googleSignOut,
+    };
+
     createAlertMessageHelper(alertParams);
   };
 
