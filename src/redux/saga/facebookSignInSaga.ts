@@ -1,7 +1,7 @@
 import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
 import auth from '@react-native-firebase/auth';
 import { AccessTokenMap } from 'react-native-fbsdk-next/src/FBAccessToken';
-import { createErrorAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
+import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 import { call } from 'redux-saga/effects';
 import { checkUsersSaga } from './checkUsersSaga';
 import { FacebookSignInSagaAction } from '../actions/authSagaActions/facebookSignInSagaAction';
@@ -29,6 +29,10 @@ export function* facebookSignInSaga(action: FacebookSignInSagaAction) {
     yield call(checkUsersSaga, userToken, user);
   } catch (error: any) {
     yield call(callback);
-    createErrorAlertMessageHelper(error.message);
+    createAlertMessageHelper({
+      message: `${error.message}`,
+      title: 'Login error',
+      cancelButtonTitle: 'Cancel',
+    });
   }
 }

@@ -3,7 +3,7 @@ import { createReferenceHelper } from '../../helpers/createReferenceHelper';
 import { put } from 'redux-saga/effects';
 import { successSignInAction } from '../actions/authActions/successSignInAction';
 import { AuthReducerState } from '../reducers/authReducer';
-import { createErrorAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
+import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 import messaging from '@react-native-firebase/messaging';
 
 export type CheckUsersSagaType = {
@@ -35,6 +35,10 @@ export function* checkUsersSaga(
       yield put(successSignInAction({ userToken, user, deviceToken }));
     }
   } catch (error: any) {
-    createErrorAlertMessageHelper(error.message);
+    createAlertMessageHelper({
+      message: `${error.message}`,
+      title: 'Something went wrong',
+      cancelButtonTitle: 'Cancel',
+    });
   }
 }
