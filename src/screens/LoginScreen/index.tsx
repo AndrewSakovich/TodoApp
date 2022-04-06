@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Image, View } from 'react-native';
 import { style } from './style';
 import { SignInButton } from '../../components/SignInButton';
@@ -7,9 +7,15 @@ import { googleSignInSagaAction } from '../../redux/actions/authSagaActions/goog
 import { facebookSignInSagaAction } from '../../redux/actions/authSagaActions/facebookSignInSagaAction';
 import { faFacebook, faGooglePlusG } from '@fortawesome/free-brands-svg-icons';
 import { COLORS } from '../../COLORS';
+import { SkypeIndicator } from 'react-native-indicators';
 
 export const LoginScreen: FC = () => {
+  const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
+
+  const callback = () => {
+    setLoading(false);
+  };
 
   const fontStyle = style.font;
   const button = style.button;
@@ -17,7 +23,10 @@ export const LoginScreen: FC = () => {
   const loginScreenImagePath = require('./todo.png');
 
   const googleObject = {
-    signInMethod: () => dispatch(googleSignInSagaAction()),
+    signInMethod: () => {
+      setLoading(true);
+      dispatch(googleSignInSagaAction({ callback }));
+    },
     title: 'Sign in with Google',
     styleFont: { ...fontStyle, ...style.fontGoogle },
     styleContainer: { ...button, ...style.googleButton },
@@ -26,7 +35,10 @@ export const LoginScreen: FC = () => {
   };
 
   const facebookObject = {
-    signInMethod: () => dispatch(facebookSignInSagaAction()),
+    signInMethod: () => {
+      setLoading(true);
+      dispatch(facebookSignInSagaAction({ callback }));
+    },
     title: 'Sign in with Facebook',
     styleFont: { ...fontStyle, ...style.fontFacebook },
     styleContainer: {
@@ -39,9 +51,16 @@ export const LoginScreen: FC = () => {
 
   return (
     <View style={style.container}>
+      {isLoading && (
+        <SkypeIndicator
+          style={style.loader}
+          size={70}
+          color={COLORS.sapphire}
+        />
+      )}
       <Image style={style.img} source={loginScreenImagePath} />
-      <SignInButton options={googleObject} />
-      <SignInButton options={facebookObject} />
+      <SignInButton options={googleObject} disable={isLoading} />
+      <SignInButton options={facebookObject} disable={isLoading} />
     </View>
   );
 };

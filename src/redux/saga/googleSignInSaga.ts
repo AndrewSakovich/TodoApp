@@ -3,8 +3,10 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
 import { checkUsersSaga } from './checkUsersSaga';
+import { GoogleSignInSagaAction } from '../actions/authSagaActions/googleSignInSagaAction';
 
-export function* googleSignInSaga() {
+export function* googleSignInSaga(action: GoogleSignInSagaAction) {
+  const { callback } = action.payload;
   try {
     const { idToken } = yield GoogleSignin.signIn();
     // Create a Google credential with the accessToken
@@ -12,8 +14,10 @@ export function* googleSignInSaga() {
     // Sign-in the user with the credential
     const { user } = yield auth().signInWithCredential(googleCredential);
     const userToken = user.uid;
+    yield call(callback);
     yield call(checkUsersSaga, userToken, user);
   } catch (error: any) {
+    yield call(callback);
     createErrorAlertMessageHelper(`${error.message}`, 'Login error');
   }
 }

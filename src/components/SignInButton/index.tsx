@@ -4,10 +4,11 @@ import { SignInButtonPropsType } from './type';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 export const SignInButton: FC<SignInButtonPropsType> = props => {
-  const { options } = props;
+  const { options, disable } = props;
 
   return (
     <TouchableOpacity
+      disabled={disable}
       style={options.styleContainer}
       onPress={options.signInMethod}>
       <FontAwesomeIcon

@@ -2,10 +2,12 @@ import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
 import auth from '@react-native-firebase/auth';
 import { AccessTokenMap } from 'react-native-fbsdk-next/src/FBAccessToken';
 import { createErrorAlertMessageHelper } from '../../helpers/createErrorAlertMessageHelper';
-import { put, call } from 'redux-saga/effects';
+import { call } from 'redux-saga/effects';
 import { checkUsersSaga } from './checkUsersSaga';
+import { FacebookSignInSagaAction } from '../actions/authSagaActions/facebookSignInSagaAction';
 
-export function* facebookSignInSaga() {
+export function* facebookSignInSaga(action: FacebookSignInSagaAction) {
+  const { callback } = action.payload;
   try {
     // Attempt login with permissions
     yield LoginManager.logInWithPermissions(['public_profile', 'email']);
@@ -23,8 +25,10 @@ export function* facebookSignInSaga() {
     const { user } = yield auth().signInWithCredential(facebookCredential);
 
     const userToken = user.uid;
+    yield call(callback);
     yield call(checkUsersSaga, userToken, user);
   } catch (error: any) {
+    yield call(callback);
     createErrorAlertMessageHelper(error.message);
   }
 }
