@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { MainBottomTabNavigator } from '../MainBottomTabNavigator';
 import { AddNewItemScreen } from '../../screens/AddNewItemScreen';
@@ -11,9 +10,10 @@ import { RootStateType } from '../../redux/store';
 import { LoginScreen } from '../../screens/LoginScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
+import { createStackNavigator } from '@react-navigation/stack';
 
 export const RootStackNavigator: FC = () => {
-  const Stack = createNativeStackNavigator<RootStackNavigationParamList>();
+  const Stack = createStackNavigator<RootStackNavigationParamList>();
 
   const isSignIn = useSelector<RootStateType>(userTokenSelector);
   return (
