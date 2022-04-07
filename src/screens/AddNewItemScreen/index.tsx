@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewItemHelper } from '../../helpers/createNewItemHelper';
@@ -12,6 +12,7 @@ import { createNotificationHelper } from '../../helpers/createNotificationHelper
 import DatePicker from 'react-native-date-picker';
 import { CustomInput } from '../../components/CustomInput';
 import { style } from './style';
+import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -31,6 +32,30 @@ export const AddNewItemScreen: FC = () => {
     createNotificationHelper({ channelId, newItem, date });
     dispatch(addItemSagaAction({ newItem, userToken }));
   };
+
+  const hasUnsavedChanges = Boolean(text);
+
+  useEffect(
+    () =>
+      navigation.addListener('beforeRemove', e => {
+        if (!hasUnsavedChanges) {
+          return;
+        }
+        e.preventDefault();
+        const onPress = () => {
+          return navigation.dispatch(e.data.action);
+        };
+        createAlertMessageHelper({
+          onPress,
+          title: 'Discard changes?',
+          message:
+            'You have unsaved changes. Are you sure to discard them and leave the screen?',
+          confirmButtonTitle: 'Discard',
+          cancelButtonTitle: "Don't leave",
+        });
+      }),
+    [navigation, hasUnsavedChanges],
+  );
 
   const onPress = () => {
     addItem(text);
