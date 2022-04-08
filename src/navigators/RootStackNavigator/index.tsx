@@ -10,10 +10,10 @@ import { RootStateType } from '../../redux/store';
 import { LoginScreen } from '../../screens/LoginScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export const RootStackNavigator: FC = () => {
-  const Stack = createStackNavigator<RootStackNavigationParamList>();
+  const Stack = createNativeStackNavigator<RootStackNavigationParamList>();
 
   const isSignIn = useSelector<RootStateType>(userTokenSelector);
   return (
