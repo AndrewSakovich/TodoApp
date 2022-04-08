@@ -3,8 +3,6 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewItemHelper } from '../../helpers/createNewItemHelper';
 import { TodoItemType } from '../../models';
-import { useNavigation } from '@react-navigation/native';
-import { AddNewItemScreenNavigationProps } from './type';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
 import { addItemSagaAction } from '../../redux/actions/todoSagaActions/addItemSagaAction';
 import { deviceTokenSelector } from '../../redux/selectors/deviceTokenSelector';
@@ -12,7 +10,11 @@ import { createNotificationHelper } from '../../helpers/createNotificationHelper
 import DatePicker from 'react-native-date-picker';
 import { CustomInput } from '../../components/CustomInput';
 import { style } from './style';
+import 'react-native-gesture-handler';
 import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
+import { AddNewItemScreeBackButton } from '../../components/AddNewItemScreenBackButton';
+import { useNavigation } from '@react-navigation/native';
+import { AddNewItemScreenNavigationProps } from './type';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -27,35 +29,44 @@ export const AddNewItemScreen: FC = () => {
   const currentDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`;
   const buttonStyle = text ? style.button : style.buttonDis;
 
+  const hasUnsavedChanges = !!text;
+
   const addItem = (text: TodoItemType['text']) => {
     const newItem = createNewItemHelper(text);
     createNotificationHelper({ channelId, newItem, date });
     dispatch(addItemSagaAction({ newItem, userToken }));
   };
 
-  const hasUnsavedChanges = Boolean(text);
+  const onPressBack = () => {
+    const back = () => {
+      navigation.goBack();
+    };
 
-  useEffect(
-    () =>
-      navigation.addListener('beforeRemove', e => {
-        if (!hasUnsavedChanges) {
-          return;
-        }
-        e.preventDefault();
-        const onPress = () => {
-          return navigation.dispatch(e.data.action);
-        };
-        createAlertMessageHelper({
-          onPress,
-          title: 'Discard changes?',
-          message:
-            'You have unsaved changes. Are you sure to discard them and leave the screen?',
-          confirmButtonTitle: 'Discard',
-          cancelButtonTitle: "Don't leave",
-        });
-      }),
-    [navigation, hasUnsavedChanges],
-  );
+    if (hasUnsavedChanges) {
+      const onPress = () => {
+        navigation.goBack();
+      };
+
+      createAlertMessageHelper({
+        onPress,
+        title: 'Discard changes?',
+        message:
+          'You have unsaved changes. Are you sure to discard them and leave the screen?',
+        confirmButtonTitle: 'Discard',
+        cancelButtonTitle: "Don't leave",
+      });
+    }
+
+    return back;
+  };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => {
+        return <AddNewItemScreeBackButton onPress={onPressBack} />;
+      },
+    });
+  }, [hasUnsavedChanges]);
 
   const onPress = () => {
     addItem(text);
