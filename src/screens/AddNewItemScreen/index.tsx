@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewItemHelper } from '../../helpers/createNewItemHelper';
@@ -43,12 +43,8 @@ export const AddNewItemScreen: FC = () => {
     };
 
     if (hasUnsavedChanges) {
-      const onPress = () => {
-        navigation.goBack();
-      };
-
       createAlertMessageHelper({
-        onPress,
+        onPress: back,
         title: 'Discard changes?',
         message:
           'You have unsaved changes. Are you sure to discard them and leave the screen?',
@@ -59,14 +55,17 @@ export const AddNewItemScreen: FC = () => {
 
     return back;
   };
+  const memoizedCallback = useCallback(() => {
+    onPressBack();
+  }, [hasUnsavedChanges]);
 
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => {
-        return <AddNewItemScreeBackButton onPress={onPressBack} />;
+        return <AddNewItemScreeBackButton onPress={memoizedCallback} />;
       },
     });
-  }, [hasUnsavedChanges]);
+  }, [memoizedCallback, navigation]);
 
   const onPress = () => {
     addItem(text);
