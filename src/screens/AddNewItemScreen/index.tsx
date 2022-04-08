@@ -37,13 +37,13 @@ export const AddNewItemScreen: FC = () => {
     dispatch(addItemSagaAction({ newItem, userToken }));
   };
 
-  const onPressBack = () => {
+  const onPressBack = useCallback(() => {
     const back = () => {
-      navigation.goBack();
+      return navigation.goBack();
     };
 
     if (hasUnsavedChanges) {
-      createAlertMessageHelper({
+      return createAlertMessageHelper({
         onPress: back,
         title: 'Discard changes?',
         message:
@@ -53,19 +53,16 @@ export const AddNewItemScreen: FC = () => {
       });
     }
 
-    return back;
-  };
-  const memoizedCallback = useCallback(() => {
-    onPressBack();
+    return back();
   }, [hasUnsavedChanges]);
 
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => {
-        return <AddNewItemScreeBackButton onPress={memoizedCallback} />;
+        return <AddNewItemScreeBackButton onPress={onPressBack} />;
       },
     });
-  }, [memoizedCallback, navigation]);
+  }, [onPressBack, navigation]);
 
   const onPress = () => {
     addItem(text);
