@@ -13,6 +13,7 @@ import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper
 import { useNavigation } from '@react-navigation/native';
 import { NAMESCREEN } from '../../navigators/nameScreen';
 import { AddNewItemScreenNavigationProps } from '../../screens/AddNewItemScreen/type';
+import { stopNotificationHelper } from '../../helpers/stopNotificationHelper';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
   const {
@@ -31,7 +32,7 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
 
   const onPressDelete = () => {
     const onPress = () => {
-      PushNotification.cancelLocalNotification(`${notificationId}`);
+      stopNotificationHelper(notificationId);
       dispatch(deleteItemSagaAction({ id }));
     };
     createAlertMessageHelper({
