@@ -4,11 +4,13 @@ import { createNotificationIdHelper } from './createNotificationIdHelper';
 
 export const createNewItemHelper = (
   text: TodoItemType['text'],
+  date: Date,
 ): TodoItemType => {
   return {
     id: uuid(),
     text,
     isDone: false,
+    notificationDate: date,
     notificationId: createNotificationIdHelper(),
   };
 };

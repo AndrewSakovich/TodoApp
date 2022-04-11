@@ -17,7 +17,7 @@ import { stopNotificationHelper } from '../../helpers/stopNotificationHelper';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
   const {
-    todoItem: { id, text, isDone, notificationId },
+    todoItem: { id, text, isDone, notificationId, notificationDate },
   } = props;
 
   const dispatch = useDispatch();
@@ -26,6 +26,7 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
   const textStyle = isDone ? style.doneText : style.text;
 
   const onPressDone = () => {
+    stopNotificationHelper(notificationId);
     PushNotification.cancelLocalNotification(`${notificationId}`);
     dispatch(doneItemSagaAction({ id, isDone }));
   };
@@ -47,7 +48,7 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
   const onPressEditing = () => {
     navigation.navigate(NAMESCREEN.ADD_NEW_ITEM_SCREEN, {
       isEdit: true,
-      editItem: { text, id, notificationId, isDone },
+      editItem: { text, id, notificationId, isDone, notificationDate },
     });
   };
 

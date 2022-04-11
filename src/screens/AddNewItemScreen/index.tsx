@@ -19,6 +19,7 @@ import {
   AddNewItemScreenRouteProps,
 } from './type';
 import { editItemSagaAction } from '../../redux/actions/todoSagaActions/editItemSagaAction';
+import { createCurrentDateHelper } from '../../helpers/createCurrentDateHelper';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -40,13 +41,13 @@ export const AddNewItemScreen: FC = () => {
   const [text, setText] = useState(initialState);
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState<boolean>(false);
-  const currentDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`;
+  const currentDate = createCurrentDateHelper(date);
   const buttonStyle = text ? style.button : style.buttonDis;
 
   const hasUnsavedChanges = !!text;
 
   const addItem = (text: TodoItemType['text']) => {
-    const newItem = createNewItemHelper(text);
+    const newItem = createNewItemHelper(text, date);
     createNotificationHelper({ channelId, newItem, date });
     dispatch(addItemSagaAction({ newItem, userToken }));
   };
