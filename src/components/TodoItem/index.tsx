@@ -12,7 +12,7 @@ import { COLORS } from '../../COLORS';
 import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 import { useNavigation } from '@react-navigation/native';
 import { NAMESCREEN } from '../../navigators/nameScreen';
-import { RootStackNavigationParamList } from '../../navigators/RootStackNavigator/type';
+import { AddNewItemScreenNavigationProps } from '../../screens/AddNewItemScreen/type';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
   const {
@@ -20,7 +20,7 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
   } = props;
 
   const dispatch = useDispatch();
-  const navigation = useNavigation<RootStackNavigationParamList>();
+  const navigation = useNavigation<AddNewItemScreenNavigationProps>();
 
   const textStyle = isDone ? style.doneText : style.text;
 
