@@ -6,7 +6,6 @@ type TodoItemStyleType = {
   itemChanges: ViewStyle;
   text: TextStyle;
   doneText: TextStyle;
-  delete: TextStyle;
   touchDone: ViewStyle;
   editing: ViewStyle;
 };
@@ -37,9 +36,6 @@ export const style = StyleSheet.create<TodoItemStyleType>({
     color: COLORS.white,
     fontSize: 15,
     textDecorationLine: 'line-through',
-  },
-  delete: {
-    color: COLORS.white,
   },
   touchDone: {
     flex: 1,

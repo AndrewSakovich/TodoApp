@@ -7,7 +7,7 @@ import { deleteItemSagaAction } from '../../redux/actions/todoSagaActions/delete
 import { doneItemSagaAction } from '../../redux/actions/todoSagaActions/doneItemSagaAction';
 import PushNotification from 'react-native-push-notification';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { COLORS } from '../../COLORS';
 import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 import { useNavigation } from '@react-navigation/native';
@@ -61,9 +61,9 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
             <FontAwesomeIcon icon={faPen} size={15} color={COLORS.white} />
           </TouchableOpacity>
         )}
-        <Text style={style.delete} onPress={onPressDelete}>
-          {'DELETE'}
-        </Text>
+        <TouchableOpacity onPress={onPressDelete}>
+          <FontAwesomeIcon icon={faTrash} size={15} color={COLORS.white} />
+        </TouchableOpacity>
       </View>
     </View>
   );
