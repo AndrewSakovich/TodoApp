@@ -1,7 +1,17 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import { COLORS } from '../../COLORS';
 
-export const style = StyleSheet.create({
+type TodoItemStyleType = {
+  item: ViewStyle;
+  itemChanges: ViewStyle;
+  text: TextStyle;
+  doneText: TextStyle;
+  delete: TextStyle;
+  touchDone: ViewStyle;
+  editing: ViewStyle;
+};
+
+export const style = StyleSheet.create<TodoItemStyleType>({
   item: {
     flex: 1,
     flexDirection: 'row',
@@ -12,6 +22,12 @@ export const style = StyleSheet.create({
     marginVertical: 5,
     marginHorizontal: 10,
     borderRadius: 5,
+  },
+  editing: {
+    marginRight: 7,
+  },
+  itemChanges: {
+    flexDirection: 'row',
   },
   text: {
     color: COLORS.white,
@@ -25,7 +41,7 @@ export const style = StyleSheet.create({
   delete: {
     color: COLORS.white,
   },
-  touch: {
+  touchDone: {
     flex: 1,
   },
 });
