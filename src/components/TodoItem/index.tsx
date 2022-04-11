@@ -44,7 +44,10 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
   };
 
   const onPressEditing = () => {
-    navigation.navigate(NAMESCREEN.ADD_NEW_ITEM_SCREEN, { isEdit: true });
+    navigation.navigate(NAMESCREEN.ADD_NEW_ITEM_SCREEN, {
+      isEdit: true,
+      editItem: { text, id, notificationId, isDone },
+    });
   };
 
   return (
@@ -53,9 +56,11 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
         <Text style={textStyle}>{text}</Text>
       </TouchableOpacity>
       <View style={style.itemChanges}>
-        <TouchableOpacity style={style.editing} onPress={onPressEditing}>
-          <FontAwesomeIcon icon={faPen} size={15} color={COLORS.white} />
-        </TouchableOpacity>
+        {!isDone && (
+          <TouchableOpacity style={style.editing} onPress={onPressEditing}>
+            <FontAwesomeIcon icon={faPen} size={15} color={COLORS.white} />
+          </TouchableOpacity>
+        )}
         <Text style={style.delete} onPress={onPressDelete}>
           {'DELETE'}
         </Text>

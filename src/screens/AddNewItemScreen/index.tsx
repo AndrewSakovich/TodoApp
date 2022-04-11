@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewItemHelper } from '../../helpers/createNewItemHelper';
 import { TodoItemType } from '../../models';
@@ -25,7 +25,8 @@ export const AddNewItemScreen: FC = () => {
   const dispatch = useDispatch();
 
   const isEdit = route.params.isEdit;
-  console.log(isEdit);
+  const editItem = route.params.editItem;
+  const initialState = editItem ? editItem.text : '';
 
   useEffect(() => {
     const title = isEdit ? 'Edit' : 'Add new task';
@@ -35,7 +36,7 @@ export const AddNewItemScreen: FC = () => {
   const userToken = useSelector(userTokenSelector);
   const channelId = useSelector(deviceTokenSelector);
 
-  const [text, setText] = useState('');
+  const [text, setText] = useState(initialState);
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState<boolean>(false);
   const currentDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`;
@@ -79,10 +80,15 @@ export const AddNewItemScreen: FC = () => {
     });
   }, [onPressBack, navigation]);
 
-  const onPress = () => {
+  const onPressAdd = () => {
     addItem(text);
     navigation.goBack();
   };
+  const onPressEdit = () => {
+    Alert.alert('hello');
+  };
+
+  const onPress = isEdit ? onPressEdit : onPressAdd;
 
   const onConfirmDate = (date: Date) => {
     onCancelDate();
@@ -96,6 +102,39 @@ export const AddNewItemScreen: FC = () => {
   const openDate = () => {
     setOpen(true);
   };
+
+  if (isEdit) {
+    return (
+      <View style={style.container}>
+        <View style={style.inputContainer}>
+          <CustomInput
+            onChangeText={setText}
+            value={text}
+            title={'Edit tack'}
+          />
+          <CustomInput
+            value={currentDate}
+            title={'Edit the reminder send time'}
+            onPress={openDate}
+          />
+        </View>
+        <DatePicker
+          minimumDate={new Date()}
+          modal
+          open={open}
+          date={date}
+          onConfirm={onConfirmDate}
+          onCancel={onCancelDate}
+        />
+        <TouchableOpacity
+          disabled={!text}
+          style={buttonStyle}
+          onPress={onPress}>
+          <Text style={style.text}>{'Edit task'}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
   return (
     <View style={style.container}>
