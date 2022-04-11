@@ -13,8 +13,8 @@ export function* editItemSaga(action: EditItemSagaAction) {
   );
   try {
     yield createReferenceHelper
-      .ref(`Users/${userToken}/Todo/${id}/text`)
-      .set(text);
+      .ref(`Users/${userToken}/Todo/${id}/`)
+      .update({ text });
     yield put(editItemAction({ id, text }));
   } catch (error: any) {
     createAlertMessageHelper({
