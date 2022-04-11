@@ -20,6 +20,7 @@ import {
 } from './type';
 import { editItemSagaAction } from '../../redux/actions/todoSagaActions/editItemSagaAction';
 import { createCurrentDateHelper } from '../../helpers/createCurrentDateHelper';
+import { stopNotificationHelper } from '../../helpers/stopNotificationHelper';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -49,6 +50,7 @@ export const AddNewItemScreen: FC = () => {
   const buttonStyle = text ? style.button : style.buttonDis;
 
   const addItem = (text: TodoItemType['text']) => {
+    console.log('hello3');
     const newItem = createNewItemHelper(text, date);
     createNotificationHelper({ channelId, newItem, date });
     dispatch(addItemSagaAction({ newItem, userToken }));
@@ -89,11 +91,20 @@ export const AddNewItemScreen: FC = () => {
     navigation.goBack();
   };
   const onPressEdit = () => {
+    stopNotificationHelper(editItem.notificationId);
+    const newItem = createNewItemHelper(text, date);
+    createNotificationHelper({ newItem, date, channelId });
     dispatch(editItemSagaAction({ id: editItem.id, text }));
     navigation.goBack();
   };
 
-  const onPress = isEdit ? onPressEdit : onPressAdd;
+  const onPress = () => {
+    if (isEdit) {
+      return onPressEdit();
+    }
+    console.log('hello1');
+    return onPressAdd();
+  };
 
   const onConfirmDate = (date: Date) => {
     onCancelDate();
