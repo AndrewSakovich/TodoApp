@@ -12,7 +12,7 @@ export const TodoListTopNavigatorHeader: FC = () => {
   const navigation = useNavigation<TodoListTopNavigationProp>();
 
   const navigateAddNewItemScreen = () => {
-    navigation.navigate(NAMESCREEN.ADD_NEW_ITEM_SCREEN);
+    navigation.navigate(NAMESCREEN.ADD_NEW_ITEM_SCREEN, { isEdit: false });
   };
 
   return (

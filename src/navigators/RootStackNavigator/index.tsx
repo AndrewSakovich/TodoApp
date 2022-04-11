@@ -38,6 +38,7 @@ export const RootStackNavigator: FC = () => {
                   />
                   <Stack.Screen
                     name={NAMESCREEN.ADD_NEW_ITEM_SCREEN}
+                    initialParams={{ isEdit: false }}
                     component={AddNewItemScreen}
                     options={{
                       title: 'Add new task',
