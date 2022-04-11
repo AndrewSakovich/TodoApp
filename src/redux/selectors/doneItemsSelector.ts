@@ -1,4 +1,4 @@
-import { ReduxStoreType, RootStateType } from '../store';
+import { RootStateType } from '../store';
 
 export const doneItemsSelectors =
   (flagDone: boolean) => (state: RootStateType) => {
