@@ -3,6 +3,7 @@ import { AddItemPayload } from '../actions/todoActions/addItemAction';
 import { ItemDeletePayload } from '../actions/todoActions/deleteItemAction';
 import { TodoActionTypes } from '../actions/todoActions';
 import { DoneItemPayload } from '../actions/todoActions/doneItemAction';
+import { EditItemPayload } from '../actions/todoActions/editItemAction';
 
 export type TodoReducerState = {
   todoItems: TodoItemType[];
@@ -49,6 +50,21 @@ export const todoReducer = (
       const newTodoItems = state.todoItems.map(item => {
         if (item.id === id) {
           return { ...item, isDone: !item.isDone };
+        }
+        return item;
+      });
+
+      return {
+        ...state,
+        todoItems: newTodoItems,
+      };
+    }
+    case TodoActionTypes.EDIT_ITEM: {
+      const { id, text }: EditItemPayload = action.payload;
+
+      const newTodoItems = state.todoItems.map(item => {
+        if (item.id === id) {
+          return { ...item, text };
         }
         return item;
       });

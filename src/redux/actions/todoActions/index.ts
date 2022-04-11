@@ -3,4 +3,5 @@ export enum TodoActionTypes {
   DELETE_ITEM = 'DELETE_ITEM',
   DONE_ITEM = 'DONE_ITEM',
   DATA_ITEMS = 'DATA_ITEMS',
+  EDIT_ITEM = 'EDIT_ITEM',
 }

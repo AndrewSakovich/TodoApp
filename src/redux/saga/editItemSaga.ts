@@ -4,6 +4,7 @@ import { put, select } from 'redux-saga/effects';
 import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 import { SuccessSignInPayload } from '../actions/authActions/successSignInAction';
 import { userTokenSelector } from '../selectors/userTokenSelector';
+import { editItemAction } from '../actions/todoActions/editItemAction';
 
 export function* editItemSaga(action: EditItemSagaAction) {
   const { id, text } = action.payload;
@@ -15,10 +16,11 @@ export function* editItemSaga(action: EditItemSagaAction) {
     yield createReferenceHelper
       .ref(`Users/${userToken}/Todo/${id}/text`)
       .set(text);
+    put(editItemAction({ id, text }));
   } catch (error: any) {
     createAlertMessageHelper({
       message: `${error.message}`,
-      title: 'Login error',
+      title: 'Edit error',
       cancelButtonTitle: 'Cancel',
     });
   }
