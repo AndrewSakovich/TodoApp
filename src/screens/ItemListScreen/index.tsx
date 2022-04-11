@@ -23,14 +23,10 @@ export const ItemListScreen: FC = () => {
 
   const flagDone = route.params.isDone;
 
-  const todoItems = useSelector(todoItemsSelector);
-  console.log(todoItems);
-
   const data = useSelector<RootStateType, TodoItemType[]>(
     doneItemsSelectors(flagDone),
   );
   useEffect(() => {
-    console.log('render');
   }, [data]);
   useEffect(() => {
     const callback = () => {

@@ -8,7 +8,6 @@ import { editItemAction } from '../actions/todoActions/editItemAction';
 
 export function* editItemSaga(action: EditItemSagaAction) {
   const { id, text } = action.payload;
-  console.log('text', text);
   const userToken: SuccessSignInPayload['userToken'] = yield select(
     userTokenSelector,
   );
