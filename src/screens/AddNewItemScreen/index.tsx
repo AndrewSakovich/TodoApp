@@ -105,38 +105,10 @@ export const AddNewItemScreen: FC = () => {
     setOpen(true);
   };
 
-  if (isEdit) {
-    return (
-      <View style={style.container}>
-        <View style={style.inputContainer}>
-          <CustomInput
-            onChangeText={setText}
-            value={text}
-            title={'Edit tack'}
-          />
-          <CustomInput
-            value={currentDate}
-            title={'Edit the reminder send time'}
-            onPress={openDate}
-          />
-        </View>
-        <DatePicker
-          minimumDate={new Date()}
-          modal
-          open={open}
-          date={date}
-          onConfirm={onConfirmDate}
-          onCancel={onCancelDate}
-        />
-        <TouchableOpacity
-          disabled={!text}
-          style={buttonStyle}
-          onPress={onPress}>
-          <Text style={style.text}>{'Edit task'}</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
+  const dateInputTitle = isEdit
+    ? 'Edit the reminder send time'
+    : 'Set the reminder send time';
+  const title = isEdit ? 'Edit tack' : 'Add new tack';
 
   return (
     <View style={style.container}>
@@ -145,11 +117,11 @@ export const AddNewItemScreen: FC = () => {
           onChangeText={setText}
           placeholder={'New task'}
           value={text}
-          title={'Add new tack'}
+          title={title}
         />
         <CustomInput
           value={currentDate}
-          title={'Set the reminder send time'}
+          title={dateInputTitle}
           onPress={openDate}
         />
       </View>
@@ -162,7 +134,7 @@ export const AddNewItemScreen: FC = () => {
         onCancel={onCancelDate}
       />
       <TouchableOpacity disabled={!text} style={buttonStyle} onPress={onPress}>
-        <Text style={style.text}>{'Add new task'}</Text>
+        <Text style={style.text}>{title}</Text>
       </TouchableOpacity>
     </View>
   );
