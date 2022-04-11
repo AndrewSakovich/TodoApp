@@ -87,6 +87,7 @@ export const AddNewItemScreen: FC = () => {
   };
   const onPressEdit = () => {
     dispatch(editItemSagaActoin({ id: editItem.id, text }));
+    navigation.goBack();
   };
 
   const onPress = isEdit ? onPressEdit : onPressAdd;

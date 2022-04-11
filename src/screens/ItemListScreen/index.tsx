@@ -12,6 +12,7 @@ import { doneItemsSelectors } from '../../redux/selectors/doneItemsSelector';
 import { getDataTodoItemsSagaAction } from '../../redux/actions/todoSagaActions/getDataTodoItemsSagaAction';
 import { COLORS } from '../../COLORS';
 import { SkypeIndicator } from 'react-native-indicators';
+import { todoItemsSelector } from '../../redux/selectors/todoItemsSelector';
 
 export const ItemListScreen: FC = () => {
   const [isLoading, setLoading] = useState(true);
@@ -22,10 +23,15 @@ export const ItemListScreen: FC = () => {
 
   const flagDone = route.params.isDone;
 
+  const todoItems = useSelector(todoItemsSelector);
+  console.log(todoItems);
+
   const data = useSelector<RootStateType, TodoItemType[]>(
     doneItemsSelectors(flagDone),
   );
-
+  useEffect(() => {
+    console.log('render');
+  }, [data]);
   useEffect(() => {
     const callback = () => {
       setLoading(false);

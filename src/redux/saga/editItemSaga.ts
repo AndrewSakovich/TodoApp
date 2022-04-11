@@ -16,7 +16,7 @@ export function* editItemSaga(action: EditItemSagaAction) {
     yield createReferenceHelper
       .ref(`Users/${userToken}/Todo/${id}/text`)
       .set(text);
-    put(editItemAction({ id, text }));
+    yield put(editItemAction({ id, text }));
   } catch (error: any) {
     createAlertMessageHelper({
       message: `${error.message}`,
