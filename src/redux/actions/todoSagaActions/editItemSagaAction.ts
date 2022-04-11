@@ -11,7 +11,7 @@ export type EditItemSagaPayload = {
   text: TodoItemType['text'];
 };
 
-export const editItemSagaActoin = (payload: EditItemSagaPayload) => {
+export const editItemSagaAction = (payload: EditItemSagaPayload) => {
   return {
     type: TodoSagaActions.EDIT_ITEM_SAGA,
     payload,
