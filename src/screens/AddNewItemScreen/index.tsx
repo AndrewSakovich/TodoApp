@@ -27,7 +27,7 @@ export const AddNewItemScreen: FC = () => {
 
   const isEdit = route.params.isEdit;
   const editItem = route.params.editItem;
-  const initialState = editItem ? editItem.text : '';
+  const initialState = editItem?.text ?? '';
 
   useEffect(() => {
     const title = isEdit ? 'Edit' : 'Add new task';
