@@ -18,6 +18,7 @@ import {
   AddNewItemScreenNavigationProps,
   AddNewItemScreenRouteProps,
 } from './type';
+import { editItemSagaActoin } from '../../redux/actions/todoSagaActions/editItemSagaAction';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -85,7 +86,7 @@ export const AddNewItemScreen: FC = () => {
     navigation.goBack();
   };
   const onPressEdit = () => {
-    Alert.alert('hello');
+    dispatch(editItemSagaActoin({ id: editItem.id, text }));
   };
 
   const onPress = isEdit ? onPressEdit : onPressAdd;
