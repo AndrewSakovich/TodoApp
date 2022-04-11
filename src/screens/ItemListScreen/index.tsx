@@ -27,8 +27,6 @@ export const ItemListScreen: FC = () => {
     doneItemsSelectors(flagDone),
   );
   useEffect(() => {
-  }, [data]);
-  useEffect(() => {
     const callback = () => {
       setLoading(false);
     };
