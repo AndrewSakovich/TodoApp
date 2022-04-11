@@ -13,12 +13,21 @@ import { style } from './style';
 import 'react-native-gesture-handler';
 import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 import { AddNewItemScreeBackButton } from '../../components/AddNewItemScreenBackButton';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { AddNewItemScreenNavigationProps } from './type';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
+  const route = useRoute();
   const dispatch = useDispatch();
+
+  const isEdit = route.params.isEdit;
+  console.log(isEdit);
+
+  useEffect(() => {
+    const title = isEdit ? 'Edit' : 'Add new task';
+    navigation.setOptions({ title: `${title}` });
+  }, []);
 
   const userToken = useSelector(userTokenSelector);
   const channelId = useSelector(deviceTokenSelector);
@@ -39,6 +48,9 @@ export const AddNewItemScreen: FC = () => {
 
   const onPressBack = useCallback(() => {
     const back = () => {
+      navigation.setParams({
+        isEdit: false,
+      });
       return navigation.goBack();
     };
 
