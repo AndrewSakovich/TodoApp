@@ -53,12 +53,6 @@ export const AddNewItemScreen: FC = () => {
   const currentDate = createCurrentDateHelper(date);
   const buttonStyle = text ? style.button : style.buttonDis;
 
-  const addItem = (text: TodoItemType['text']) => {
-    const newItem = createNewItemHelper(text, date);
-    createNotificationHelper({ channelId, newItem, date });
-    dispatch(addItemSagaAction({ newItem, userToken, callback }));
-  };
-
   const onPressBack = useCallback(() => {
     const back = () => {
       navigation.setParams({
@@ -90,7 +84,9 @@ export const AddNewItemScreen: FC = () => {
   }, [onPressBack, navigation]);
 
   const onPressAdd = () => {
-    addItem(text);
+    const newItem = createNewItemHelper(text, date);
+    createNotificationHelper({ channelId, newItem, date });
+    dispatch(addItemSagaAction({ newItem, userToken, callback }));
   };
 
   const onPressEdit = () => {
