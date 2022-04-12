@@ -7,7 +7,7 @@ import { userTokenSelector } from '../selectors/userTokenSelector';
 import { editItemAction } from '../actions/todoActions/editItemAction';
 
 export function* editItemSaga(action: EditItemSagaAction) {
-  const { id, text, callback } = action.payload;
+  const { id, text, callback, loadingCallback, date } = action.payload;
   const userToken: SuccessSignInPayload['userToken'] = yield select(
     userTokenSelector,
   );
@@ -15,7 +15,7 @@ export function* editItemSaga(action: EditItemSagaAction) {
     yield createReferenceHelper
       .ref(`Users/${userToken}/Todo/${id}/`)
       .update({ text });
-    yield put(editItemAction({ id, text }));
+    yield put(editItemAction({ id, text, date }));
     yield call(callback);
   } catch (error: any) {
     createAlertMessageHelper({
@@ -23,5 +23,7 @@ export function* editItemSaga(action: EditItemSagaAction) {
       title: 'Edit error',
       cancelButtonTitle: 'Cancel',
     });
+  } finally {
+    yield call(loadingCallback);
   }
 }

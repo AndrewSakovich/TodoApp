@@ -5,7 +5,7 @@ import { AddItemSagaAction } from '../actions/todoSagaActions/addItemSagaAction'
 import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 
 export function* addItemSaga(action: AddItemSagaAction) {
-  const { newItem, userToken, callback } = action.payload;
+  const { newItem, userToken, callback, loadingCallback } = action.payload;
   try {
     yield createReferenceHelper
       .ref(`Users/${userToken}/Todo/`)
@@ -19,5 +19,7 @@ export function* addItemSaga(action: AddItemSagaAction) {
       title: 'Login error',
       cancelButtonTitle: 'Cancel',
     });
+  } finally {
+    yield call(loadingCallback);
   }
 }
