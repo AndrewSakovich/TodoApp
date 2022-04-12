@@ -94,7 +94,6 @@ export const AddNewItemScreen: FC = () => {
   };
 
   const onPressEdit = () => {
-    console.log('hello');
     stopNotificationHelper(editItem.notificationId);
     const newItem = createNewItemHelper(text, date);
     createNotificationHelper({ newItem, date, channelId });
