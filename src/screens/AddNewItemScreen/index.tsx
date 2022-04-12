@@ -29,7 +29,8 @@ export const AddNewItemScreen: FC = () => {
   const isEdit = route.params?.isEdit;
   const editItem = route.params?.editItem;
   const initialState = editItem?.text ?? '';
-  const initialDate = editItem?.notificationDate ?? new Date();
+  const editDate = editItem?.notificationDate;
+  const initialDate = new Date(editDate!) ?? new Date();
 
   useEffect(() => {
     const title = isEdit ? 'Edit' : 'Add new task';
@@ -58,16 +59,9 @@ export const AddNewItemScreen: FC = () => {
   const buttonStyle = text ? style.button : style.buttonDis;
 
   const onPressBack = useCallback(() => {
-    const back = () => {
-      navigation.setParams({
-        isEdit: false,
-      });
-      return navigation.goBack();
-    };
-
     if (hasUnsavedChanges) {
       return createAlertMessageHelper({
-        onPress: back,
+        onPress: callback,
         title: 'Discard changes?',
         message:
           'You have unsaved changes. Are you sure to discard them and leave the screen?',
@@ -76,7 +70,7 @@ export const AddNewItemScreen: FC = () => {
       });
     }
 
-    return back();
+    return callback();
   }, [hasUnsavedChanges]);
 
   useEffect(() => {
