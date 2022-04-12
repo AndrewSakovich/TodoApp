@@ -9,6 +9,7 @@ export type EditItemSagaAction = {
 export type EditItemPayload = {
   id: TodoItemType['id'];
   text: TodoItemType['text'];
+  date: TodoItemType['notificationDate'];
 };
 
 export const editItemAction = (payload: EditItemPayload) => {

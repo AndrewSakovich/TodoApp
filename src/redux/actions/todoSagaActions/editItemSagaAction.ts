@@ -9,7 +9,7 @@ export type EditItemSagaAction = {
 export type EditItemSagaPayload = {
   id: TodoItemType['id'];
   text: TodoItemType['text'];
-  date: Date;
+  date: TodoItemType['notificationDate'];
   callback: () => void;
   loadingCallback: () => void;
 };
