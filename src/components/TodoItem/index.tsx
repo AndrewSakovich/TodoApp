@@ -16,9 +16,9 @@ import { AddNewItemScreenNavigationProps } from '../../screens/AddNewItemScreen/
 import { stopNotificationHelper } from '../../helpers/stopNotificationHelper';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
-  const {
-    todoItem: { id, text, isDone, notificationId, notificationDate },
-  } = props;
+  const { todoItem } = props;
+
+  const { id, text, isDone, notificationId } = todoItem;
 
   const dispatch = useDispatch();
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -48,7 +48,7 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
   const onPressEditing = () => {
     navigation.navigate(NAMESCREEN.ADD_NEW_ITEM_SCREEN, {
       isEdit: true,
-      editItem: { text, id, notificationId, isDone, notificationDate },
+      editItem: todoItem,
     });
   };
 
