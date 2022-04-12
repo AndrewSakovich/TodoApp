@@ -1,13 +1,13 @@
 import { EditItemSagaAction } from '../actions/todoSagaActions/editItemSagaAction';
 import { createReferenceHelper } from '../../helpers/createReferenceHelper';
-import { put, select } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 import { SuccessSignInPayload } from '../actions/authActions/successSignInAction';
 import { userTokenSelector } from '../selectors/userTokenSelector';
 import { editItemAction } from '../actions/todoActions/editItemAction';
 
 export function* editItemSaga(action: EditItemSagaAction) {
-  const { id, text } = action.payload;
+  const { id, text, callback } = action.payload;
   const userToken: SuccessSignInPayload['userToken'] = yield select(
     userTokenSelector,
   );
@@ -16,6 +16,7 @@ export function* editItemSaga(action: EditItemSagaAction) {
       .ref(`Users/${userToken}/Todo/${id}/`)
       .update({ text });
     yield put(editItemAction({ id, text }));
+    yield call(callback);
   } catch (error: any) {
     createAlertMessageHelper({
       message: `${error.message}`,

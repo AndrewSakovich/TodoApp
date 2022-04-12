@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewItemHelper } from '../../helpers/createNewItemHelper';
 import { TodoItemType } from '../../models';
@@ -43,10 +43,9 @@ export const AddNewItemScreen: FC = () => {
   const [text, setText] = useState(initialState);
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState<boolean>(false);
-  const [isLoading, setLoading] = useState(false);
 
   const callback = () => {
-    setLoading(true);
+    navigation.goBack();
   };
 
   const hasUnsavedChanges = !!text;
@@ -57,7 +56,7 @@ export const AddNewItemScreen: FC = () => {
   const addItem = (text: TodoItemType['text']) => {
     const newItem = createNewItemHelper(text, date);
     createNotificationHelper({ channelId, newItem, date });
-    dispatch(addItemSagaAction({ newItem, userToken }));
+    dispatch(addItemSagaAction({ newItem, userToken, callback }));
   };
 
   const onPressBack = useCallback(() => {
@@ -100,7 +99,6 @@ export const AddNewItemScreen: FC = () => {
     const newItem = createNewItemHelper(text, date);
     createNotificationHelper({ newItem, date, channelId });
     dispatch(editItemSagaAction({ id: editItem.id, text, callback }));
-    navigation.goBack();
   };
 
   const onPress = () => {
@@ -153,11 +151,7 @@ export const AddNewItemScreen: FC = () => {
         onCancel={onCancelDate}
       />
       <TouchableOpacity disabled={!text} style={buttonStyle} onPress={onPress}>
-        {isLoading ? (
-          <ActivityIndicator />
-        ) : (
-          <Text style={style.text}>{title}</Text>
-        )}
+        <Text style={style.text}>{title}</Text>
       </TouchableOpacity>
     </View>
   );
