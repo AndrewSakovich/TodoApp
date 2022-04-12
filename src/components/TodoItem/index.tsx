@@ -36,6 +36,7 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
       stopNotificationHelper(notificationId);
       dispatch(deleteItemSagaAction({ id }));
     };
+
     createAlertMessageHelper({
       onPress,
       title: 'Delete task',

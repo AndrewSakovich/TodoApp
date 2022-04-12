@@ -2,7 +2,6 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewItemHelper } from '../../helpers/createNewItemHelper';
-import { TodoItemType } from '../../models';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
 import { addItemSagaAction } from '../../redux/actions/todoSagaActions/addItemSagaAction';
 import { deviceTokenSelector } from '../../redux/selectors/deviceTokenSelector';
