@@ -32,7 +32,6 @@ export const AddNewItemScreen: FC = () => {
   const initialDate = editItem?.notificationDate ?? new Date();
 
   useEffect(() => {
-    setDate(editItem?.notificationDate ?? new Date());
     const title = isEdit ? 'Edit' : 'Add new task';
     navigation.setOptions({ title: title });
   }, []);
