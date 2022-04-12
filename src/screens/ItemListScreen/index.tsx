@@ -12,7 +12,6 @@ import { doneItemsSelectors } from '../../redux/selectors/doneItemsSelector';
 import { getDataTodoItemsSagaAction } from '../../redux/actions/todoSagaActions/getDataTodoItemsSagaAction';
 import { COLORS } from '../../COLORS';
 import { SkypeIndicator } from 'react-native-indicators';
-import { todoItemsSelector } from '../../redux/selectors/todoItemsSelector';
 
 export const ItemListScreen: FC = () => {
   const [isLoading, setLoading] = useState(true);

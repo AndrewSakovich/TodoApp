@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewItemHelper } from '../../helpers/createNewItemHelper';
 import { TodoItemType } from '../../models';
@@ -30,19 +30,24 @@ export const AddNewItemScreen: FC = () => {
   const isEdit = route.params.isEdit;
   const editItem = route.params.editItem;
   const initialState = editItem?.text ?? '';
-  const initialDate = editItem?.notificationDate ?? new Date();
 
   useEffect(() => {
+    setDate(editItem?.notificationDate ?? new Date());
     const title = isEdit ? 'Edit' : 'Add new task';
-    navigation.setOptions({ title: `${title}` });
+    navigation.setOptions({ title: title });
   }, []);
 
   const userToken = useSelector(userTokenSelector);
   const channelId = useSelector(deviceTokenSelector);
 
   const [text, setText] = useState(initialState);
-  const [date, setDate] = useState(initialDate);
+  const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState(false);
+
+  const callback = () => {
+    setLoading(true);
+  };
 
   const hasUnsavedChanges = !!text;
 
@@ -50,7 +55,6 @@ export const AddNewItemScreen: FC = () => {
   const buttonStyle = text ? style.button : style.buttonDis;
 
   const addItem = (text: TodoItemType['text']) => {
-    console.log('hello3');
     const newItem = createNewItemHelper(text, date);
     createNotificationHelper({ channelId, newItem, date });
     dispatch(addItemSagaAction({ newItem, userToken }));
@@ -90,11 +94,12 @@ export const AddNewItemScreen: FC = () => {
     addItem(text);
     navigation.goBack();
   };
+
   const onPressEdit = () => {
     stopNotificationHelper(editItem.notificationId);
     const newItem = createNewItemHelper(text, date);
     createNotificationHelper({ newItem, date, channelId });
-    dispatch(editItemSagaAction({ id: editItem.id, text }));
+    dispatch(editItemSagaAction({ id: editItem.id, text, callback }));
     navigation.goBack();
   };
 
@@ -102,7 +107,7 @@ export const AddNewItemScreen: FC = () => {
     if (isEdit) {
       return onPressEdit();
     }
-    console.log('hello1');
+
     return onPressAdd();
   };
 
@@ -148,7 +153,11 @@ export const AddNewItemScreen: FC = () => {
         onCancel={onCancelDate}
       />
       <TouchableOpacity disabled={!text} style={buttonStyle} onPress={onPress}>
-        <Text style={style.text}>{title}</Text>
+        {isLoading ? (
+          <ActivityIndicator />
+        ) : (
+          <Text style={style.text}>{title}</Text>
+        )}
       </TouchableOpacity>
     </View>
   );
