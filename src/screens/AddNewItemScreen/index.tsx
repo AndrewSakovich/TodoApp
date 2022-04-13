@@ -47,7 +47,9 @@ export const AddNewItemScreen: FC = () => {
   const [date, setDate] = useState(initialDate);
   const [open, setOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
-  const hasUnsavedChanges = isEdit ? editItem?.text !== text : !!text;
+  const hasUnsavedText = isEdit ? editItem?.text !== text : !!text;
+  const hasUnsavedDate = initialDate !== date;
+  const hasUnsavedChanges = hasUnsavedDate || hasUnsavedText;
 
   const back = () => {
     navigation.goBack();
