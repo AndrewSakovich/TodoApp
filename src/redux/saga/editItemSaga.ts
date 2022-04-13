@@ -7,7 +7,9 @@ import { userTokenSelector } from '../selectors/userTokenSelector';
 import { editItemAction } from '../actions/todoActions/editItemAction';
 
 export function* editItemSaga(action: EditItemSagaAction) {
-  const { id, text, callback, date } = action.payload;
+  const { newItem, callback } = action.payload;
+  const { id, text } = newItem;
+
   const userToken: SuccessSignInPayload['userToken'] = yield select(
     userTokenSelector,
   );
@@ -15,7 +17,7 @@ export function* editItemSaga(action: EditItemSagaAction) {
     yield createReferenceHelper
       .ref(`Users/${userToken}/Todo/${id}/`)
       .update({ text });
-    yield put(editItemAction({ id, text, date }));
+    yield put(editItemAction({ newItem }));
     yield call(callback, true);
   } catch (error: any) {
     yield call(callback, false);

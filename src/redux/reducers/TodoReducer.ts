@@ -60,11 +60,11 @@ export const todoReducer = (
       };
     }
     case TodoActionTypes.EDIT_ITEM: {
-      const { id, text, date }: EditItemPayload = action.payload;
+      const { newItem }: EditItemPayload = action.payload;
 
       const newTodoItems = state.todoItems.map(item => {
-        if (item.id === id) {
-          return { ...item, text, notificationDate: date };
+        if (item.id === newItem.id) {
+          return { ...item, ...newItem };
         }
         return item;
       });

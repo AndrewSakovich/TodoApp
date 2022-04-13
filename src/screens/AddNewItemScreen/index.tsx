@@ -100,16 +100,11 @@ export const AddNewItemScreen: FC = () => {
   const onPressEdit = () => {
     const { notificationId, id } = editItem!;
     stopNotificationHelper(notificationId);
-    const newItem = createNewItemHelper(text, date);
+    const newItem = createNewItemHelper(text, date, id);
     createNotificationHelper({ newItem, date, channelId });
     setLoading(true);
-    const modifiedItem = {
-      id,
-      text,
-      date: date.toString(),
-      callback,
-    };
-    dispatch(editItemSagaAction(modifiedItem));
+
+    dispatch(editItemSagaAction({ newItem, callback }));
   };
 
   const onPress = () => {

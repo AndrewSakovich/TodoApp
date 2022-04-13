@@ -5,9 +5,10 @@ import { createNotificationIdHelper } from './createNotificationIdHelper';
 export const createNewItemHelper = (
   text: TodoItemType['text'],
   date: Date,
+  id?: string,
 ): TodoItemType => {
   return {
-    id: uuid(),
+    id: id ?? uuid(),
     text,
     isDone: false,
     notificationDate: date.toString(),
