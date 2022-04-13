@@ -36,7 +36,6 @@ export const RootStackNavigator: FC = () => {
                   name={NAMESCREEN.ADD_NEW_ITEM_SCREEN}
                   component={AddNewItemScreen}
                   options={{
-                    title: 'Add new task',
                     headerTintColor: COLORS.white,
                     headerTitleStyle: {
                       color: COLORS.white,
