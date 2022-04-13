@@ -11,18 +11,18 @@ export const CustomInput: FC<CustomInputPropsType> = props => {
     return inputRef.current?.focus();
   };
 
-  const disabled = disable || !!onPress;
-  const touchEffect = disabled ? onPress : openInput;
+  const disabledInput = !!onPress || disable;
+  const touchEffect = disabledInput ? onPress : openInput;
 
   return (
     <TouchableOpacity
-      disabled={disabled}
+      disabled={disable}
       activeOpacity={0.7}
       style={style.input}
       onPress={touchEffect}>
       <Text>{`${title}`}</Text>
       <TextInput
-        editable={!disabled}
+        editable={!disabledInput}
         ref={inputRef}
         placeholder={placeholder}
         onChangeText={onChangeText}
