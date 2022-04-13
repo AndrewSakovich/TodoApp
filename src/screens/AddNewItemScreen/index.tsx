@@ -102,7 +102,7 @@ export const AddNewItemScreen: FC = () => {
     setLoading(true);
     dispatch(
       editItemSagaAction({
-        id: id,
+        id,
         text,
         date: date.toString(),
         callback,
