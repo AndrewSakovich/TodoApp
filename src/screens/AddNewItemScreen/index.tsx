@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewItemHelper } from '../../helpers/createNewItemHelper';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
@@ -20,6 +20,8 @@ import {
 import { editItemSagaAction } from '../../redux/actions/todoSagaActions/editItemSagaAction';
 import { createCurrentDateHelper } from '../../helpers/createCurrentDateHelper';
 import { stopNotificationHelper } from '../../helpers/stopNotificationHelper';
+import { SkypeIndicator } from 'react-native-indicators';
+import { COLORS } from '../../COLORS';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -60,7 +62,7 @@ export const AddNewItemScreen: FC = () => {
   };
 
   const currentDate = createCurrentDateHelper(date);
-  const buttonStyle = text ? style.button : style.buttonDis;
+  const buttonStyle = hasUnsavedChanges ? style.button : style.buttonDis;
 
   const onPressBack = useCallback(() => {
     if (hasUnsavedChanges) {
@@ -135,17 +137,26 @@ export const AddNewItemScreen: FC = () => {
 
   return (
     <View style={style.container}>
+      {isLoading && (
+        <SkypeIndicator
+          style={style.loader}
+          size={50}
+          color={COLORS.sapphire}
+        />
+      )}
       <View style={style.inputContainer}>
         <CustomInput
           onChangeText={setText}
           placeholder={'New task'}
           value={text}
           title={title}
+          disable={isLoading}
         />
         <CustomInput
           value={currentDate}
           title={dateInputTitle}
           onPress={openDate}
+          disable={isLoading}
         />
       </View>
       <DatePicker
@@ -156,12 +167,11 @@ export const AddNewItemScreen: FC = () => {
         onConfirm={onConfirmDate}
         onCancel={onCancelDate}
       />
-      <TouchableOpacity disabled={!text} style={buttonStyle} onPress={onPress}>
-        {isLoading ? (
-          <ActivityIndicator />
-        ) : (
-          <Text style={style.text}>{title}</Text>
-        )}
+      <TouchableOpacity
+        disabled={!hasUnsavedChanges}
+        style={buttonStyle}
+        onPress={onPress}>
+        <Text style={style.text}>{title}</Text>
       </TouchableOpacity>
     </View>
   );
