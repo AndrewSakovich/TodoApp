@@ -46,12 +46,16 @@ export const AddNewItemScreen: FC = () => {
   const [open, setOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
-  const loadingCallback = () => {
-    setLoading(false);
+  const back = () => {
+    navigation.goBack();
   };
 
-  const callback = () => {
-    navigation.goBack();
+  const callback = (isSuccess: boolean) => {
+    if (isSuccess) {
+      setLoading(false);
+      navigation.goBack();
+    }
+    setLoading(false);
   };
 
   const hasUnsavedChanges = !!text;
@@ -62,7 +66,7 @@ export const AddNewItemScreen: FC = () => {
   const onPressBack = useCallback(() => {
     if (hasUnsavedChanges) {
       return createAlertMessageHelper({
-        onPress: callback,
+        onPress: back,
         title: 'Discard changes?',
         message:
           'You have unsaved changes. Are you sure to discard them and leave the screen?',
@@ -71,7 +75,7 @@ export const AddNewItemScreen: FC = () => {
       });
     }
 
-    return callback();
+    return back();
   }, [hasUnsavedChanges]);
 
   useEffect(() => {
@@ -85,9 +89,7 @@ export const AddNewItemScreen: FC = () => {
   const onPressAdd = () => {
     const newItem = createNewItemHelper(text, date);
     createNotificationHelper({ channelId, newItem, date });
-    dispatch(
-      addItemSagaAction({ newItem, userToken, callback, loadingCallback }),
-    );
+    dispatch(addItemSagaAction({ newItem, userToken, callback }));
   };
 
   const onPressEdit = () => {
@@ -102,7 +104,6 @@ export const AddNewItemScreen: FC = () => {
         text,
         date: date.toString(),
         callback,
-        loadingCallback,
       }),
     );
   };

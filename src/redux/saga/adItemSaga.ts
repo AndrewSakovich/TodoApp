@@ -5,21 +5,20 @@ import { AddItemSagaAction } from '../actions/todoSagaActions/addItemSagaAction'
 import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 
 export function* addItemSaga(action: AddItemSagaAction) {
-  const { newItem, userToken, callback, loadingCallback } = action.payload;
+  const { newItem, userToken, callback } = action.payload;
   try {
     yield createReferenceHelper
       .ref(`Users/${userToken}/Todo/`)
       .child(`${newItem.id}`)
       .set(newItem);
     yield put(addItemAction({ newItem }));
-    yield call(callback);
+    yield call(callback, true);
   } catch (error: any) {
+    yield call(callback, false);
     createAlertMessageHelper({
       message: `${error.message}`,
       title: 'Login error',
       cancelButtonTitle: 'Cancel',
     });
-  } finally {
-    yield call(loadingCallback);
   }
 }
