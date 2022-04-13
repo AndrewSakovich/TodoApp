@@ -45,6 +45,7 @@ export const AddNewItemScreen: FC = () => {
   const [date, setDate] = useState(initialDate);
   const [open, setOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const hasUnsavedChanges = isEdit ? editItem?.text !== text : !!text;
 
   const back = () => {
     navigation.goBack();
@@ -57,8 +58,6 @@ export const AddNewItemScreen: FC = () => {
     }
     setLoading(false);
   };
-
-  const hasUnsavedChanges = !!text;
 
   const currentDate = createCurrentDateHelper(date);
   const buttonStyle = text ? style.button : style.buttonDis;
