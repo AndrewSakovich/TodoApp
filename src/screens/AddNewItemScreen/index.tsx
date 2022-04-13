@@ -57,10 +57,9 @@ export const AddNewItemScreen: FC = () => {
 
   const callback = (isSuccess: boolean) => {
     if (isSuccess) {
-      setLoading(false);
-      navigation.goBack();
+      return navigation.goBack();
     }
-    setLoading(false);
+    return setLoading(false);
   };
 
   const currentDate = createCurrentDateHelper(date);
