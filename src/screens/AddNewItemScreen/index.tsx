@@ -103,14 +103,13 @@ export const AddNewItemScreen: FC = () => {
     const newItem = createNewItemHelper(text, date);
     createNotificationHelper({ newItem, date, channelId });
     setLoading(true);
-    dispatch(
-      editItemSagaAction({
-        id,
-        text,
-        date: date.toString(),
-        callback,
-      }),
-    );
+    const modifiedItem = {
+      id,
+      text,
+      date: date.toString(),
+      callback,
+    };
+    dispatch(editItemSagaAction(modifiedItem));
   };
 
   const onPress = () => {
