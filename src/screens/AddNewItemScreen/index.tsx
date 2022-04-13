@@ -50,7 +50,7 @@ export const AddNewItemScreen: FC = () => {
   const [date, setDate] = useState(initialDate);
   const [open, setOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
-  const hasUnsavedText = isEdit ? editItem?.text !== text : !!text;
+  const hasUnsavedText = isEdit ? initialState !== editItem?.text : !!text;
   const hasUnsavedDate = initialDate !== date;
   const hasUnsavedChanges = hasUnsavedDate || hasUnsavedText;
 
