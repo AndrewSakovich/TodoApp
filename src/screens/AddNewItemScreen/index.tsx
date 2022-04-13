@@ -3,7 +3,10 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewItemHelper } from '../../helpers/createNewItemHelper';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
-import { addItemSagaAction } from '../../redux/actions/todoSagaActions/addItemSagaAction';
+import {
+  addItemSagaAction,
+  AddItemSagaActionPayload,
+} from '../../redux/actions/todoSagaActions/addItemSagaAction';
 import { deviceTokenSelector } from '../../redux/selectors/deviceTokenSelector';
 import { createNotificationHelper } from '../../helpers/createNotificationHelper';
 import DatePicker from 'react-native-date-picker';
@@ -55,7 +58,7 @@ export const AddNewItemScreen: FC = () => {
     navigation.goBack();
   };
 
-  const callback = (isSuccess: boolean) => {
+  const callback: AddItemSagaActionPayload['callback'] = isSuccess => {
     if (isSuccess) {
       return navigation.goBack();
     }
