@@ -28,13 +28,14 @@ export const AddNewItemScreen: FC = () => {
 
   const isEdit = route.params?.isEdit;
   const editItem = route.params?.editItem;
+
   const initialState = editItem?.text ?? '';
   const editDate = editItem?.notificationDate;
-  const initialDate = new Date(editDate!) ?? new Date();
+  const initialDate = isEdit ? new Date(editDate!) : new Date();
 
   useEffect(() => {
     const title = isEdit ? 'Edit' : 'Add new task';
-    navigation.setOptions({ title: title });
+    navigation.setOptions({ title });
   }, []);
 
   const userToken = useSelector(userTokenSelector);
@@ -42,7 +43,7 @@ export const AddNewItemScreen: FC = () => {
 
   const [text, setText] = useState(initialState);
   const [date, setDate] = useState(initialDate);
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
   const loadingCallback = () => {
@@ -94,11 +95,12 @@ export const AddNewItemScreen: FC = () => {
     stopNotificationHelper(notificationId);
     const newItem = createNewItemHelper(text, date);
     createNotificationHelper({ newItem, date, channelId });
+    setLoading(true);
     dispatch(
       editItemSagaAction({
         id: id,
         text,
-        date,
+        date: date.toString(),
         callback,
         loadingCallback,
       }),

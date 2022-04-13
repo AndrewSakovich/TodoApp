@@ -10,7 +10,7 @@ export const createNewItemHelper = (
     id: uuid(),
     text,
     isDone: false,
-    notificationDate: date,
+    notificationDate: date.toString(),
     notificationId: createNotificationIdHelper(),
   };
 };
