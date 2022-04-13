@@ -172,7 +172,7 @@ export const AddNewItemScreen: FC = () => {
         onCancel={onCancelDate}
       />
       <TouchableOpacity
-        disabled={!hasUnsavedChanges}
+        disabled={!hasUnsavedChanges && !isLoading}
         style={buttonStyle}
         onPress={onPress}>
         <Text style={style.text}>{title}</Text>
