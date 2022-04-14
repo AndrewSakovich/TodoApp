@@ -7,19 +7,19 @@ import { COLORS } from '../../COLORS';
 export const CustomInput: FC<CustomInputPropsType> = props => {
   const { onChangeText, placeholder, value, title, onPress, disable } = props;
   const inputRef = useRef<TextInput>(null);
-  const openInput = () => {
+  const focusInput = () => {
     return inputRef.current?.focus();
   };
 
   const disabledInput = !!onPress || disable;
-  const touchEffect = disabledInput ? onPress : openInput;
+  const onPressInput = onPress ?? focusInput;
 
   return (
     <TouchableOpacity
       disabled={disable}
       activeOpacity={0.7}
       style={style.input}
-      onPress={touchEffect}>
+      onPress={onPressInput}>
       <Text>{`${title}`}</Text>
       <TextInput
         editable={!disabledInput}
