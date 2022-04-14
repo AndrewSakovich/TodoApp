@@ -2,9 +2,11 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewItemHelper } from '../../helpers/createNewItemHelper';
-import { TodoItemType } from '../../models';
 import { userTokenSelector } from '../../redux/selectors/userTokenSelector';
-import { addItemSagaAction } from '../../redux/actions/todoSagaActions/addItemSagaAction';
+import {
+  addItemSagaAction,
+  AddItemSagaActionPayload,
+} from '../../redux/actions/todoSagaActions/addItemSagaAction';
 import { deviceTokenSelector } from '../../redux/selectors/deviceTokenSelector';
 import { createNotificationHelper } from '../../helpers/createNotificationHelper';
 import DatePicker from 'react-native-date-picker';
@@ -13,35 +15,60 @@ import { style } from './style';
 import 'react-native-gesture-handler';
 import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 import { AddNewItemScreeBackButton } from '../../components/AddNewItemScreenBackButton';
-import { useNavigation } from '@react-navigation/native';
-import { AddNewItemScreenNavigationProps } from './type';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import {
+  AddNewItemScreenNavigationProps,
+  AddNewItemScreenRouteProps,
+} from './type';
+import { editItemSagaAction } from '../../redux/actions/todoSagaActions/editItemSagaAction';
+import { createCurrentDateHelper } from '../../helpers/createCurrentDateHelper';
+import { stopNotificationHelper } from '../../helpers/stopNotificationHelper';
+import { SkypeIndicator } from 'react-native-indicators';
+import { COLORS } from '../../COLORS';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
+  const route = useRoute<AddNewItemScreenRouteProps>();
   const dispatch = useDispatch();
+
+  const isEdit = route.params?.isEdit;
+  const editItem = route.params?.editItem;
+
+  const editDate = editItem?.notificationDate;
+  const initialState = editItem?.text ?? '';
+  const initialDate = isEdit ? new Date(editDate!) : new Date();
+
+  useEffect(() => {
+    const title = isEdit ? 'Edit' : 'Add new task';
+    navigation.setOptions({ title });
+  }, []);
 
   const userToken = useSelector(userTokenSelector);
   const channelId = useSelector(deviceTokenSelector);
 
-  const [text, setText] = useState('');
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState<boolean>(false);
-  const currentDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`;
-  const buttonStyle = text ? style.button : style.buttonDis;
+  const [text, setText] = useState(initialState);
+  const [date, setDate] = useState(initialDate);
+  const [open, setOpen] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const hasUnsavedText = initialState !== text;
+  const hasUnsavedDate = initialDate !== date;
+  const hasUnsavedChanges = hasUnsavedDate || hasUnsavedText;
 
-  const hasUnsavedChanges = !!text;
-
-  const addItem = (text: TodoItemType['text']) => {
-    const newItem = createNewItemHelper(text);
-    createNotificationHelper({ channelId, newItem, date });
-    dispatch(addItemSagaAction({ newItem, userToken }));
+  const back = () => {
+    navigation.goBack();
   };
 
-  const onPressBack = useCallback(() => {
-    const back = () => {
-      return navigation.goBack();
-    };
+  const callback: AddItemSagaActionPayload['callback'] = isSuccess => {
+    if (isSuccess) {
+      return back();
+    }
+    return setLoading(false);
+  };
 
+  const currentDate = createCurrentDateHelper(date);
+  const buttonStyle = hasUnsavedChanges ? style.button : style.buttonDis;
+
+  const onPressBack = useCallback(() => {
     if (hasUnsavedChanges) {
       return createAlertMessageHelper({
         onPress: back,
@@ -64,9 +91,28 @@ export const AddNewItemScreen: FC = () => {
     });
   }, [onPressBack, navigation]);
 
+  const onPressAdd = () => {
+    const newItem = createNewItemHelper(text, date);
+    createNotificationHelper({ channelId, newItem, date });
+    dispatch(addItemSagaAction({ newItem, userToken, callback }));
+  };
+
+  const onPressEdit = () => {
+    const { notificationId, id } = editItem!;
+    stopNotificationHelper(notificationId);
+    const newItem = createNewItemHelper(text, date, id);
+    createNotificationHelper({ newItem, date, channelId });
+    setLoading(true);
+
+    dispatch(editItemSagaAction({ newItem, callback }));
+  };
+
   const onPress = () => {
-    addItem(text);
-    navigation.goBack();
+    if (isEdit) {
+      return onPressEdit();
+    }
+
+    return onPressAdd();
   };
 
   const onConfirmDate = (date: Date) => {
@@ -82,19 +128,33 @@ export const AddNewItemScreen: FC = () => {
     setOpen(true);
   };
 
+  const dateInputTitle = isEdit
+    ? 'Edit the reminder send time'
+    : 'Set the reminder send time';
+  const title = isEdit ? 'Edit tack' : 'Add new tack';
+
   return (
     <View style={style.container}>
+      {isLoading && (
+        <SkypeIndicator
+          style={style.loader}
+          size={50}
+          color={COLORS.sapphire}
+        />
+      )}
       <View style={style.inputContainer}>
         <CustomInput
           onChangeText={setText}
           placeholder={'New task'}
           value={text}
-          title={'Add new tack'}
+          title={title}
+          disable={isLoading}
         />
         <CustomInput
           value={currentDate}
-          title={'Set the reminder send time'}
+          title={dateInputTitle}
           onPress={openDate}
+          disable={isLoading}
         />
       </View>
       <DatePicker
@@ -105,8 +165,11 @@ export const AddNewItemScreen: FC = () => {
         onConfirm={onConfirmDate}
         onCancel={onCancelDate}
       />
-      <TouchableOpacity disabled={!text} style={buttonStyle} onPress={onPress}>
-        <Text style={style.text}>{'Add new task'}</Text>
+      <TouchableOpacity
+        disabled={isLoading || !hasUnsavedChanges}
+        style={buttonStyle}
+        onPress={onPress}>
+        <Text style={style.text}>{title}</Text>
       </TouchableOpacity>
     </View>
   );

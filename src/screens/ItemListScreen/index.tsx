@@ -25,7 +25,6 @@ export const ItemListScreen: FC = () => {
   const data = useSelector<RootStateType, TodoItemType[]>(
     doneItemsSelectors(flagDone),
   );
-
   useEffect(() => {
     const callback = () => {
       setLoading(false);

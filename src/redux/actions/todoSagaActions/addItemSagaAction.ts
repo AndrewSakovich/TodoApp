@@ -10,6 +10,7 @@ export type AddItemSagaAction = {
 export type AddItemSagaActionPayload = {
   newItem: TodoItemType;
   userToken: AuthReducerState['userToken'];
+  callback: (isSuccess: boolean) => void;
 };
 
 export const addItemSagaAction = (payload: AddItemSagaActionPayload) => {

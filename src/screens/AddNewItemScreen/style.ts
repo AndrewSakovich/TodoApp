@@ -7,6 +7,7 @@ type AddNewItemScreenStyleType = {
   buttonDis: ViewStyle;
   text: TextStyle;
   inputContainer: ViewStyle;
+  loader: ViewStyle;
 };
 
 const button: ViewStyle = {
@@ -28,6 +29,13 @@ export const style = StyleSheet.create<AddNewItemScreenStyleType>({
   },
   inputContainer: {
     width: '100%',
+  },
+  loader: {
+    flex: 1,
+    marginTop: 50,
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1,
   },
   button,
   buttonDis: {
