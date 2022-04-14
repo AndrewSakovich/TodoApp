@@ -64,7 +64,7 @@ export const todoReducer = (
 
       const newTodoItems = state.todoItems.map(item => {
         if (item.id === newItem.id) {
-          return { ...item, ...newItem };
+          return newItem;
         }
         return item;
       });
