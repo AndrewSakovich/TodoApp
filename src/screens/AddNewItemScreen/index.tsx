@@ -21,10 +21,11 @@ import {
   AddNewItemScreenRouteProps,
 } from './type';
 import { editItemSagaAction } from '../../redux/actions/todoSagaActions/editItemSagaAction';
-import { createCurrentDateHelper } from '../../helpers/createCurrentDateHelper';
 import { stopNotificationHelper } from '../../helpers/stopNotificationHelper';
 import { SkypeIndicator } from 'react-native-indicators';
 import { COLORS } from '../../COLORS';
+import { useTextInput } from '../../hooks/useTextInput';
+import { useDateInput } from './hooks/useDateInput';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -46,12 +47,21 @@ export const AddNewItemScreen: FC = () => {
   const userToken = useSelector(userTokenSelector);
   const channelId = useSelector(deviceTokenSelector);
 
-  const [text, setText] = useState(initialState);
-  const [date, setDate] = useState(initialDate);
-  const [open, setOpen] = useState(false);
+  const textInput = useTextInput(initialState);
+  const text = textInput.value;
+  const hasUnsavedText = textInput.hasUnsavedText;
+
+  const dateInput = useDateInput(initialDate);
+
+  const {
+    datePicker,
+    date,
+    currentDate,
+    onPressOpen,
+    hasUnsavedDate,
+  } = dateInput;
+
   const [isLoading, setLoading] = useState(false);
-  const hasUnsavedText = initialState !== text;
-  const hasUnsavedDate = initialDate !== date;
   const hasUnsavedChanges = hasUnsavedDate || hasUnsavedText;
 
   const back = () => {
@@ -65,7 +75,6 @@ export const AddNewItemScreen: FC = () => {
     return setLoading(false);
   };
 
-  const currentDate = createCurrentDateHelper(date);
   const buttonStyle = hasUnsavedChanges ? style.button : style.buttonDis;
 
   const onPressBack = useCallback(() => {
@@ -114,19 +123,15 @@ export const AddNewItemScreen: FC = () => {
 
     return onPressAdd();
   };
-
-  const onConfirmDate = (date: Date) => {
-    onCancelDate();
-    setDate(date);
-  };
-
-  const onCancelDate = () => {
-    setOpen(false);
-  };
-
-  const openDate = () => {
-    setOpen(true);
-  };
+  //
+  // const onConfirmDate = (date: Date) => {
+  //   onCancelDate();
+  //   setDate(date);
+  // };
+  //
+  // const onCancelDate = () => {
+  //   setOpen(false);
+  // };
 
   const dateInputTitle = isEdit
     ? 'Edit the reminder send time'
@@ -144,27 +149,21 @@ export const AddNewItemScreen: FC = () => {
       )}
       <View style={style.inputContainer}>
         <CustomInput
-          onChangeText={setText}
+          {...textInput}
           placeholder={'New task'}
-          value={text}
           title={title}
           disable={isLoading}
         />
         <CustomInput
           value={currentDate}
+          onPress={() => {
+            onPressOpen(true);
+          }}
           title={dateInputTitle}
-          onPress={openDate}
           disable={isLoading}
         />
       </View>
-      <DatePicker
-        minimumDate={new Date()}
-        modal
-        open={open}
-        date={date}
-        onConfirm={onConfirmDate}
-        onCancel={onCancelDate}
-      />
+      <DatePicker minimumDate={new Date()} modal {...datePicker} />
       <TouchableOpacity
         disabled={isLoading || !hasUnsavedChanges}
         style={buttonStyle}
