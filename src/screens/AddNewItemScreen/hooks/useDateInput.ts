@@ -10,7 +10,7 @@ export const useDateInput = (initialValue: Date) => {
   const onPressOpen = (open = true) => {
     setOpen(open);
   };
-  const datePicker = useDatePicker(date, setOpen, open, setDate);
+  const datePicker = useDatePicker({ date, setDate, open, setOpen });
   return {
     datePicker,
     hasUnsavedDate,
