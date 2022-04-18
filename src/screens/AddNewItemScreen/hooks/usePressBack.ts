@@ -22,5 +22,6 @@ export const usePressBack = (hasUnsavedChanges: boolean) => {
 
     return back();
   }, [hasUnsavedChanges]);
+
   return onPressBack;
 };
