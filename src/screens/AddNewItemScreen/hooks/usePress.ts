@@ -4,10 +4,8 @@ import { createNotificationHelper } from '../../../helpers/createNotificationHel
 import { editItemSagaAction } from '../../../redux/actions/todoSagaActions/editItemSagaAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { TodoItemType } from '../../../models';
-import { useTextInput } from '../../../hooks/useTextInput';
-import { useDateInput } from './useDateInput';
 import { deviceTokenSelector } from '../../../redux/selectors/deviceTokenSelector';
-import { Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
 import {
   addItemSagaAction,
   AddItemSagaActionPayload,
@@ -19,32 +17,21 @@ import { userTokenSelector } from '../../../redux/selectors/userTokenSelector';
 export type UsePressParams = {
   isEdit: boolean;
   editItem: TodoItemType;
-  setLoading: Dispatch<SetStateAction<boolean>>;
+  editText: TodoItemType['text'];
+  editDate: Date;
 };
+export const usePress = (params: UsePressParams) => {
+  const { isEdit, editText, editItem, editDate } = params;
 
-export const usePress = (usePressParams: UsePressParams) => {
-  const { isEdit, editItem, setLoading } = usePressParams;
-
-  const editDate = editItem?.notificationDate;
-  const initialState = editItem?.text ?? '';
-  const initialDate = isEdit ? new Date(editDate!) : new Date();
-
+  const [isLoading, setLoading] = useState<boolean>();
   const dispatch = useDispatch();
-  const userToken = useSelector(userTokenSelector);
-  const dateInput = useDateInput(initialDate);
-  const textInput = useTextInput(initialState);
   const channelId = useSelector(deviceTokenSelector);
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
-  const back = () => {
-    return navigation.goBack();
-  };
-
-  const text = textInput.value;
-  const date = dateInput.date;
+  const userToken = useSelector(userTokenSelector);
 
   const callback: AddItemSagaActionPayload['callback'] = isSuccess => {
     if (isSuccess) {
-      return back();
+      return navigation.goBack();
     }
     return setLoading(false);
   };
@@ -52,16 +39,16 @@ export const usePress = (usePressParams: UsePressParams) => {
   const onPressEdit = () => {
     const { notificationId, id } = editItem!;
     stopNotificationHelper(notificationId);
-    const newItem = createNewItemHelper(text, date, id);
-    createNotificationHelper({ newItem, date, channelId });
+    const newItem = createNewItemHelper(editText, editDate, id);
+    createNotificationHelper({ newItem, date: editDate, channelId });
     setLoading(true);
 
     dispatch(editItemSagaAction({ newItem, callback }));
   };
 
   const onPressAdd = () => {
-    const newItem = createNewItemHelper(text, date);
-    createNotificationHelper({ channelId, newItem, date });
+    const newItem = createNewItemHelper(editText, editDate);
+    createNotificationHelper({ channelId, newItem, date: editDate });
     setLoading(true);
     dispatch(addItemSagaAction({ newItem, userToken, callback }));
   };
@@ -75,7 +62,6 @@ export const usePress = (usePressParams: UsePressParams) => {
 
   return {
     onPress,
-    dateInput,
-    textInput,
+    isLoading,
   };
 };
