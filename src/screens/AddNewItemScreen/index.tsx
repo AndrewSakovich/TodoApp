@@ -12,7 +12,6 @@ import {
 } from './type';
 import { SkypeIndicator } from 'react-native-indicators';
 import { COLORS } from '../../COLORS';
-import { usePressBack } from './hooks/usePressBack';
 import { useAddNewItemScreen } from './hooks/useAddNewItemScreen';
 import { createCurrentDateHelper } from '../../helpers/createCurrentDateHelper';
 
@@ -42,7 +41,7 @@ export const AddNewItemScreen: FC = () => {
     setOpen(false);
   };
 
-  const { hasUnsavedText, hasUnsavedDate, pressParams, textInputProps } =
+  const { hasUnsavedChanges, onPressBack, pressParams, textInputProps } =
     useAddNewItemScreen({ editItem, isEdit, date, initialDate });
 
   const { onPress, isLoading } = pressParams;
@@ -56,11 +55,7 @@ export const AddNewItemScreen: FC = () => {
 
   const { onChangeText, value } = textInputProps;
 
-  const hasUnsavedChanges = hasUnsavedDate || hasUnsavedText;
-
   const buttonStyle = hasUnsavedChanges ? style.button : style.buttonDis;
-
-  const onPressBack = usePressBack(hasUnsavedChanges);
 
   useEffect(() => {
     navigation.setOptions({

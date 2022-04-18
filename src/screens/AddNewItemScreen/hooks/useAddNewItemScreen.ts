@@ -1,6 +1,7 @@
 import { useTextInput } from '../../../hooks/useTextInput';
 import { usePress } from './usePress';
 import { TodoItemType } from '../../../models';
+import { usePressBack } from './usePressBack';
 
 export type UseAddNewItemScreenParams = {
   editItem: TodoItemType;
@@ -20,13 +21,16 @@ export const useAddNewItemScreen = (params: UseAddNewItemScreenParams) => {
 
   const hasUnsavedText = editText !== initialText;
   const hasUnsavedDate = date !== initialDate;
+  const hasUnsavedChanges = hasUnsavedDate || hasUnsavedText;
+
+  const onPressBack = usePressBack(hasUnsavedChanges);
 
   const pressParams = usePress({ editItem, isEdit, editText, editDate });
 
   return {
+    hasUnsavedChanges,
+    onPressBack,
     textInputProps,
     pressParams,
-    hasUnsavedDate,
-    hasUnsavedText,
   };
 };
