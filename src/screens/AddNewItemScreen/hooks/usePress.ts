@@ -20,10 +20,17 @@ export type UsePressParams = {
   editText: TodoItemType['text'];
   editDate: Date;
 };
-export const usePress = (params: UsePressParams) => {
+
+type UsePressReturn = {
+  onPress: () => void;
+  isLoading: boolean;
+};
+export type UsePress = (params: UsePressParams) => UsePressReturn;
+
+export const usePress: UsePress = params => {
   const { isEdit, editText, editItem, editDate } = params;
 
-  const [isLoading, setLoading] = useState<boolean>();
+  const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const channelId = useSelector(deviceTokenSelector);
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
