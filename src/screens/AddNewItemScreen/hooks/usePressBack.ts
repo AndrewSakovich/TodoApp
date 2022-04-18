@@ -3,7 +3,7 @@ import { createAlertMessageHelper } from '../../../helpers/createAlertMessageHel
 import { useNavigation } from '@react-navigation/native';
 import { AddNewItemScreenNavigationProps } from '../type';
 
-export type UsePressBack = (hasUnsavedChanges: boolean) => void;
+export type UsePressBack = (hasUnsavedChanges: boolean) => () => void;
 
 export const usePressBack: UsePressBack = (hasUnsavedChanges: boolean) => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -12,6 +12,7 @@ export const usePressBack: UsePressBack = (hasUnsavedChanges: boolean) => {
     const back = () => {
       return navigation.goBack();
     };
+
     if (hasUnsavedChanges) {
       return createAlertMessageHelper({
         onPress: back,
