@@ -53,12 +53,7 @@ export const usePress = (params: UsePressParams) => {
     dispatch(addItemSagaAction({ newItem, userToken, callback }));
   };
 
-  const onPress = () => {
-    if (isEdit) {
-      return onPressEdit();
-    }
-    return onPressAdd();
-  };
+  const onPress = isEdit ? onPressEdit : onPressAdd;
 
   return {
     onPress,
