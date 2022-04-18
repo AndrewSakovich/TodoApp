@@ -21,7 +21,7 @@ export type UsePressParams = {
   editDate: Date;
 };
 
-type UsePressReturn = {
+export type UsePressReturn = {
   onPress: () => void;
   isLoading: boolean;
 };
