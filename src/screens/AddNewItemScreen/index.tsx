@@ -13,7 +13,8 @@ import {
 import { SkypeIndicator } from 'react-native-indicators';
 import { COLORS } from '../../COLORS';
 import { usePressBack } from './hooks/usePressBack';
-import { usePress } from './hooks/usePress';
+import { useAddNewItemScreen } from './hooks/useAddNewItemScreen';
+import { createCurrentDateHelper } from '../../helpers/createCurrentDateHelper';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -21,19 +22,39 @@ export const AddNewItemScreen: FC = () => {
 
   const isEdit = route.params?.isEdit!;
   const editItem = route.params?.editItem!;
+  const editItemDate = editItem?.notificationDate;
 
-  const [isLoading, setLoading] = useState(false);
+  const initialDate = isEdit ? new Date(editItemDate!) : new Date();
 
-  const params = usePress({ editItem, isEdit, setLoading });
-  const { onPress, textInput, dateInput } = params;
+  const [open, setOpen] = useState(false);
+  const [date, setDate] = useState(initialDate);
+
+  const onPressDateInput = () => {
+    setOpen(true);
+  };
+
+  const onConfirm = (date: Date) => {
+    setDate(date);
+    onCancelDate();
+  };
+
+  const onCancelDate = () => {
+    setOpen(false);
+  };
+
+  const { hasUnsavedText, hasUnsavedDate, pressParams, textInputProps } =
+    useAddNewItemScreen({ editItem, isEdit, date, initialDate });
+
+  const { onPress, isLoading } = pressParams;
+
+  const currentDate = createCurrentDateHelper(date);
 
   useEffect(() => {
     const title = isEdit ? 'Edit' : 'Add new task';
     navigation.setOptions({ title });
   }, []);
 
-  const hasUnsavedText = textInput.hasUnsavedText;
-  const { datePicker, currentDate, onPressOpen, hasUnsavedDate } = dateInput;
+  const { onChangeText, value } = textInputProps;
 
   const hasUnsavedChanges = hasUnsavedDate || hasUnsavedText;
 
@@ -65,21 +86,27 @@ export const AddNewItemScreen: FC = () => {
       )}
       <View style={style.inputContainer}>
         <CustomInput
-          {...textInput}
+          value={value}
+          onChangeText={onChangeText}
           placeholder={'New task'}
           title={title}
           disable={isLoading}
         />
         <CustomInput
           value={currentDate}
-          onPress={() => {
-            onPressOpen(true);
-          }}
+          onPress={onPressDateInput}
           title={dateInputTitle}
           disable={isLoading}
         />
       </View>
-      <DatePicker minimumDate={new Date()} modal {...datePicker} />
+      <DatePicker
+        minimumDate={new Date()}
+        modal
+        open={open}
+        date={date}
+        onConfirm={onConfirm}
+        onCancel={onCancelDate}
+      />
       <TouchableOpacity
         disabled={isLoading || !hasUnsavedChanges}
         style={buttonStyle}
