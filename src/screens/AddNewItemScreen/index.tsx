@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import { CustomInput } from '../../components/CustomInput';
@@ -14,6 +14,7 @@ import { SkypeIndicator } from 'react-native-indicators';
 import { COLORS } from '../../COLORS';
 import { useAddNewItemScreen } from './hooks/useAddNewItemScreen';
 import { createCurrentDateHelper } from '../../helpers/createCurrentDateHelper';
+import { useDatePicker } from './hooks/useDatePicker';
 
 export const AddNewItemScreen: FC = () => {
   const navigation = useNavigation<AddNewItemScreenNavigationProps>();
@@ -25,35 +26,22 @@ export const AddNewItemScreen: FC = () => {
 
   const initialDate = isEdit ? new Date(editItemDate!) : new Date();
 
-  const [open, setOpen] = useState(false);
-  const [date, setDate] = useState(initialDate);
-
-  const onPressDateInput = () => {
-    setOpen(true);
-  };
-
-  const onConfirm = (date: Date) => {
-    setDate(date);
-    onCancelDate();
-  };
-
-  const onCancelDate = () => {
-    setOpen(false);
-  };
-
-  const { hasUnsavedChanges, onPressBack, pressParams, textInputProps } =
-    useAddNewItemScreen({ editItem, isEdit, date, initialDate });
+  const { hasUnsavedChanges, onPressBack, pressParams, inputProps, editDate } =
+    useAddNewItemScreen({ editItem, isEdit, initialDate });
 
   const { onPress, isLoading } = pressParams;
 
-  const currentDate = createCurrentDateHelper(date);
+  const currentDate = createCurrentDateHelper(editDate);
 
   useEffect(() => {
     const title = isEdit ? 'Edit' : 'Add new task';
     navigation.setOptions({ title });
   }, []);
 
-  const { onChangeText, value } = textInputProps;
+  const { onChangeText, value, onChangeDate } = inputProps;
+  const datePickerProps = useDatePicker(onChangeDate);
+
+  const { onPressDateInput, onConfirm, onCancelDate, open } = datePickerProps;
 
   const buttonStyle = hasUnsavedChanges ? style.button : style.buttonDis;
 
@@ -98,7 +86,7 @@ export const AddNewItemScreen: FC = () => {
         minimumDate={new Date()}
         modal
         open={open}
-        date={date}
+        date={editDate}
         onConfirm={onConfirm}
         onCancel={onCancelDate}
       />

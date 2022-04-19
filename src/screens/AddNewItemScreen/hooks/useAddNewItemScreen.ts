@@ -1,4 +1,4 @@
-import { useTextInput, UseTextInputReturn } from '../../../hooks/useTextInput';
+import { useInput, UseInputReturn } from '../../../hooks/useInput';
 import { usePress, UsePressReturn } from './usePress';
 import { TodoItemType } from '../../../models';
 import { usePressBack } from './usePressBack';
@@ -6,14 +6,13 @@ import { usePressBack } from './usePressBack';
 export type UseAddNewItemScreenParams = {
   editItem: TodoItemType;
   isEdit: boolean;
-  date: Date;
   initialDate: Date;
 };
 
 type UseAddNewItemScreenReturn = {
   hasUnsavedChanges: boolean;
   onPressBack: () => void;
-  textInputProps: UseTextInputReturn;
+  inputProps: UseInputReturn;
   pressParams: UsePressReturn;
 };
 
@@ -22,16 +21,16 @@ export type UseAddNewItemScreen = (
 ) => UseAddNewItemScreenReturn;
 
 export const useAddNewItemScreen = (params: UseAddNewItemScreenParams) => {
-  const { editItem, isEdit, date, initialDate } = params;
+  const { editItem, isEdit, initialDate } = params;
   const initialText = editItem?.text ?? '';
 
-  const textInputProps = useTextInput(initialText);
+  const inputProps = useInput(initialText, initialDate);
 
-  const editText = textInputProps.value;
-  const editDate = date;
+  const editText = inputProps.value;
+  const editDate = inputProps.date;
 
   const hasUnsavedText = editText !== initialText;
-  const hasUnsavedDate = date !== initialDate;
+  const hasUnsavedDate = editDate !== initialDate;
   const hasUnsavedChanges = hasUnsavedDate || hasUnsavedText;
 
   const onPressBack = usePressBack(hasUnsavedChanges);
@@ -41,7 +40,8 @@ export const useAddNewItemScreen = (params: UseAddNewItemScreenParams) => {
   return {
     hasUnsavedChanges,
     onPressBack,
-    textInputProps,
+    inputProps,
     pressParams,
+    editDate,
   };
 };
