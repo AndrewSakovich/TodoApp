@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Text, TouchableOpacity, View } from 'react-native';
 import React, { FC } from 'react';
 import { style } from './style';
 import { useDispatch } from 'react-redux';
@@ -7,7 +7,7 @@ import { deleteItemSagaAction } from '../../redux/actions/todoSagaActions/delete
 import { doneItemSagaAction } from '../../redux/actions/todoSagaActions/doneItemSagaAction';
 import PushNotification from 'react-native-push-notification';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrash, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { COLORS } from '../../COLORS';
 import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 import { useNavigation } from '@react-navigation/native';
@@ -19,10 +19,12 @@ import {
   PanGestureHandlerGestureEvent,
 } from 'react-native-gesture-handler';
 import Animated, {
+  runOnJS,
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
+  withTiming,
 } from 'react-native-reanimated';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
@@ -63,6 +65,9 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
     });
   };
 
+  const { width: screenWidth } = Dimensions.get('window');
+  const translateDeleted = -screenWidth * 0.3;
+
   const translateX = useSharedValue(0);
 
   const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
@@ -70,7 +75,12 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
       translateX.value = event.translationX;
     },
     onEnd: () => {
-      translateX.value = withSpring(0);
+      const shouldBeDismissed = translateX.value < translateDeleted;
+      if (shouldBeDismissed) {
+        console.log(-screenWidth);
+        translateX.value = -screenWidth;
+        runOnJS(onPressDelete);
+      }
     },
   });
 
@@ -81,7 +91,18 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
   });
 
   return (
-    <Animated.View>
+    <View style={style.container}>
+      <View
+        style={{
+          height: 55,
+          width: 55,
+          position: 'absolute',
+          right: '3%',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <FontAwesomeIcon icon={faTrashAlt} size={20} color={COLORS.red} />
+      </View>
       <PanGestureHandler onGestureEvent={panGesture}>
         <Animated.View style={[style.item, rStyle]}>
           <TouchableOpacity style={style.touchDone} onPress={onPressDone}>
@@ -99,6 +120,6 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
           </View>
         </Animated.View>
       </PanGestureHandler>
-    </Animated.View>
+    </View>
   );
 };
