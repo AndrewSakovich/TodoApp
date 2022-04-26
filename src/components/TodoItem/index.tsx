@@ -64,47 +64,81 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
       editItem: todoItem,
     });
   };
-
-  const { width: screenWidth } = Dimensions.get('window');
-  const translateDeleted = -screenWidth * 0.3;
-
   const translateX = useSharedValue(0);
+  const height = useSharedValue(60);
+  const marginVertical = useSharedValue(5);
+  const marginHorizontal = useSharedValue(5);
+  const opacity = useSharedValue(1);
+  const widthIcon = useSharedValue(0);
+  const { width: screenWidth } = Dimensions.get('window');
+
+  const translateDeleted = -screenWidth * 0.3;
 
   const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
     onActive: event => {
+      widthIcon.value = event.translationX < 0 ? -screenWidth * 0.9 : 0;
       translateX.value = event.translationX;
     },
     onEnd: () => {
       const shouldBeDismissed = translateX.value < translateDeleted;
       if (shouldBeDismissed) {
-        console.log(-screenWidth);
-        translateX.value = -screenWidth;
-        runOnJS(onPressDelete);
+        translateX.value = withTiming(-screenWidth);
+        widthIcon.value = -screenWidth;
+
+        opacity.value = withSpring(0);
+        height.value = withTiming(0, { duration: 1000 });
+        marginVertical.value = withTiming(0);
+      } else {
+        marginHorizontal.value = 5;
+        translateX.value = withTiming(0);
       }
     },
   });
 
-  const rStyle = useAnimatedStyle(() => {
+  const rItemStyle = useAnimatedStyle(() => {
     return {
       transform: [{ translateX: translateX.value }],
     };
   });
 
+  const rIconStyle = useAnimatedStyle(() => {
+    const opacity = withSpring(translateX.value ? 1 : 0);
+    return {
+      opacity,
+      width: -widthIcon.value,
+      paddingRight: 20 + Math.abs(translateX.value) / 3,
+    };
+  });
+
+  const rContainerStyle = useAnimatedStyle(() => {
+    return {
+      height: height.value,
+      marginVertical: marginVertical.value,
+      marginHorizontal: marginHorizontal.value,
+      opacity: opacity.value,
+    };
+  });
+
   return (
-    <View style={style.container}>
-      <View
-        style={{
-          height: 55,
-          width: 55,
-          position: 'absolute',
-          right: '3%',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <FontAwesomeIcon icon={faTrashAlt} size={20} color={COLORS.red} />
-      </View>
+    <Animated.View style={[style.container, rContainerStyle]}>
+      <Animated.View
+        style={[
+          {
+            height: 60,
+            right: 0,
+            position: 'absolute',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            backgroundColor: 'red',
+            borderRadius: 5,
+            flexDirection: 'row',
+          },
+          rIconStyle,
+        ]}>
+        <FontAwesomeIcon icon={faTrashAlt} size={20} color={COLORS.white} />
+      </Animated.View>
       <PanGestureHandler onGestureEvent={panGesture}>
-        <Animated.View style={[style.item, rStyle]}>
+        <Animated.View style={[style.item, rItemStyle]}>
           <TouchableOpacity style={style.touchDone} onPress={onPressDone}>
             <Text style={textStyle}>{text}</Text>
           </TouchableOpacity>
@@ -120,6 +154,6 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
           </View>
         </Animated.View>
       </PanGestureHandler>
-    </View>
+    </Animated.View>
   );
 };

@@ -13,9 +13,7 @@ type TodoItemStyleType = {
 
 export const style = StyleSheet.create<TodoItemStyleType>({
   container: {
-    marginVertical: 10,
     marginHorizontal: 10,
-    height: 60,
     shadowOpacity: 0.1,
     shadowOffset: {
       width: 5,
@@ -24,6 +22,7 @@ export const style = StyleSheet.create<TodoItemStyleType>({
     shadowRadius: 10,
   },
   item: {
+    height: 60,
     backgroundColor: COLORS.sapphire,
     borderRadius: 5,
     flexDirection: 'row',
