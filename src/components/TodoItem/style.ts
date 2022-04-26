@@ -8,26 +8,28 @@ type TodoItemStyleType = {
   doneText: TextStyle;
   touchDone: ViewStyle;
   editing: ViewStyle;
+  container: ViewStyle;
 };
 
 export const style = StyleSheet.create<TodoItemStyleType>({
-  item: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: COLORS.sapphire,
-    padding: 15,
+  container: {
     marginVertical: 10,
     marginHorizontal: 10,
-    borderRadius: 5,
-    height: 55,
+    height: 60,
     shadowOpacity: 0.1,
     shadowOffset: {
       width: 5,
       height: 5,
     },
     shadowRadius: 10,
+  },
+  item: {
+    backgroundColor: COLORS.sapphire,
+    borderRadius: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 20,
   },
   editing: {
     marginRight: 7,

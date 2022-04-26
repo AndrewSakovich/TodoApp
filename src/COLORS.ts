@@ -10,4 +10,5 @@ export const COLORS = {
   dawnPink: '#F5E7EA',
   sanMarino: '#4867AA',
   catskillWhite: '#e6eaf4',
+  red: 'red',
 };
