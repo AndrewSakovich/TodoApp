@@ -16,7 +16,7 @@ import { AddNewItemScreenNavigationProps } from '../../screens/AddNewItemScreen/
 import { stopNotificationHelper } from '../../helpers/stopNotificationHelper';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
-  const { todoItem } = props;
+  const { todoItem, index } = props;
 
   const { id, text, isDone, notificationId } = todoItem;
 
