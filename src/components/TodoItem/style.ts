@@ -21,6 +21,7 @@ export const style = StyleSheet.create<TodoItemStyleType>({
     marginVertical: 5,
     marginHorizontal: 10,
     borderRadius: 5,
+    height: 55,
   },
   editing: {
     marginRight: 7,

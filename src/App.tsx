@@ -6,6 +6,7 @@ import { RootStackNavigator } from './navigators/RootStackNavigator';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { PersistGate } from 'redux-persist/integration/react';
 import SplashScreen from 'react-native-splash-screen';
+import 'react-native-gesture-handler';
 
 GoogleSignin.configure({
   webClientId:

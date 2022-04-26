@@ -14,6 +14,16 @@ import { useNavigation } from '@react-navigation/native';
 import { NAMESCREEN } from '../../navigators/nameScreen';
 import { AddNewItemScreenNavigationProps } from '../../screens/AddNewItemScreen/type';
 import { stopNotificationHelper } from '../../helpers/stopNotificationHelper';
+import {
+  PanGestureHandler,
+  PanGestureHandlerGestureEvent,
+} from 'react-native-gesture-handler';
+import Animated, {
+  useAnimatedGestureHandler,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
   const { todoItem, index } = props;
@@ -53,21 +63,42 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
     });
   };
 
+  const translateX = useSharedValue(0);
+
+  const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
+    onActive: event => {
+      translateX.value = event.translationX;
+    },
+    onEnd: () => {
+      translateX.value = withSpring(0);
+    },
+  });
+
+  const rStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: translateX.value }],
+    };
+  });
+
   return (
-    <View style={style.item}>
-      <TouchableOpacity style={style.touchDone} onPress={onPressDone}>
-        <Text style={textStyle}>{text}</Text>
-      </TouchableOpacity>
-      <View style={style.itemChanges}>
-        {!isDone && (
-          <TouchableOpacity style={style.editing} onPress={onPressEditing}>
-            <FontAwesomeIcon icon={faPen} size={15} color={COLORS.white} />
+    <Animated.View>
+      <PanGestureHandler onGestureEvent={panGesture}>
+        <Animated.View style={[style.item, rStyle]}>
+          <TouchableOpacity style={style.touchDone} onPress={onPressDone}>
+            <Text style={textStyle}>{text}</Text>
           </TouchableOpacity>
-        )}
-        <TouchableOpacity onPress={onPressDelete}>
-          <FontAwesomeIcon icon={faTrash} size={15} color={COLORS.white} />
-        </TouchableOpacity>
-      </View>
-    </View>
+          <View style={style.itemChanges}>
+            {!isDone && (
+              <TouchableOpacity style={style.editing} onPress={onPressEditing}>
+                <FontAwesomeIcon icon={faPen} size={15} color={COLORS.white} />
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity onPress={onPressDelete}>
+              <FontAwesomeIcon icon={faTrash} size={15} color={COLORS.white} />
+            </TouchableOpacity>
+          </View>
+        </Animated.View>
+      </PanGestureHandler>
+    </Animated.View>
   );
 };
