@@ -5,6 +5,7 @@ export type CreateErrorAlertMessageHelperParamsType = {
   message: string;
   cancelButtonTitle: AlertButton['text'];
 
+  onPressCancel?: AlertButton['onPress'];
   onPress?: AlertButton['onPress'];
   confirmButtonTitle?: AlertButton['text'];
 };
@@ -12,12 +13,19 @@ export type CreateErrorAlertMessageHelperParamsType = {
 export const createAlertMessageHelper = (
   params: CreateErrorAlertMessageHelperParamsType,
 ) => {
-  const { title, message, onPress, confirmButtonTitle, cancelButtonTitle } =
-    params;
+  const {
+    title,
+    message,
+    onPress,
+    confirmButtonTitle,
+    cancelButtonTitle,
+    onPressCancel,
+  } = params;
 
   const buttons: AlertButton[] = [
     {
       text: `${cancelButtonTitle}`,
+      onPress: onPressCancel,
     },
   ];
 
