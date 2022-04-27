@@ -9,6 +9,7 @@ type TodoItemStyleType = {
   touchDone: ViewStyle;
   editing: ViewStyle;
   container: ViewStyle;
+  iconContainer: ViewStyle;
 };
 
 export const style = StyleSheet.create<TodoItemStyleType>({
@@ -20,6 +21,16 @@ export const style = StyleSheet.create<TodoItemStyleType>({
       height: 5,
     },
     shadowRadius: 10,
+  },
+  iconContainer: {
+    height: 60,
+    right: 0,
+    position: 'absolute',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: 'red',
+    borderRadius: 5,
+    flexDirection: 'row',
   },
   item: {
     height: 60,
