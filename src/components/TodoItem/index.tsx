@@ -28,7 +28,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
-  const { todoItem, index } = props;
+  const { todoItem } = props;
 
   const { id, text, isDone, notificationId } = todoItem;
 
@@ -43,13 +43,33 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
     dispatch(doneItemSagaAction({ id, isDone }));
   };
 
+  const translateX = useSharedValue(0);
+  const height = useSharedValue(60);
+  const marginVertical = useSharedValue(5);
+  const marginHorizontal = useSharedValue(5);
+  const opacity = useSharedValue(1);
+  const widthIcon = useSharedValue(0);
+  const { width: screenWidth } = Dimensions.get('window');
+
+  const translateDeleted = -screenWidth * 0.3;
+
   const onPressDelete = () => {
+    const onPressCancel = () => {
+      marginHorizontal.value = 5;
+      translateX.value = withTiming(0);
+    };
     const onPress = () => {
+      translateX.value = withTiming(-screenWidth);
+      widthIcon.value = withTiming(-screenWidth);
+      opacity.value = withTiming(0);
+      height.value = withTiming(0, { duration: 1000 });
+      marginVertical.value = withTiming(0);
       stopNotificationHelper(notificationId);
       dispatch(deleteItemSagaAction({ id }));
     };
 
     createAlertMessageHelper({
+      onPressCancel,
       onPress,
       title: 'Delete task',
       message: 'Are you sure?',
@@ -64,15 +84,6 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
       editItem: todoItem,
     });
   };
-  const translateX = useSharedValue(0);
-  const height = useSharedValue(60);
-  const marginVertical = useSharedValue(5);
-  const marginHorizontal = useSharedValue(5);
-  const opacity = useSharedValue(1);
-  const widthIcon = useSharedValue(0);
-  const { width: screenWidth } = Dimensions.get('window');
-
-  const translateDeleted = -screenWidth * 0.3;
 
   const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
     onActive: event => {
@@ -82,16 +93,10 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
     onEnd: () => {
       const shouldBeDismissed = translateX.value < translateDeleted;
       if (shouldBeDismissed) {
-        translateX.value = withTiming(-screenWidth);
-        widthIcon.value = -screenWidth;
-
-        opacity.value = withSpring(0);
-        height.value = withTiming(0, { duration: 1000 });
-        marginVertical.value = withTiming(0);
-      } else {
-        marginHorizontal.value = 5;
-        translateX.value = withTiming(0);
+        return runOnJS(onPressDelete)();
       }
+      marginHorizontal.value = 5;
+      translateX.value = withTiming(0);
     },
   });
 
@@ -99,7 +104,7 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
     return {
       transform: [{ translateX: translateX.value }],
     };
-  });
+  }, []);
 
   const rIconStyle = useAnimatedStyle(() => {
     const opacity = withSpring(translateX.value ? 1 : 0);
@@ -108,7 +113,7 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
       width: -widthIcon.value,
       paddingRight: 20 + Math.abs(translateX.value) / 3,
     };
-  });
+  }, []);
 
   const rContainerStyle = useAnimatedStyle(() => {
     return {
@@ -117,24 +122,11 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
       marginHorizontal: marginHorizontal.value,
       opacity: opacity.value,
     };
-  });
+  }, []);
 
   return (
     <Animated.View style={[style.container, rContainerStyle]}>
-      <Animated.View
-        style={[
-          {
-            height: 60,
-            right: 0,
-            position: 'absolute',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            backgroundColor: 'red',
-            borderRadius: 5,
-            flexDirection: 'row',
-          },
-          rIconStyle,
-        ]}>
+      <Animated.View style={[style.iconContainer, rIconStyle]}>
         <FontAwesomeIcon icon={faTrashAlt} size={20} color={COLORS.white} />
       </Animated.View>
       <PanGestureHandler onGestureEvent={panGesture}>
