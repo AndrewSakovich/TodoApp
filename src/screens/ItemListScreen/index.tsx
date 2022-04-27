@@ -32,8 +32,8 @@ export const ItemListScreen: FC = () => {
     dispatch(getDataTodoItemsSagaAction({ callback }));
   }, []);
 
-  const renderItem: ListRenderItem<TodoItemType> = ({ item, index }) => {
-    return <TodoItem todoItem={item} index={index} />;
+  const renderItem: ListRenderItem<TodoItemType> = ({ item }) => {
+    return <TodoItem todoItem={item} />;
   };
 
   if (isLoading) {
