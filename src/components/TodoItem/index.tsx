@@ -7,7 +7,7 @@ import { deleteItemSagaAction } from '../../redux/actions/todoSagaActions/delete
 import { doneItemSagaAction } from '../../redux/actions/todoSagaActions/doneItemSagaAction';
 import PushNotification from 'react-native-push-notification';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faPen, faTrash, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { COLORS } from '../../COLORS';
 import { createAlertMessageHelper } from '../../helpers/createAlertMessageHelper';
 import { useNavigation } from '@react-navigation/native';
@@ -26,6 +26,8 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
+
+const { width: screenWidth } = Dimensions.get('window');
 
 export const TodoItem: FC<TodoItemPropsType> = props => {
   const { todoItem } = props;
@@ -49,7 +51,6 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
   const marginHorizontal = useSharedValue(5);
   const opacity = useSharedValue(1);
   const widthIcon = useSharedValue(0);
-  const { width: screenWidth } = Dimensions.get('window');
 
   const translateDeleted = -screenWidth * 0.3;
 
@@ -140,9 +141,6 @@ export const TodoItem: FC<TodoItemPropsType> = props => {
                 <FontAwesomeIcon icon={faPen} size={15} color={COLORS.white} />
               </TouchableOpacity>
             )}
-            <TouchableOpacity onPress={onPressDelete}>
-              <FontAwesomeIcon icon={faTrash} size={15} color={COLORS.white} />
-            </TouchableOpacity>
           </View>
         </Animated.View>
       </PanGestureHandler>
